@@ -45,8 +45,8 @@ function Home({ addToCart }) {
   const [sortBy, setSortBy] = useState('featured');
   const [selectedProduct, setSelectedProduct] = useState(null);
 
-  const handleQuickAdd = (product) => {
-    addToCart(product);
+  const handleQuickAdd = (product, quantity = 1) => {
+    addToCart(product, quantity);
   };
 
   const handleViewDetails = (product) => {
@@ -58,15 +58,14 @@ function Home({ addToCart }) {
   };
 
   const handleAddToCartFromModal = (product, quantity) => {
-    for (let i = 0; i < quantity; i++) {
-      addToCart(product);
-    }
+    addToCart(product, quantity);
   };
 
   let filteredProducts = products.filter(product => {
     const matchesSearch = product.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
                          product.description.toLowerCase().includes(searchTerm.toLowerCase());
     const matchesCategory = selectedCategory === 'All' || product.category === selectedCategory;
+    
     return matchesSearch && matchesCategory;
   });
 
@@ -99,6 +98,7 @@ function Home({ addToCart }) {
         <div className="filter-controls">
           <div className="category-filter">
             <Filter size={18} />
+            <span className="filter-label">Category:</span>
             {categories.map(cat => (
               <button
                 key={cat}
@@ -109,6 +109,7 @@ function Home({ addToCart }) {
               </button>
             ))}
           </div>
+          
           <select value={sortBy} onChange={(e) => setSortBy(e.target.value)} className="sort-select">
             <option value="featured">Featured</option>
             <option value="price-low">Price: Low to High</option>
