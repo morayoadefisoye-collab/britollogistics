@@ -1,10 +1,16 @@
-import { X, ShoppingCart, Plus, Minus } from 'lucide-react';
+import { X, ShoppingCart, Plus, Minus, Eye } from 'lucide-react';
 import { useState } from 'react';
+import ImageGallery from './ImageGallery';
+import AdvancedProductSelector from './AdvancedProductSelector';
+import ProductReviews from './ProductReviews';
+import { useLanguage } from '../contexts/LanguageContext';
 
 function ProductModal({ product, onClose, onAddToCart }) {
+  const { t } = useLanguage();
   const [selectedSize, setSelectedSize] = useState('');
   const [selectedColor, setSelectedColor] = useState('');
   const [quantity, setQuantity] = useState(1);
+  const [showGallery, setShowGallery] = useState(false);
 
   const sizes = ['XS', 'S', 'M', 'L', 'XL', 'XXL'];
   const colors = [
@@ -23,16 +29,55 @@ function ProductModal({ product, onClose, onAddToCart }) {
   // Categories that need sizes
   const needsSizes = product.category.includes('Fashion') || 
                      product.category.includes('Wear') || 
-                     product.category.includes('Accessories');
+                     product.category.includes('Accessories') ||
+                     product.hasGallery; // Gallery products also need sizes
 
   // Categories that need colors (similar to sizes but could be different)
   const needsColors = product.category.includes('Fashion') || 
                       product.category.includes('Wear') || 
                       product.category.includes('Accessories') ||
                       product.category.includes('Home') ||
-                      product.category.includes('Decor');
+                      product.category.includes('Decor') ||
+                      product.hasGallery; // Gallery products also need colors
 
-  const handleAddToCart = () => {
+  // Use product-specific sizes if available, otherwise use default sizes
+  const availableSizes = product.sizes || sizes;
+  
+  // Use product-specific colors if available, otherwise use default colors
+  const availableColors = product.colors ? 
+    product.colors.map(colorName => {
+      const colorMap = {
+        'Green': '#16A34A',
+        'Cream': '#FEF3C7', 
+        'White': '#FFFFFF',
+        'Red': '#DC2626',
+        'Purple': '#9333EA',
+        'Black': '#000000',
+        'Blue': '#2563EB',
+        'Pink': '#EC4899',
+        'Gray': '#6B7280',
+        'Brown': '#A16207',
+        'Yellow': '#EAB308',
+        'Blush Pink': '#F9A8D4',
+        'Champagne': '#F7E7CE',
+        'Navy Blue': '#1E3A8A',
+        'Sage Green': '#84CC16'
+      };
+      return {
+        name: colorName,
+        value: colorMap[colorName] || '#6B7280'
+      };
+    }) : colors;
+
+  const handleAddToCart = (productToAdd = product, quantityToAdd = quantity) => {
+    // For advanced selector, the product and quantity are passed directly
+    if (product.hasGallery && productToAdd !== product) {
+      onAddToCart(productToAdd, quantityToAdd);
+      onClose();
+      return;
+    }
+
+    // Original logic for regular products
     if (needsSizes && !selectedSize) {
       alert('Please select a size');
       return;
@@ -43,14 +88,14 @@ function ProductModal({ product, onClose, onAddToCart }) {
       return;
     }
 
-    const productToAdd = {
+    const finalProduct = {
       ...product,
       size: selectedSize || 'N/A',
       color: selectedColor || 'N/A',
       quantity: quantity
     };
 
-    onAddToCart(productToAdd, quantity);
+    onAddToCart(finalProduct, quantity);
     onClose();
   };
 
@@ -66,9 +111,27 @@ function ProductModal({ product, onClose, onAddToCart }) {
 
         <div className="modal-body">
           <div className="modal-image">
-            <div className="product-image-placeholder">
-              <span>Image Coming Soon</span>
-            </div>
+            {product.hasGallery && product.images ? (
+              <div className="product-gallery-container">
+                <img 
+                  src={product.images[0]} 
+                  alt={product.name}
+                  className="modal-main-image"
+                  onClick={() => setShowGallery(true)}
+                />
+                <button 
+                  className="view-gallery-btn"
+                  onClick={() => setShowGallery(true)}
+                >
+                  <Eye size={16} />
+                  {t('viewGallery')} ({product.images.length} {t('photos')})
+                </button>
+              </div>
+            ) : (
+              <div className="product-image-placeholder">
+                <span>Image Coming Soon</span>
+              </div>
+            )}
           </div>
 
           <div className="modal-details">
@@ -77,81 +140,106 @@ function ProductModal({ product, onClose, onAddToCart }) {
             <p className="modal-description">{product.description}</p>
             
             <div className="modal-price">
-              <span className="price-label">Price:</span>
+              <span className="price-label">{t('price')}:</span>
               <span className="price-value">₦{product.price.toLocaleString()}</span>
             </div>
 
-            {needsSizes && (
-              <div className="size-selector">
-                <label>Select Size:</label>
-                <div className="size-options">
-                  {sizes.map(size => (
-                    <button
-                      key={size}
-                      className={`size-btn ${selectedSize === size ? 'active' : ''}`}
-                      onClick={() => setSelectedSize(size)}
-                    >
-                      {size}
-                    </button>
-                  ))}
-                </div>
-              </div>
-            )}
-
-            {needsColors && (
-              <div className="color-selector">
-                <label>Select Color:</label>
-                <div className="color-options">
-                  {colors.map(color => (
-                    <button
-                      key={color.name}
-                      className={`color-btn ${selectedColor === color.name ? 'active' : ''}`}
-                      onClick={() => setSelectedColor(color.name)}
-                      style={{ backgroundColor: color.value }}
-                      title={color.name}
-                      aria-label={`Select ${color.name} color`}
-                    >
-                      {color.value === '#FFFFFF' && <span className="white-border"></span>}
-                    </button>
-                  ))}
-                </div>
-                {selectedColor && (
-                  <div className="selected-color-display">
-                    Selected: <span className="color-name">{selectedColor}</span>
+            {product.hasGallery ? (
+              <AdvancedProductSelector 
+                product={product}
+                onAddToCart={handleAddToCart}
+                selectedSize={selectedSize}
+                selectedColor={selectedColor}
+                onSizeChange={setSelectedSize}
+                onColorChange={setSelectedColor}
+              />
+            ) : (
+              <>
+                {needsSizes && (
+                  <div className="size-selector">
+                    <label>{t('selectSize')}:</label>
+                    <div className="size-options">
+                      {availableSizes.map(size => (
+                        <button
+                          key={size}
+                          className={`size-btn ${selectedSize === size ? 'active' : ''}`}
+                          onClick={() => setSelectedSize(size)}
+                        >
+                          {size}
+                        </button>
+                      ))}
+                    </div>
                   </div>
                 )}
-              </div>
+
+                {needsColors && (
+                  <div className="color-selector">
+                    <label>{t('selectColor')}:</label>
+                    <div className="color-options">
+                      {availableColors.map(color => (
+                        <button
+                          key={color.name}
+                          className={`color-btn ${selectedColor === color.name ? 'active' : ''}`}
+                          onClick={() => setSelectedColor(color.name)}
+                          style={{ backgroundColor: color.value }}
+                          title={color.name}
+                          aria-label={`Select ${color.name} color`}
+                        >
+                          {color.value === '#FFFFFF' && <span className="white-border"></span>}
+                        </button>
+                      ))}
+                    </div>
+                    {selectedColor && (
+                      <div className="selected-color-display">
+                        Selected: <span className="color-name">{selectedColor}</span>
+                      </div>
+                    )}
+                  </div>
+                )}
+
+                <div className="quantity-selector">
+                  <label>{t('quantity')}:</label>
+                  <div className="quantity-controls-modal">
+                    <button onClick={decreaseQuantity} aria-label="Decrease quantity">
+                      <Minus size={18} />
+                    </button>
+                    <span className="quantity-display">{quantity}</span>
+                    <button onClick={increaseQuantity} aria-label="Increase quantity">
+                      <Plus size={18} />
+                    </button>
+                  </div>
+                </div>
+
+                <div className="modal-total">
+                  <span>{t('total')}:</span>
+                  <span className="total-price">₦{(product.price * quantity).toLocaleString()}</span>
+                </div>
+
+                <button className="btn btn-primary btn-block btn-large" onClick={handleAddToCart}>
+                  <ShoppingCart size={20} />
+                  {t('addToCart')}
+                </button>
+              </>
             )}
-
-            <div className="quantity-selector">
-              <label>Quantity:</label>
-              <div className="quantity-controls-modal">
-                <button onClick={decreaseQuantity} aria-label="Decrease quantity">
-                  <Minus size={18} />
-                </button>
-                <span className="quantity-display">{quantity}</span>
-                <button onClick={increaseQuantity} aria-label="Increase quantity">
-                  <Plus size={18} />
-                </button>
-              </div>
-            </div>
-
-            <div className="modal-total">
-              <span>Total:</span>
-              <span className="total-price">₦{(product.price * quantity).toLocaleString()}</span>
-            </div>
-
-            <button className="btn btn-primary btn-block btn-large" onClick={handleAddToCart}>
-              <ShoppingCart size={20} />
-              Add to Cart
-            </button>
 
             <div className="product-info-note">
               <p><strong>Note:</strong> Contact us on WhatsApp for bulk orders or special requests.</p>
             </div>
+
+            {/* Product Reviews Section */}
+            <div className="product-reviews-section">
+              <ProductReviews product={product} />
+            </div>
           </div>
         </div>
       </div>
+
+      {showGallery && product.images && (
+        <ImageGallery 
+          images={product.images} 
+          onClose={() => setShowGallery(false)} 
+        />
+      )}
     </div>
   );
 }

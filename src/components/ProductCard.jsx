@@ -1,8 +1,14 @@
-import { ShoppingCart, Plus, Minus } from 'lucide-react';
+import { ShoppingCart, Plus, Minus, Images, Star } from 'lucide-react';
 import { useState } from 'react';
+import { useLanguage } from '../contexts/LanguageContext';
+import { useReviews } from '../contexts/ReviewsContext';
 
 function ProductCard({ product, onQuickAdd, onViewDetails }) {
+  const { t } = useLanguage();
+  const { getProductRating } = useReviews();
   const [quantity, setQuantity] = useState(1);
+
+  const productRating = getProductRating(product.id);
 
   const increaseQuantity = (e) => {
     e.stopPropagation();
@@ -22,12 +28,46 @@ function ProductCard({ product, onQuickAdd, onViewDetails }) {
   return (
     <div className="product-card" onClick={() => onViewDetails(product)}>
       <div className="product-image-placeholder">
-        <span>Image Coming Soon</span>
+        {product.hasGallery && product.images ? (
+          <div className="product-gallery-preview">
+            <img 
+              src={product.images[0]} 
+              alt={product.name}
+              className="product-preview-image"
+            />
+            <div className="gallery-indicator">
+              <Images size={16} />
+              <span>{product.images.length} {t('photos')}</span>
+            </div>
+          </div>
+        ) : (
+          <span>Image Coming Soon</span>
+        )}
       </div>
       <div className="product-info">
         <div className="product-category">{product.category}</div>
         <h3>{product.name}</h3>
         <p className="product-description">{product.description}</p>
+        
+        {/* Product Rating */}
+        {productRating.count > 0 && (
+          <div className="product-rating">
+            <div className="rating-stars">
+              {[1, 2, 3, 4, 5].map(star => (
+                <Star
+                  key={star}
+                  size={14}
+                  fill={star <= Math.round(productRating.average) ? '#fbbf24' : 'none'}
+                  color={star <= Math.round(productRating.average) ? '#fbbf24' : '#d1d5db'}
+                />
+              ))}
+            </div>
+            <span className="rating-text">
+              {productRating.average} ({productRating.count})
+            </span>
+          </div>
+        )}
+        
         <div className="product-footer">
           <span className="price">₦{product.price.toLocaleString()}</span>
           <div className="product-actions">
@@ -53,7 +93,7 @@ function ProductCard({ product, onQuickAdd, onViewDetails }) {
               className="btn btn-primary"
             >
               <ShoppingCart size={18} />
-              Add to Cart
+              {t('addToCart')}
             </button>
           </div>
         </div>

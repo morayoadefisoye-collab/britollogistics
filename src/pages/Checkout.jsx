@@ -12,9 +12,24 @@ function Checkout({ cart, clearCart }) {
     city: '',
     state: ''
   });
+  
+  const [selectedAccount, setSelectedAccount] = useState('sterling'); // Default to Sterling Bank
+
+  const bankAccounts = {
+    sterling: {
+      name: 'Everything by Britol',
+      number: '0087407663',
+      bank: 'Sterling Bank'
+    },
+    firstbank: {
+      name: 'OGUNBIYI OLAITAN',
+      number: '3117116985',
+      bank: 'First Bank'
+    }
+  };
 
   const total = cart.reduce((sum, item) => sum + item.price * item.quantity, 0);
-  const shipping = 0; // Delivery fee calculated based on location
+  // const shipping = 0; // Delivery fee calculated based on location - currently free
   const finalTotal = total;
 
   const handleSubmit = (e) => {
@@ -44,20 +59,23 @@ function Checkout({ cart, clearCart }) {
       `*Order Items:*%0A` +
       `${orderItems}%0A%0A` +
       `*Total Amount:* ₦${finalTotal.toLocaleString()}%0A%0A` +
-      `*Payment Details:*%0A` +
-      `Account Name: Everything by Britol%0A` +
-      `Account Number: 0087407663%0A` +
-      `Bank: Sterling Bank%0A%0A` +
+      `*Payment Details (Selected Account):*%0A` +
+      `Account Name: ${bankAccounts[selectedAccount].name}%0A` +
+      `Account Number: ${bankAccounts[selectedAccount].number}%0A` +
+      `Bank: ${bankAccounts[selectedAccount].bank}%0A%0A` +
       `Kindly proceed with payment and send your proof of payment to confirm this order. Thank you!`;
     
     // Open WhatsApp with pre-filled message
     window.open(`https://wa.me/2348102505875?text=${message}`, '_blank');
     
+    // Show success message and clear cart
+    alert('Order request sent successfully! Your cart will be cleared and you will be redirected to the home page.');
+    
     // Clear cart after sending to WhatsApp
     setTimeout(() => {
       clearCart();
       navigate('/');
-    }, 1000);
+    }, 2000);
   };
 
   const handleChange = (e) => {
@@ -145,12 +163,55 @@ function Checkout({ cart, clearCart }) {
             </ul>
             
             <div className="bank-details">
-              <h4>Bank Transfer Details:</h4>
-              <div className="bank-info">
-                <p><strong>Account Name:</strong> Everything by Britol</p>
-                <p><strong>Account Number:</strong> 0087407663</p>
-                <p><strong>Bank:</strong> Sterling Bank</p>
+              <h4>Select Payment Account:</h4>
+              
+              <div className="account-selection">
+                <label className="account-option">
+                  <input
+                    type="radio"
+                    name="account"
+                    value="sterling"
+                    checked={selectedAccount === 'sterling'}
+                    onChange={(e) => setSelectedAccount(e.target.value)}
+                  />
+                  <div className="account-info">
+                    <div className="account-header">
+                      <strong>Sterling Bank</strong>
+                      <span className="account-badge">Option 1</span>
+                    </div>
+                    <p><strong>Account Name:</strong> Everything by Britol</p>
+                    <p><strong>Account Number:</strong> 0087407663</p>
+                  </div>
+                </label>
+                
+                <label className="account-option">
+                  <input
+                    type="radio"
+                    name="account"
+                    value="firstbank"
+                    checked={selectedAccount === 'firstbank'}
+                    onChange={(e) => setSelectedAccount(e.target.value)}
+                  />
+                  <div className="account-info">
+                    <div className="account-header">
+                      <strong>First Bank</strong>
+                      <span className="account-badge">Option 2</span>
+                    </div>
+                    <p><strong>Account Name:</strong> OGUNBIYI OLAITAN</p>
+                    <p><strong>Account Number:</strong> 3117116985</p>
+                  </div>
+                </label>
               </div>
+              
+              <div className="selected-account-summary">
+                <h5>Selected Account for Payment:</h5>
+                <div className="selected-account-details">
+                  <p><strong>Bank:</strong> {bankAccounts[selectedAccount].bank}</p>
+                  <p><strong>Account Name:</strong> {bankAccounts[selectedAccount].name}</p>
+                  <p><strong>Account Number:</strong> {bankAccounts[selectedAccount].number}</p>
+                </div>
+              </div>
+              
               <p className="bank-note">After payment, please send proof of payment via WhatsApp (08102505875) with your order details.</p>
             </div>
             

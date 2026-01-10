@@ -35,7 +35,10 @@ function Footer() {
         <div className="container">
           <div className="footer-grid">
             <div className="footer-section">
-              <h3>EVERYTHING BY BRITOL</h3>
+              <div className="footer-logo">
+                <img src="/IMG_8810.jpg" alt="Everything By Britol Logo" className="footer-logo-image" />
+                <h3>EVERYTHING BY BRITOL</h3>
+              </div>
               <p>Your one-stop destination for quality fashion, lifestyle essentials, and luxury items. Located at 165, Seliat Bus-Stop, Egbeda, Lagos. We serve both wholesale and retail customers.</p>
               <div className="social-links">
                 <a href="https://www.instagram.com/ever.ythingbybritol" aria-label="Instagram" target="_blank" rel="noopener noreferrer"><Instagram size={20} /></a>

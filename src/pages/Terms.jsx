@@ -24,7 +24,7 @@ function Terms() {
           <h2>Orders and Payment</h2>
           <ul className="feature-list">
             <li>Orders are confirmed upon payment receipt</li>
-            <li>We accept bank transfers (Sterling Bank: 0087407663 - Everything by Britol) and cash payments at our store</li>
+            <li>We accept bank transfers (Sterling Bank: 0087407663 - Everything by Britol or First Bank: 3117116985 - OGUNBIYI OLAITAN) and cash payments at our store</li>
             <li>Payment must be completed before delivery or pickup</li>
             <li>Send proof of payment to WhatsApp: 08102505875</li>
             <li>We reserve the right to refuse or cancel any order</li>

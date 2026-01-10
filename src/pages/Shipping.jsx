@@ -45,12 +45,22 @@ function Shipping() {
         <section className="content-section">
           <h2>Payment Information</h2>
           <div className="bank-details-section">
-            <h3>Bank Transfer Details:</h3>
+            <h3>Bank Transfer Details (Choose Any):</h3>
+            
             <div className="bank-info-card">
+              <h4 style={{color: '#2563eb', marginBottom: '0.5rem'}}>Option 1:</h4>
               <p><strong>Account Name:</strong> Everything by Britol</p>
               <p><strong>Account Number:</strong> 0087407663</p>
               <p><strong>Bank:</strong> Sterling Bank</p>
             </div>
+            
+            <div className="bank-info-card">
+              <h4 style={{color: '#2563eb', marginBottom: '0.5rem'}}>Option 2:</h4>
+              <p><strong>Account Name:</strong> OGUNBIYI OLAITAN</p>
+              <p><strong>Account Number:</strong> 3117116985</p>
+              <p><strong>Bank:</strong> First Bank</p>
+            </div>
+            
             <p className="payment-note">After making payment, please send proof of payment to our WhatsApp (08102505875) along with your order details and delivery address.</p>
           </div>
         </section>

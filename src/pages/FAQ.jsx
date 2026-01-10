@@ -31,7 +31,7 @@ function FAQ() {
     },
     {
       question: "What payment methods do you accept?",
-      answer: "We accept bank transfers (Sterling Bank: 0087407663 - Everything by Britol) and cash payments at our store. After bank transfer, send proof of payment to our WhatsApp: 08102505875."
+      answer: "We accept bank transfers and cash payments at our store. Bank Transfer Options: (1) Sterling Bank: 0087407663 - Everything by Britol, (2) First Bank: 3117116985 - OGUNBIYI OLAITAN. After bank transfer, send proof of payment to our WhatsApp: 08102505875."
     },
     {
       question: "How long does delivery take?",
