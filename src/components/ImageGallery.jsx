@@ -5,6 +5,8 @@ function ImageGallery({ images, onClose }) {
   const [currentIndex, setCurrentIndex] = useState(0);
   const [isFullscreen, setIsFullscreen] = useState(false);
 
+  console.log('ImageGallery rendered with images:', images);
+
   const nextImage = () => {
     setCurrentIndex((prev) => (prev + 1) % images.length);
   };
@@ -18,6 +20,7 @@ function ImageGallery({ images, onClose }) {
   };
 
   const toggleFullscreen = () => {
+    console.log('Toggling fullscreen from', isFullscreen, 'to', !isFullscreen);
     setIsFullscreen(!isFullscreen);
   };
 
@@ -31,6 +34,11 @@ function ImageGallery({ images, onClose }) {
         onClose();
       }
     }
+  };
+
+  const handleClose = () => {
+    console.log('Closing gallery');
+    onClose();
   };
 
   return (

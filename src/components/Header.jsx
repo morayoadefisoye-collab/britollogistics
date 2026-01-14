@@ -59,7 +59,6 @@ function Header({ cartCount }) {
               <img src="/IMG_8810.jpg" alt="Everything By Britol Logo" className="logo-image" />
               <div className="logo-text">
                 <h1>EVERYTHING BY BRITOL</h1>
-                <span className="logo-tagline">{t('heroSubtitle')}</span>
               </div>
             </Link>
             

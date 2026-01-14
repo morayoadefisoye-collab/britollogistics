@@ -13,8 +13,10 @@ const products = [
     price: 15000, 
     category: "Ladies' Fashion", 
     description: 'Elegant two-piece outfit perfect for any occasion',
-    sizes: ['S', 'M', 'L', 'XL'],
-    colors: ['Black', 'White', 'Red', 'Blue']
+    
+    sizes: ['free size'],
+    colors: ['pink,wine']
+   
   },
   { 
     id: 2, 
@@ -201,7 +203,7 @@ const products = [
   { 
     id: 22, 
     name: 'Elegant Feather-Leaf Lace Midi Dress', 
-    price: 35000, 
+    price: 25000, 
     category: 'Featured Collection', 
     description: 'Chic white dress with 3D leaf details, puff sleeves, and lace waist - perfect for elegant occasions',
     images: [
@@ -209,7 +211,8 @@ const products = [
       '/IMG-20260109-WA0082.jpg',
       '/IMG-20260109-WA0083.jpg',
       '/IMG-20260109-WA0084.jpg',
-      '/IMG-20260109-WA0085.jpg'
+      '/IMG-20260109-WA0085.jpg',
+      '/WhatsApp Image 2026-01-09 at 3.41.10 PM.jpeg'
     ],
     hasGallery: true,
     sizes: ['LG', 'XL', '2XL'],

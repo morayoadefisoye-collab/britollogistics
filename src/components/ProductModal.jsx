@@ -129,7 +129,7 @@ function ProductModal({ product, onClose, onAddToCart }) {
               </div>
             ) : (
               <div className="product-image-placeholder">
-                <span>Image Coming Soon</span>
+                <span>New product soon to drop</span>
               </div>
             )}
           </div>
@@ -237,7 +237,7 @@ function ProductModal({ product, onClose, onAddToCart }) {
       {showGallery && product.images && (
         <ImageGallery 
           images={product.images} 
-          onClose={() => setShowGallery(false)} 
+          onClose={() => setShowGallery(true)} 
         />
       )}
     </div>
