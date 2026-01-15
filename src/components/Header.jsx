@@ -56,7 +56,7 @@ function Header({ cartCount }) {
         <div className="container">
           <div className="header-content">
             <Link to="/" className="advanced-logo">
-              <img src="/IMG_8810.jpg" alt="Everything By Britol Logo" className="logo-image" />
+              <img src="/ladies wear/logo.jpg" alt="Everything By Britol Logo" className="logo-image" />
               <div className="logo-text">
                 <h1>EVERYTHING BY BRITOL</h1>
               </div>

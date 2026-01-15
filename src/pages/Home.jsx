@@ -7,212 +7,237 @@ import { useLanguage } from '../contexts/LanguageContext';
 
 const products = [
   // Ladies' Wears
-  { 
-    id: 1, 
-    name: 'Luxury Two-Piece Set', 
-    price: 15000, 
-    category: "Ladies' Fashion", 
+  {
+    id: 1,
+    name: 'Luxury Two-Piece Set',
+    price: 15000,
+    category: "Ladies' Fashion",
     description: 'Elegant two-piece outfit perfect for any occasion',
-    
+    image: '/ladies wear/luxury mikkaye 2pcs top and skirt.jpeg',
+
     sizes: ['free size'],
     colors: ['pink,wine']
-   
+
   },
-  { 
-    id: 2, 
-    name: 'Turkey Maxi Dress', 
-    price: 12500, 
-    category: "Ladies' Fashion", 
+  {
+    id: 2,
+    name: 'Turkey Maxi Dress',
+    price: 12500,
+    category: "Ladies' Fashion",
     description: 'Premium quality imported maxi dress',
+    image: '/ladies wear/Aso Oke boubou gown.(2).jpeg', // Added placeholder image, user should verify
     sizes: ['XS', 'S', 'M', 'L', 'XL'],
     colors: ['Black', 'Blue', 'Green', 'Purple']
   },
-  { 
-    id: 3, 
-    name: 'Corporate Blazer Set', 
-    price: 18000, 
-    category: "Ladies' Fashion", 
+  {
+    id: 3,
+    name: 'Corporate Blazer Set',
+    price: 18000,
+    category: "Ladies' Fashion",
     description: 'Professional blazer and trouser set for office wear',
     sizes: ['S', 'M', 'L', 'XL', 'XXL'],
     colors: ['Black', 'Gray', 'Blue']
   },
-  { 
-    id: 4, 
-    name: 'Stylish Handbag', 
-    price: 8500, 
-    category: "Ladies' Accessories", 
+  {
+    id: 4,
+    name: 'Stylish Handbag',
+    price: 8500,
+    category: "Ladies' Accessories",
     description: 'Trendy handbag with multiple compartments',
     colors: ['Black', 'Brown', 'Red', 'Pink']
   },
-  { 
-    id: 5, 
-    name: "Ladies' Heels", 
-    price: 9500, 
-    category: "Ladies' Accessories", 
+  {
+    id: 5,
+    name: "Ladies' Heels",
+    price: 9500,
+    category: "Ladies' Accessories",
     description: 'Comfortable and stylish heels for any event',
     sizes: ['36', '37', '38', '39', '40', '41', '42'],
     colors: ['Black', 'Brown', 'Red', 'Pink']
   },
-  { 
-    id: 6, 
-    name: 'Mikkaye Casual Top', 
-    price: 7500, 
-    category: "Ladies' Fashion", 
+  {
+    id: 6,
+    name: 'Mikkaye Casual Top',
+    price: 7500,
+    category: "Ladies' Fashion",
     description: 'Comfortable casual top for everyday wear',
     sizes: ['XS', 'S', 'M', 'L', 'XL'],
     colors: ['White', 'Black', 'Pink', 'Blue', 'Yellow']
   },
-  
+  {
+    id: 7,
+    name: 'Alo comfort set',
+    image: '/ladies wear/Alo Comfort Set.jpeg',
+    price: 1,
+    category: "Ladies' Clothing",
+    description: '',
+  },
+  {
+    id: 8,
+    name: 'Aso Oke bubu gown',
+    images: '/ladies wear/Aso Oke boubou gown.(2).jpeg',
+    price: 8500,
+    category: "Ladies' Clothing",
+    description: '',
+  },
+  {
+    id: 9,
+    name: 'Aso Oke bubu gown',
+    images: '/ladies wear/Aso Oke bubu gown.jpeg',
+    price: 8500,
+    category: "Ladies' Clothing",
+    description: '',
+  },
+
   // Men's Fashion
-  { 
-    id: 7, 
-    name: 'Corporate Shirt', 
-    price: 8000, 
-    category: "Men's Fashion", 
+  {
+    id: 7,
+    name: 'Corporate Shirt',
+    price: 8000,
+    category: "Men's Fashion",
     description: 'Quality corporate shirt for professional look',
     sizes: ['S', 'M', 'L', 'XL', 'XXL'],
     colors: ['White', 'Blue', 'Black']
   },
-  { 
-    id: 8, 
-    name: "Men's Luxury Jalamia", 
-    price: 22000, 
-    category: "Men's Fashion", 
+  {
+    id: 8,
+    name: "Men's Luxury Jalamia",
+    price: 22000,
+    category: "Men's Fashion",
     description: 'Premium traditional wear with modern touch',
     sizes: ['M', 'L', 'XL', 'XXL'],
     colors: ['White', 'Black', 'Brown']
   },
-  { 
-    id: 9, 
-    name: 'Designer Sneakers', 
-    price: 12000, 
-    category: "Men's Accessories", 
+  {
+    id: 9,
+    name: 'Designer Sneakers',
+    price: 12000,
+    category: "Men's Accessories",
     description: 'Trendy sneakers for casual and sport wear',
     sizes: ['40', '41', '42', '43', '44', '45'],
     colors: ['Black', 'White', 'Gray', 'Blue']
   },
-  { 
-    id: 10, 
-    name: 'Polo T-Shirt', 
-    price: 5500, 
-    category: "Men's Fashion", 
+  {
+    id: 10,
+    name: 'Polo T-Shirt',
+    price: 5500,
+    category: "Men's Fashion",
     description: 'Classic polo shirt in various colors',
     sizes: ['S', 'M', 'L', 'XL', 'XXL'],
     colors: ['White', 'Black', 'Red', 'Blue', 'Green']
   },
-  { 
-    id: 11, 
-    name: 'Denim Jeans', 
-    price: 9000, 
-    category: "Men's Fashion", 
+  {
+    id: 11,
+    name: 'Denim Jeans',
+    price: 9000,
+    category: "Men's Fashion",
     description: 'Durable and stylish denim jeans',
     sizes: ['30', '32', '34', '36', '38', '40'],
     colors: ['Blue', 'Black']
   },
-  { 
-    id: 12, 
-    name: "Men's Leather Belt", 
-    price: 4500, 
-    category: "Men's Accessories", 
+  {
+    id: 12,
+    name: "Men's Leather Belt",
+    price: 4500,
+    category: "Men's Accessories",
     description: 'Quality leather belt for formal and casual wear',
     sizes: ['32', '34', '36', '38', '40', '42'],
     colors: ['Black', 'Brown']
   },
-  
+
   // Children's Clothing
-  { 
-    id: 13, 
-    name: "Boys' Casual Set", 
-    price: 6500, 
-    category: "Children's Wear", 
+  {
+    id: 13,
+    name: "Boys' Casual Set",
+    price: 6500,
+    category: "Children's Wear",
     description: 'Comfortable and cute outfit for boys',
     sizes: ['2-3 Years', '4-5 Years', '6-7 Years', '8-9 Years', '10-11 Years'],
     colors: ['Blue', 'Red', 'Green', 'Black']
   },
-  { 
-    id: 14, 
-    name: "Girls' Party Dress", 
-    price: 7500, 
-    category: "Children's Wear", 
+  {
+    id: 14,
+    name: "Girls' Party Dress",
+    price: 7500,
+    category: "Children's Wear",
     description: 'Beautiful dress perfect for special occasions',
     sizes: ['2-3 Years', '4-5 Years', '6-7 Years', '8-9 Years', '10-11 Years'],
     colors: ['Pink', 'Purple', 'White', 'Red']
   },
-  { 
-    id: 15, 
-    name: "Kids' Sneakers", 
-    price: 5000, 
-    category: "Children's Wear", 
+  {
+    id: 15,
+    name: "Kids' Sneakers",
+    price: 5000,
+    category: "Children's Wear",
     description: 'Durable sneakers for active kids',
     sizes: ['25', '26', '27', '28', '29', '30', '31', '32'],
     colors: ['Black', 'White', 'Red', 'Blue']
   },
-  
+
   // Household Items
-  { 
-    id: 16, 
-    name: 'Premium Bedding Set', 
-    price: 15000, 
-    category: 'Household', 
+  {
+    id: 16,
+    name: 'Premium Bedding Set',
+    price: 15000,
+    category: 'Household',
     description: 'Luxury bedding set with duvet and pillowcases',
     sizes: ['Single', 'Double', 'Queen', 'King'],
     colors: ['White', 'Blue', 'Gray', 'Pink']
   },
-  { 
-    id: 17, 
-    name: 'Bath Towel Set', 
-    price: 8000, 
-    category: 'Household', 
+  {
+    id: 17,
+    name: 'Bath Towel Set',
+    price: 8000,
+    category: 'Household',
     description: 'Soft and absorbent towel set',
     colors: ['White', 'Blue', 'Pink', 'Gray']
   },
-  { 
-    id: 18, 
-    name: 'Kitchen Utensils Set', 
-    price: 6500, 
-    category: 'Household', 
+  {
+    id: 18,
+    name: 'Kitchen Utensils Set',
+    price: 6500,
+    category: 'Household',
     description: 'Complete kitchen essentials set'
   },
-  
+
   // Gold Accessories
-  { 
-    id: 19, 
-    name: 'Gold Chain Necklace', 
-    price: 25000, 
-    category: 'Gold Accessories', 
+  {
+    id: 19,
+    name: 'Gold Chain Necklace',
+    price: 25000,
+    category: 'Gold Accessories',
     description: 'Elegant gold chain for men and women',
     sizes: ['16 inches', '18 inches', '20 inches', '22 inches']
   },
-  { 
-    id: 20, 
-    name: 'Gold Earrings', 
-    price: 18000, 
-    category: 'Gold Accessories', 
+  {
+    id: 20,
+    name: 'Gold Earrings',
+    price: 18000,
+    category: 'Gold Accessories',
     description: 'Beautiful gold earrings'
   },
-  { 
-    id: 21, 
-    name: 'Gold Bracelet', 
-    price: 22000, 
-    category: 'Gold Accessories', 
+  {
+    id: 21,
+    name: 'Gold Bracelet',
+    price: 22000,
+    category: 'Gold Accessories',
     description: 'Stylish gold wrist bracelet',
     sizes: ['Small', 'Medium', 'Large']
   },
-  
+
   // Featured Gallery Product
-  { 
-    id: 22, 
-    name: 'Elegant Feather-Leaf Lace Midi Dress', 
-    price: 25000, 
-    category: 'Featured Collection', 
+
+  {
+    id: 22,
+    name: 'Elegant Feather-Leaf Lace Midi Dress',
+    price: 25000,
+    category: 'Featured Collection',
     description: 'Chic white dress with 3D leaf details, puff sleeves, and lace waist - perfect for elegant occasions',
     images: [
-      '/IMG-20260109-WA0081.jpg',
-      '/IMG-20260109-WA0082.jpg',
-      '/IMG-20260109-WA0083.jpg',
-      '/IMG-20260109-WA0084.jpg',
-      '/IMG-20260109-WA0085.jpg',
-      '/WhatsApp Image 2026-01-09 at 3.41.10 PM.jpeg'
+      "/ladies wear/Feather Lace Midi Dress (2).jpg",
+      "/ladies wear/Feather Lace Midi Dress (3).jpg",
+      "/ladies wear/Feather Lace Midi Dress (4).jpg",
+      "/ladies wear/Feather Lace Midi Dress (5).jpg",
     ],
     hasGallery: true,
     sizes: ['LG', 'XL', '2XL'],
@@ -257,9 +282,9 @@ function Home({ addToCart }) {
 
   let filteredProducts = products.filter(product => {
     const matchesSearch = product.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
-                         product.description.toLowerCase().includes(searchTerm.toLowerCase());
+      product.description.toLowerCase().includes(searchTerm.toLowerCase());
     const matchesCategory = selectedCategory === 'All' || product.category === selectedCategory;
-    
+
     return matchesSearch && matchesCategory;
   });
 
@@ -277,7 +302,6 @@ function Home({ addToCart }) {
         <p>{t('heroSubtitle')}</p>
       </section>
 
-      <SocialLinks />
 
       <div className="search-filter-section">
         <div className="search-box">
@@ -303,7 +327,7 @@ function Home({ addToCart }) {
               </button>
             ))}
           </div>
-          
+
           <select value={sortBy} onChange={(e) => setSortBy(e.target.value)} className="sort-select">
             <option value="featured">{t('featured')}</option>
             <option value="price-low">{t('priceLowToHigh')}</option>
@@ -314,9 +338,9 @@ function Home({ addToCart }) {
 
       <div className="products-grid">
         {filteredProducts.map(product => (
-          <ProductCard 
-            key={product.id} 
-            product={product} 
+          <ProductCard
+            key={product.id}
+            product={product}
             onQuickAdd={handleQuickAdd}
             onViewDetails={handleViewDetails}
           />
@@ -336,6 +360,8 @@ function Home({ addToCart }) {
           onAddToCart={handleAddToCartFromModal}
         />
       )}
+
+      <SocialLinks />
     </div>
   );
 }

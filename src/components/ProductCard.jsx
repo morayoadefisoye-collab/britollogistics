@@ -28,17 +28,19 @@ function ProductCard({ product, onQuickAdd, onViewDetails }) {
   return (
     <div className="product-card" onClick={() => onViewDetails(product)}>
       <div className="product-image-placeholder">
-        {product.hasGallery && product.images ? (
+        {(product.images || product.image) ? (
           <div className="product-gallery-preview">
-            <img 
-              src={product.images[0]} 
+            <img
+              src={Array.isArray(product.images) ? product.images[0] : (product.images || product.image)}
               alt={product.name}
               className="product-preview-image"
             />
-            <div className="gallery-indicator">
-              <Images size={16} />
-              <span>{product.images.length} {t('photos')}</span>
-            </div>
+            {Array.isArray(product.images) && product.images.length > 1 && (
+              <div className="gallery-indicator">
+                <Images size={16} />
+                <span>{product.images.length} {t('photos')}</span>
+              </div>
+            )}
           </div>
         ) : (
           <span>Image Coming Soon</span>
@@ -48,7 +50,7 @@ function ProductCard({ product, onQuickAdd, onViewDetails }) {
         <div className="product-category">{product.category}</div>
         <h3>{product.name}</h3>
         <p className="product-description">{product.description}</p>
-        
+
         {/* Product Rating */}
         {productRating.count > 0 && (
           <div className="product-rating">
@@ -67,12 +69,12 @@ function ProductCard({ product, onQuickAdd, onViewDetails }) {
             </span>
           </div>
         )}
-        
+
         <div className="product-footer">
           <span className="price">₦{product.price.toLocaleString()}</span>
           <div className="product-actions">
             <div className="quantity-controls">
-              <button 
+              <button
                 onClick={decreaseQuantity}
                 className="quantity-btn"
                 aria-label="Decrease quantity"
@@ -80,7 +82,7 @@ function ProductCard({ product, onQuickAdd, onViewDetails }) {
                 <Minus size={14} />
               </button>
               <span className="quantity-display">{quantity}</span>
-              <button 
+              <button
                 onClick={increaseQuantity}
                 className="quantity-btn"
                 aria-label="Increase quantity"
@@ -88,7 +90,7 @@ function ProductCard({ product, onQuickAdd, onViewDetails }) {
                 <Plus size={14} />
               </button>
             </div>
-            <button 
+            <button
               onClick={handleQuickAdd}
               className="btn btn-primary"
             >

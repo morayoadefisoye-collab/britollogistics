@@ -25,30 +25,30 @@ function ProductModal({ product, onClose, onAddToCart }) {
     { name: 'Gray', value: '#6B7280' },
     { name: 'Brown', value: '#A16207' }
   ];
-  
+
   // Categories that need sizes
-  const needsSizes = product.category.includes('Fashion') || 
-                     product.category.includes('Wear') || 
-                     product.category.includes('Accessories') ||
-                     product.hasGallery; // Gallery products also need sizes
+  const needsSizes = product.category.includes('Fashion') ||
+    product.category.includes('Wear') ||
+    product.category.includes('Accessories') ||
+    product.hasGallery; // Gallery products also need sizes
 
   // Categories that need colors (similar to sizes but could be different)
-  const needsColors = product.category.includes('Fashion') || 
-                      product.category.includes('Wear') || 
-                      product.category.includes('Accessories') ||
-                      product.category.includes('Home') ||
-                      product.category.includes('Decor') ||
-                      product.hasGallery; // Gallery products also need colors
+  const needsColors = product.category.includes('Fashion') ||
+    product.category.includes('Wear') ||
+    product.category.includes('Accessories') ||
+    product.category.includes('Home') ||
+    product.category.includes('Decor') ||
+    product.hasGallery; // Gallery products also need colors
 
   // Use product-specific sizes if available, otherwise use default sizes
   const availableSizes = product.sizes || sizes;
-  
+
   // Use product-specific colors if available, otherwise use default colors
-  const availableColors = product.colors ? 
+  const availableColors = product.colors ?
     product.colors.map(colorName => {
       const colorMap = {
         'Green': '#16A34A',
-        'Cream': '#FEF3C7', 
+        'Cream': '#FEF3C7',
         'White': '#FFFFFF',
         'Red': '#DC2626',
         'Purple': '#9333EA',
@@ -68,6 +68,13 @@ function ProductModal({ product, onClose, onAddToCart }) {
         value: colorMap[colorName] || '#6B7280'
       };
     }) : colors;
+
+  // Normalize images
+  const productImages = Array.isArray(product.images)
+    ? product.images
+    : (product.images || product.image ? [product.images || product.image] : []);
+
+  const hasMultipleImages = productImages.length > 1;
 
   const handleAddToCart = (productToAdd = product, quantityToAdd = quantity) => {
     // For advanced selector, the product and quantity are passed directly
@@ -90,6 +97,7 @@ function ProductModal({ product, onClose, onAddToCart }) {
 
     const finalProduct = {
       ...product,
+      image: productImages[0], // Ensure cart item has an image
       size: selectedSize || 'N/A',
       color: selectedColor || 'N/A',
       quantity: quantity
@@ -111,21 +119,24 @@ function ProductModal({ product, onClose, onAddToCart }) {
 
         <div className="modal-body">
           <div className="modal-image">
-            {product.hasGallery && product.images ? (
+            {productImages.length > 0 ? (
               <div className="product-gallery-container">
-                <img 
-                  src={product.images[0]} 
+                <img
+                  src={productImages[0]}
                   alt={product.name}
                   className="modal-main-image"
-                  onClick={() => setShowGallery(true)}
+                  onClick={() => hasMultipleImages && setShowGallery(true)}
+                  style={{ cursor: hasMultipleImages ? 'pointer' : 'default' }}
                 />
-                <button 
-                  className="view-gallery-btn"
-                  onClick={() => setShowGallery(true)}
-                >
-                  <Eye size={16} />
-                  {t('viewGallery')} ({product.images.length} {t('photos')})
-                </button>
+                {hasMultipleImages && (
+                  <button
+                    className="view-gallery-btn"
+                    onClick={() => setShowGallery(true)}
+                  >
+                    <Eye size={16} />
+                    {t('viewGallery')} ({productImages.length} {t('photos')})
+                  </button>
+                )}
               </div>
             ) : (
               <div className="product-image-placeholder">
@@ -138,14 +149,14 @@ function ProductModal({ product, onClose, onAddToCart }) {
             <div className="product-category">{product.category}</div>
             <h2>{product.name}</h2>
             <p className="modal-description">{product.description}</p>
-            
+
             <div className="modal-price">
               <span className="price-label">{t('price')}:</span>
               <span className="price-value">₦{product.price.toLocaleString()}</span>
             </div>
 
             {product.hasGallery ? (
-              <AdvancedProductSelector 
+              <AdvancedProductSelector
                 product={product}
                 onAddToCart={handleAddToCart}
                 selectedSize={selectedSize}
@@ -234,10 +245,10 @@ function ProductModal({ product, onClose, onAddToCart }) {
         </div>
       </div>
 
-      {showGallery && product.images && (
-        <ImageGallery 
-          images={product.images} 
-          onClose={() => setShowGallery(true)} 
+      {showGallery && productImages.length > 0 && (
+        <ImageGallery
+          images={productImages}
+          onClose={() => setShowGallery(false)}
         />
       )}
     </div>

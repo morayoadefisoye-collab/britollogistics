@@ -597,6 +597,7 @@ nav {
   font-size: clamp(0.8125rem, 2vw, 0.875rem);
   min-height: clamp(36px, 8vw, 44px);
   text-align: center;
+  width: auto;
 }
 
 .btn-primary {
@@ -1461,7 +1462,7 @@ nav {
 .footer {
   background: #1f2937;
   color: #d1d5db;
-  margin-top: 4rem;
+  width: 100vw;
 }
 
 .trust-badges {
