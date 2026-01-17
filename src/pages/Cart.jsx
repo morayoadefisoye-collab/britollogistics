@@ -17,12 +17,16 @@ function Cart({ cart, updateQuantity, removeFromCart }) {
 
   return (
     <div className="container">
-      <h2>Shopping Cart</h2>
+      <h2>Shopping Cart ({cart.length} item{cart.length !== 1 ? 's' : ''})</h2>
       <div className="cart-content">
         <div className="cart-items">
           {cart.map(item => (
             <div key={item.id} className="cart-item">
-              <img src={item.image} alt={item.name} />
+              <img 
+                src={item.image || '/placeholder.jpg'} 
+                alt={item.name} 
+                onError={(e) => {e.target.src = '/placeholder.jpg';}}
+              />
               <div className="cart-item-info">
                 <h3>{item.name}</h3>
                 <div className="item-details">
@@ -36,18 +40,29 @@ function Cart({ cart, updateQuantity, removeFromCart }) {
                 <p className="price">₦{item.price.toLocaleString()}</p>
               </div>
               <div className="quantity-controls">
-                <button onClick={() => updateQuantity(item.id, item.quantity - 1)}>
+                <button 
+                  onClick={() => updateQuantity(item.id, item.quantity - 1)}
+                  aria-label="Decrease quantity"
+                  disabled={item.quantity <= 1}
+                >
                   <Minus size={16} />
                 </button>
                 <span>{item.quantity}</span>
-                <button onClick={() => updateQuantity(item.id, item.quantity + 1)}>
+                <button 
+                  onClick={() => updateQuantity(item.id, item.quantity + 1)}
+                  aria-label="Increase quantity"
+                >
                   <Plus size={16} />
                 </button>
               </div>
               <div className="cart-item-total">
                 ₦{(item.price * item.quantity).toLocaleString()}
               </div>
-              <button onClick={() => removeFromCart(item.id)} className="btn-icon" aria-label="Remove item">
+              <button 
+                onClick={() => removeFromCart(item.id)} 
+                className="btn-icon" 
+                aria-label={`Remove ${item.name} from cart`}
+              >
                 <Trash2 size={20} />
               </button>
             </div>

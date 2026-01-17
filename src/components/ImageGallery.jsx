@@ -1,52 +1,53 @@
-import { useState } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 import { ChevronLeft, ChevronRight, X, ZoomIn } from 'lucide-react';
 
 function ImageGallery({ images, onClose }) {
   const [currentIndex, setCurrentIndex] = useState(0);
   const [isFullscreen, setIsFullscreen] = useState(false);
 
-  console.log('ImageGallery rendered with images:', images);
-
-  const nextImage = () => {
+  const nextImage = useCallback(() => {
     setCurrentIndex((prev) => (prev + 1) % images.length);
-  };
+  }, [images.length]);
 
-  const prevImage = () => {
+  const prevImage = useCallback(() => {
     setCurrentIndex((prev) => (prev - 1 + images.length) % images.length);
-  };
+  }, [images.length]);
 
-  const goToImage = (index) => {
+  const goToImage = useCallback((index) => {
     setCurrentIndex(index);
-  };
+  }, []);
 
-  const toggleFullscreen = () => {
-    console.log('Toggling fullscreen from', isFullscreen, 'to', !isFullscreen);
-    setIsFullscreen(!isFullscreen);
-  };
+  const toggleFullscreen = useCallback(() => {
+    setIsFullscreen((prev) => !prev);
+  }, []);
 
-  const handleKeyDown = (e) => {
-    if (e.key === 'ArrowRight') nextImage();
-    if (e.key === 'ArrowLeft') prevImage();
-    if (e.key === 'Escape') {
-      if (isFullscreen) {
-        setIsFullscreen(false);
-      } else {
-        onClose();
+  useEffect(() => {
+    const handleKeyDown = (e) => {
+      if (e.key === 'ArrowRight') {
+        nextImage();
+      } else if (e.key === 'ArrowLeft') {
+        prevImage();
+      } else if (e.key === 'Escape') {
+        if (isFullscreen) {
+          setIsFullscreen(false);
+        } else {
+          onClose();
+        }
       }
-    }
-  };
+    };
 
-  const handleClose = () => {
-    console.log('Closing gallery');
-    onClose();
-  };
+    document.addEventListener('keydown', handleKeyDown);
+    return () => {
+      document.removeEventListener('keydown', handleKeyDown);
+    };
+  }, [nextImage, prevImage, isFullscreen, onClose]);
+
+  
 
   return (
     <div 
       className={`image-gallery-overlay ${isFullscreen ? 'fullscreen' : ''}`}
       onClick={onClose}
-      onKeyDown={handleKeyDown}
-      tabIndex={0}
     >
       <div className="image-gallery-container" onClick={(e) => e.stopPropagation()}>
         <button className="gallery-close" onClick={onClose} aria-label="Close gallery">
@@ -68,11 +69,17 @@ function ImageGallery({ images, onClose }) {
               alt={`Gallery image ${currentIndex + 1}`}
               className="gallery-main-image"
               onClick={toggleFullscreen}
+              onError={(e) => {
+                e.target.src = 'data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 400"><rect fill="%23f0f0f0" width="400" height="400"/><text x="200" y="200" text-anchor="middle" dy=".3em" fill="%23999" font-size="24">Image not found</text></svg>';
+              }}
+              style={{ cursor: 'zoom-in' }}
+              title="Click to fullscreen"
             />
             <button 
               className="gallery-zoom" 
               onClick={toggleFullscreen}
               aria-label="Toggle fullscreen"
+              title="Fullscreen"
             >
               <ZoomIn size={20} />
             </button>

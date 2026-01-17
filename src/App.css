@@ -197,20 +197,7 @@
   pointer-events: auto;
 }
 
-/* Fix image gallery z-index */
-.image-gallery-overlay {
-  position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background: rgba(0, 0, 0, 0.95);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  z-index: var(--z-modal-backdrop);
-  padding: 20px;
-}
+/* Image gallery styles are defined below */
 
 .image-gallery-container {
   position: relative;
@@ -476,11 +463,31 @@ nav {
 /* Product Image Responsiveness */
 .product-image-placeholder,
 .product-preview-image,
-.modal-main-image {
+.modal-main-image,
+.product-image-placeholder-empty {
   width: 100%;
   height: clamp(150px, 25vw, 200px);
   object-fit: cover;
   display: block;
+}
+
+.product-image-placeholder-empty {
+  background: linear-gradient(135deg, #e5e7eb 0%, #d1d5db 100%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  gap: 0.75rem;
+  color: #6b7280;
+  font-weight: 500;
+}
+
+.modal-main-image {
+  cursor: zoom-in;
+  width: 100%;
+  height: 100%;
+  display: block;
+  object-fit: contain;
 }
 
 .product-gallery-preview {
@@ -491,6 +498,89 @@ nav {
   align-items: center;
   justify-content: center;
   overflow: hidden;
+  background: #f3f4f6;
+}
+
+.product-preview-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.gallery-indicator {
+  position: absolute;
+  bottom: 12px;
+  right: 12px;
+  background: rgba(0, 0, 0, 0.8);
+  color: white;
+  padding: 6px 10px;
+  border-radius: 6px;
+  font-size: 0.8125rem;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  opacity: 0.8;
+  transition: opacity 0.2s ease;
+  z-index: 5;
+}
+
+/* Product Wishlist Button */
+.product-image-placeholder {
+  position: relative;
+}
+
+.product-wishlist-btn {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  z-index: 10;
+  background: white;
+  border: none;
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+  color: #ef4444;
+}
+
+.product-wishlist-btn:hover {
+  background: #fef2f2;
+  transform: scale(1.1);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+}
+
+.product-wishlist-btn.active {
+  color: #ef4444;
+}
+
+.product-wishlist-btn.active:hover {
+  background: #fee2e2;
+}
+
+/* Product View Hint */
+.product-view-hint {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: rgba(0, 0, 0, 0.7);
+  color: white;
+  padding: 8px 12px;
+  font-size: 12px;
+  font-weight: 600;
+  text-align: center;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  pointer-events: none;
+}
+
+.product-card:hover .product-view-hint {
+  opacity: 1;
 }
 
 /* Product Info Responsiveness */
@@ -515,6 +605,7 @@ nav {
   line-height: 1.5;
   display: -webkit-box;
   -webkit-line-clamp: 3;
+  line-clamp: 3;
   -webkit-box-orient: vertical;
   overflow: hidden;
 }
@@ -3814,8 +3905,7 @@ html {
   width: 100%;
 }
 
-.modal-image .product-image-placeholder,
-.modal-main-image {
+.modal-image .product-image-placeholder {
   width: 100%;
   height: clamp(200px, 40vw, 400px);
   border-radius: clamp(4px, 1vw, 8px);
@@ -3826,6 +3916,13 @@ html {
   position: relative;
   width: 100%;
   height: 100%;
+}
+
+.modal-main-image {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  cursor: zoom-in;
 }
 
 .view-gallery-btn {
@@ -4072,7 +4169,8 @@ html {
     position: relative;
   }
 
-  .modal-image .product-image-placeholder {
+  .modal-image .product-image-placeholder,
+  .modal-image .product-image-placeholder-empty {
     height: 250px;
   }
 
@@ -4114,7 +4212,8 @@ html {
     padding: 1rem;
   }
 
-  .modal-image .product-image-placeholder {
+  .modal-image .product-image-placeholder,
+  .modal-image .product-image-placeholder-empty {
     height: 200px;
   }
 
@@ -4175,16 +4274,11 @@ html {
 }
 
 .modal-main-image {
+  cursor: zoom-in;
   width: 100%;
-  height: 400px;
-  object-fit: cover;
-  border-radius: 8px;
-  cursor: pointer;
-  transition: transform 0.2s ease;
-}
-
-.modal-main-image:hover {
-  transform: scale(1.02);
+  height: 100%;
+  display: block;
+  object-fit: contain;
 }
 
 .view-gallery-btn {
@@ -5220,7 +5314,7 @@ html {
   border-radius: 12px;
   box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
   min-width: 220px;
-  z-index: var(--z-popover);
+  z-index: 10;
   overflow: hidden;
   animation: slideDown 0.2s ease;
 }

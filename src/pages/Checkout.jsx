@@ -35,6 +35,12 @@ function Checkout({ cart, clearCart }) {
   const handleSubmit = (e) => {
     e.preventDefault();
     
+    const errors = validateCheckoutForm();
+    if (Object.keys(errors).length > 0) {
+      alert('Please fix the following errors:\n\n' + Object.values(errors).join('\n'));
+      return;
+    }
+    
     // Create order summary
     const orderItems = cart.map(item => {
       let itemDetails = `${item.name} x ${item.quantity}`;
@@ -68,18 +74,33 @@ function Checkout({ cart, clearCart }) {
     // Open WhatsApp with pre-filled message
     window.open(`https://wa.me/2348102505875?text=${message}`, '_blank');
     
-    // Show success message and clear cart
-    alert('Order request sent successfully! Your cart will be cleared and you will be redirected to the home page.');
+    // Clear cart immediately
+    clearCart();
     
-    // Clear cart after sending to WhatsApp
+    // Show success message
+    alert('Order request sent successfully! Your cart has been cleared and you will be redirected to the home page.');
+    
+    // Redirect after alert
     setTimeout(() => {
-      clearCart();
       navigate('/');
-    }, 2000);
+    }, 1000);
   };
 
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
+  };
+
+  const validateCheckoutForm = () => {
+    const errors = {};
+    if (!formData.name.trim()) errors.name = 'Full name is required';
+    if (!formData.email.trim()) errors.email = 'Email is required';
+    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(formData.email)) errors.email = 'Invalid email';
+    if (!formData.phone.trim()) errors.phone = 'Phone number is required';
+    if (!/^\d{10,}$/.test(formData.phone.replace(/\D/g, ''))) errors.phone = 'Invalid phone number';
+    if (!formData.address.trim()) errors.address = 'Address is required';
+    if (!formData.city.trim()) errors.city = 'City is required';
+    if (!formData.state.trim()) errors.state = 'State is required';
+    return errors;
   };
 
   if (cart.length === 0) {

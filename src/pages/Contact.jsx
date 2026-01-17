@@ -7,25 +7,78 @@ function Contact() {
     email: '',
     message: ''
   });
+  const [errors, setErrors] = useState({});
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [submitSuccess, setSubmitSuccess] = useState(false);
 
-  const handleSubmit = (e) => {
+  const validateForm = () => {
+    const newErrors = {};
+    
+    if (!formData.name.trim()) {
+      newErrors.name = 'Name is required';
+    } else if (formData.name.length < 2) {
+      newErrors.name = 'Name must be at least 2 characters';
+    }
+    
+    if (!formData.email.trim()) {
+      newErrors.email = 'Email is required';
+    } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(formData.email)) {
+      newErrors.email = 'Please enter a valid email';
+    }
+    
+    if (!formData.message.trim()) {
+      newErrors.message = 'Message is required';
+    } else if (formData.message.length < 10) {
+      newErrors.message = 'Message must be at least 10 characters';
+    } else if (formData.message.length > 1000) {
+      newErrors.message = 'Message must be less than 1000 characters';
+    }
+    
+    return newErrors;
+  };
+
+  const handleSubmit = async (e) => {
     e.preventDefault();
+    setErrors({});
+    setSubmitSuccess(false);
     
-    // Create WhatsApp message
-    const whatsappMessage = `*NEW CONTACT MESSAGE*%0A%0A` +
-      `*From:* ${formData.name}%0A` +
-      `*Email:* ${formData.email}%0A%0A` +
-      `*Message:*%0A${formData.message}`;
+    const newErrors = validateForm();
+    if (Object.keys(newErrors).length > 0) {
+      setErrors(newErrors);
+      return;
+    }
     
-    // Open WhatsApp with pre-filled message
-    window.open(`https://wa.me/2348102505875?text=${whatsappMessage}`, '_blank');
+    setIsSubmitting(true);
     
-    // Clear form
-    setFormData({ name: '', email: '', message: '' });
+    try {
+      // Create WhatsApp message with proper encoding
+      const whatsappMessage = `*NEW CONTACT MESSAGE*%0A%0A` +
+        `*From:* ${encodeURIComponent(formData.name)}%0A` +
+        `*Email:* ${encodeURIComponent(formData.email)}%0A%0A` +
+        `*Message:*%0A${encodeURIComponent(formData.message)}`;
+      
+      // Open WhatsApp with pre-filled message
+      window.open(`https://wa.me/2348102505875?text=${whatsappMessage}`, '_blank');
+      
+      setSubmitSuccess(true);
+      setFormData({ name: '', email: '', message: '' });
+      
+      // Clear success message after 3 seconds
+      setTimeout(() => setSubmitSuccess(false), 3000);
+    } catch (error) {
+      setErrors({ submit: 'Error sending message. Please try again.' });
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   const handleChange = (e) => {
-    setFormData({ ...formData, [e.target.name]: e.target.value });
+    const { name, value } = e.target;
+    setFormData({ ...formData, [name]: value });
+    // Clear error for this field when user starts typing
+    if (errors[name]) {
+      setErrors({ ...errors, [name]: '' });
+    }
   };
 
   return (
@@ -68,32 +121,67 @@ function Contact() {
 
           <form onSubmit={handleSubmit} className="contact-form">
             <h2>Send us a Message</h2>
-            <input
-              type="text"
-              name="name"
-              placeholder="Your Name"
-              value={formData.name}
-              onChange={handleChange}
-              required
-            />
-            <input
-              type="email"
-              name="email"
-              placeholder="Your Email"
-              value={formData.email}
-              onChange={handleChange}
-              required
-            />
-            <textarea
-              name="message"
-              placeholder="Your Message"
-              value={formData.message}
-              onChange={handleChange}
-              rows="6"
-              required
-            />
-            <button type="submit" className="btn btn-primary btn-block">
-              Send Message
+            
+            {submitSuccess && (
+              <div className="success-message">Message sent! We'll get back to you soon.</div>
+            )}
+            {errors.submit && (
+              <div className="error-message">{errors.submit}</div>
+            )}
+            
+            <div className="form-group">
+              <label htmlFor="name">Your Name *</label>
+              <input
+                type="text"
+                id="name"
+                name="name"
+                placeholder="Enter your full name"
+                value={formData.name}
+                onChange={handleChange}
+                maxLength="50"
+                aria-invalid={!!errors.name}
+                aria-describedby={errors.name ? "name-error" : undefined}
+              />
+              {errors.name && <span id="name-error" className="error-message">{errors.name}</span>}
+            </div>
+            
+            <div className="form-group">
+              <label htmlFor="email">Your Email *</label>
+              <input
+                type="email"
+                id="email"
+                name="email"
+                placeholder="Enter your email"
+                value={formData.email}
+                onChange={handleChange}
+                aria-invalid={!!errors.email}
+                aria-describedby={errors.email ? "email-error" : undefined}
+              />
+              {errors.email && <span id="email-error" className="error-message">{errors.email}</span>}
+            </div>
+            
+            <div className="form-group">
+              <label htmlFor="message">Your Message * <span className="char-count">({formData.message.length}/1000)</span></label>
+              <textarea
+                id="message"
+                name="message"
+                placeholder="Type your message here..."
+                value={formData.message}
+                onChange={handleChange}
+                rows="6"
+                maxLength="1000"
+                aria-invalid={!!errors.message}
+                aria-describedby={errors.message ? "message-error" : undefined}
+              />
+              {errors.message && <span id="message-error" className="error-message">{errors.message}</span>}
+            </div>
+            
+            <button 
+              type="submit" 
+              className="btn btn-primary btn-block"
+              disabled={isSubmitting}
+            >
+              {isSubmitting ? 'Sending...' : 'Send Message'}
             </button>
           </form>
         </div>

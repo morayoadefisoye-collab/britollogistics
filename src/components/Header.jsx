@@ -22,7 +22,7 @@ function Header({ cartCount }) {
   const handleSearch = (e) => {
     e.preventDefault();
     // Implement search functionality
-    console.log('Searching for:', searchQuery);
+    // TODO: perform search using `searchQuery`
   };
 
   const handleAuthClick = (mode) => {

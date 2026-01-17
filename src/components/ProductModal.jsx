@@ -5,12 +5,12 @@ import AdvancedProductSelector from './AdvancedProductSelector';
 import ProductReviews from './ProductReviews';
 import { useLanguage } from '../contexts/LanguageContext';
 
-function ProductModal({ product, onClose, onAddToCart }) {
+function ProductModal({ product, onClose, onAddToCart, openGalleryOnLoad = false }) {
   const { t } = useLanguage();
   const [selectedSize, setSelectedSize] = useState('');
   const [selectedColor, setSelectedColor] = useState('');
   const [quantity, setQuantity] = useState(1);
-  const [showGallery, setShowGallery] = useState(false);
+  const [showGallery, setShowGallery] = useState(openGalleryOnLoad && product.images && product.images.length > 0);
 
   const sizes = ['XS', 'S', 'M', 'L', 'XL', 'XXL'];
   const colors = [
@@ -25,30 +25,26 @@ function ProductModal({ product, onClose, onAddToCart }) {
     { name: 'Gray', value: '#6B7280' },
     { name: 'Brown', value: '#A16207' }
   ];
-  
-  // Categories that need sizes
-  const needsSizes = product.category.includes('Fashion') || 
-                     product.category.includes('Wear') || 
-                     product.category.includes('Accessories') ||
-                     product.hasGallery; // Gallery products also need sizes
 
-  // Categories that need colors (similar to sizes but could be different)
-  const needsColors = product.category.includes('Fashion') || 
-                      product.category.includes('Wear') || 
-                      product.category.includes('Accessories') ||
-                      product.category.includes('Home') ||
-                      product.category.includes('Decor') ||
-                      product.hasGallery; // Gallery products also need colors
+  const needsSizes = product.category.includes('Fashion') ||
+    product.category.includes('Wear') ||
+    product.category.includes('Accessories') ||
+    product.hasGallery;
 
-  // Use product-specific sizes if available, otherwise use default sizes
+  const needsColors = product.category.includes('Fashion') ||
+    product.category.includes('Wear') ||
+    product.category.includes('Accessories') ||
+    product.category.includes('Home') ||
+    product.category.includes('Decor') ||
+    product.hasGallery;
+
   const availableSizes = product.sizes || sizes;
-  
-  // Use product-specific colors if available, otherwise use default colors
-  const availableColors = product.colors ? 
+
+  const availableColors = product.colors ?
     product.colors.map(colorName => {
       const colorMap = {
         'Green': '#16A34A',
-        'Cream': '#FEF3C7', 
+        'Cream': '#FEF3C7',
         'White': '#FFFFFF',
         'Red': '#DC2626',
         'Purple': '#9333EA',
@@ -70,14 +66,13 @@ function ProductModal({ product, onClose, onAddToCart }) {
     }) : colors;
 
   const handleAddToCart = (productToAdd = product, quantityToAdd = quantity) => {
-    // For advanced selector, the product and quantity are passed directly
     if (product.hasGallery && productToAdd !== product) {
       onAddToCart(productToAdd, quantityToAdd);
+      setQuantity(1);
       onClose();
       return;
     }
 
-    // Original logic for regular products
     if (needsSizes && !selectedSize) {
       alert('Please select a size');
       return;
@@ -96,6 +91,7 @@ function ProductModal({ product, onClose, onAddToCart }) {
     };
 
     onAddToCart(finalProduct, quantity);
+    setQuantity(1);
     onClose();
   };
 
@@ -103,49 +99,58 @@ function ProductModal({ product, onClose, onAddToCart }) {
   const decreaseQuantity = () => setQuantity(prev => prev > 1 ? prev - 1 : 1);
 
   return (
-    <div className="modal-overlay" onClick={onClose}>
-      <div className="modal-content" onClick={(e) => e.stopPropagation()}>
-        <button className="modal-close" onClick={onClose} aria-label="Close">
-          <X size={24} />
-        </button>
+    <>
+      <div className="modal-overlay" onClick={onClose}>
+        <div className="modal-content" onClick={(e) => e.stopPropagation()}>
+          <button className="modal-close" onClick={onClose} aria-label="Close">
+            <X size={24} />
+          </button>
 
-        <div className="modal-body">
-          <div className="modal-image">
-            {product.hasGallery && product.images ? (
-              <div className="product-gallery-container">
-                <img 
-                  src={product.images[0]} 
-                  alt={product.name}
-                  className="modal-main-image"
-                  onClick={() => setShowGallery(true)}
-                />
-                <button 
-                  className="view-gallery-btn"
-                  onClick={() => setShowGallery(true)}
-                >
-                  <Eye size={16} />
-                  {t('viewGallery')} ({product.images.length} {t('photos')})
-                </button>
-              </div>
-            ) : (
-              <div className="product-image-placeholder">
-                <span>New product soon to drop</span>
-              </div>
-            )}
-          </div>
-
-          <div className="modal-details">
-            <div className="product-category">{product.category}</div>
-            <h2>{product.name}</h2>
-            <p className="modal-description">{product.description}</p>
-            
-            <div className="modal-price">
-              <span className="price-label">{t('price')}:</span>
-              <span className="price-value">₦{product.price.toLocaleString()}</span>
+          <div className="modal-body">
+            <div className="modal-image">
+              {product.images && product.images.length > 0 ? (
+                <div className="product-gallery-container">
+                  <img
+                    src={product.images[0]}
+                    alt={product.name}
+                    className="modal-main-image"
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      setShowGallery(true);
+                    }}
+                    onError={(e) => {
+                      e.target.src = 'data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200"><rect fill="%23f0f0f0" width="200" height="200"/><text x="100" y="100" text-anchor="middle" dy=".3em" fill="%23999" font-size="16">Image</text></svg>';
+                    }}
+                    style={{ cursor: 'zoom-in' }}
+                    title="Click to expand image"
+                  />
+                  <button
+                    className="view-gallery-btn"
+                    onClick={() => setShowGallery(true)}
+                    title={product.images.length > 1 ? "View all images" : "View image in full"}
+                  >
+                    <Eye size={16} />
+                    {product.images.length > 1 ? `View Gallery (${product.images.length})` : 'View Image'}
+                  </button>
+                </div>
+              ) : (
+                <div className="product-image-placeholder">
+                  <span>New product soon to drop</span>
+                </div>
+              )}
             </div>
 
-            {product.hasGallery ? (
-              <AdvancedProductSelector 
+            <div className="modal-details">
+              <div className="product-category">{product.category}</div>
+              <h2>{product.name}</h2>
+              <p className="modal-description">{product.description}</p>
+
+              <div className="modal-price">
+                <span className="price-label">{t('price')}:</span>
+                <span className="price-value">₦{product.price.toLocaleString()}</span>
+              </div>
+
+              <AdvancedProductSelector
                 product={product}
                 onAddToCart={handleAddToCart}
                 selectedSize={selectedSize}
@@ -153,94 +158,26 @@ function ProductModal({ product, onClose, onAddToCart }) {
                 onSizeChange={setSelectedSize}
                 onColorChange={setSelectedColor}
               />
-            ) : (
-              <>
-                {needsSizes && (
-                  <div className="size-selector">
-                    <label>{t('selectSize')}:</label>
-                    <div className="size-options">
-                      {availableSizes.map(size => (
-                        <button
-                          key={size}
-                          className={`size-btn ${selectedSize === size ? 'active' : ''}`}
-                          onClick={() => setSelectedSize(size)}
-                        >
-                          {size}
-                        </button>
-                      ))}
-                    </div>
-                  </div>
-                )}
 
-                {needsColors && (
-                  <div className="color-selector">
-                    <label>{t('selectColor')}:</label>
-                    <div className="color-options">
-                      {availableColors.map(color => (
-                        <button
-                          key={color.name}
-                          className={`color-btn ${selectedColor === color.name ? 'active' : ''}`}
-                          onClick={() => setSelectedColor(color.name)}
-                          style={{ backgroundColor: color.value }}
-                          title={color.name}
-                          aria-label={`Select ${color.name} color`}
-                        >
-                          {color.value === '#FFFFFF' && <span className="white-border"></span>}
-                        </button>
-                      ))}
-                    </div>
-                    {selectedColor && (
-                      <div className="selected-color-display">
-                        Selected: <span className="color-name">{selectedColor}</span>
-                      </div>
-                    )}
-                  </div>
-                )}
+              <div className="product-info-note">
+                <p><strong>Note:</strong> Contact us on WhatsApp for bulk orders or special requests.</p>
+              </div>
 
-                <div className="quantity-selector">
-                  <label>{t('quantity')}:</label>
-                  <div className="quantity-controls-modal">
-                    <button onClick={decreaseQuantity} aria-label="Decrease quantity">
-                      <Minus size={18} />
-                    </button>
-                    <span className="quantity-display">{quantity}</span>
-                    <button onClick={increaseQuantity} aria-label="Increase quantity">
-                      <Plus size={18} />
-                    </button>
-                  </div>
-                </div>
-
-                <div className="modal-total">
-                  <span>{t('total')}:</span>
-                  <span className="total-price">₦{(product.price * quantity).toLocaleString()}</span>
-                </div>
-
-                <button className="btn btn-primary btn-block btn-large" onClick={handleAddToCart}>
-                  <ShoppingCart size={20} />
-                  {t('addToCart')}
-                </button>
-              </>
-            )}
-
-            <div className="product-info-note">
-              <p><strong>Note:</strong> Contact us on WhatsApp for bulk orders or special requests.</p>
-            </div>
-
-            {/* Product Reviews Section */}
-            <div className="product-reviews-section">
-              <ProductReviews product={product} />
+              <div className="product-reviews-section">
+                <ProductReviews product={product} />
+              </div>
             </div>
           </div>
         </div>
       </div>
 
       {showGallery && product.images && (
-        <ImageGallery 
-          images={product.images} 
-          onClose={() => setShowGallery(true)} 
+        <ImageGallery
+          images={product.images}
+          onClose={() => setShowGallery(false)}
         />
       )}
-    </div>
+    </>
   );
 }
 

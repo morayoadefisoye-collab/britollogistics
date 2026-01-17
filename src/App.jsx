@@ -10,6 +10,7 @@ import Breadcrumb from './components/Breadcrumb';
 import WhatsAppButton from './components/WhatsAppButton';
 import ScrollToTop from './components/ScrollToTop';
 import AuthGuard from './components/AuthGuard';
+import ErrorBoundary from './components/ErrorBoundary';
 import Home from './pages/Home';
 import About from './pages/About';
 import WhatWeSell from './pages/WhatWeSell';
@@ -38,14 +39,12 @@ function ScrollToTopOnMount() {
 }
 
 function App() {
-  const [cart, setCart] = useState(() => {
-    const saved = localStorage.getItem('cart');
-    return saved ? JSON.parse(saved) : [];
-  });
+  const [cart, setCart] = useState([]);
 
   useEffect(() => {
-    localStorage.setItem('cart', JSON.stringify(cart));
-  }, [cart]);
+    // Cart is not persisted - always starts empty on page refresh
+    // This ensures a fresh state after reload
+  }, []);
 
   const addToCart = (product, quantity = 1) => {
     const existing = cart.find(item => item.id === product.id);
@@ -84,32 +83,34 @@ function App() {
             <Router>
               <ScrollToTopOnMount />
               <div className="app">
-                <AuthGuard>
-                  <Header cartCount={cart.reduce((sum, item) => sum + item.quantity, 0)} />
-                  <Breadcrumb />
-                  <main id="main-content">
-                    <Routes>
-                      <Route path="/" element={<Home addToCart={addToCart} />} />
-                      <Route path="/about" element={<About />} />
-                      <Route path="/what-we-sell" element={<WhatWeSell />} />
-                      <Route path="/wholesale" element={<Wholesale />} />
-                      <Route path="/testimonials" element={<Testimonials />} />
-                      <Route path="/contact" element={<Contact />} />
-                      <Route path="/shipping" element={<Shipping />} />
-                      <Route path="/returns" element={<Returns />} />
-                      <Route path="/faq" element={<FAQ />} />
-                      <Route path="/track-order" element={<TrackOrder />} />
-                      <Route path="/privacy" element={<Privacy />} />
-                      <Route path="/terms" element={<Terms />} />
-                      <Route path="/wishlist" element={<Wishlist addToCart={addToCart} />} />
-                      <Route path="/cart" element={<Cart cart={cart} updateQuantity={updateQuantity} removeFromCart={removeFromCart} />} />
-                      <Route path="/checkout" element={<Checkout cart={cart} clearCart={clearCart} />} />
-                    </Routes>
-                  </main>
-                  <Footer />
-                  <WhatsAppButton />
-                  <ScrollToTop />
-                </AuthGuard>
+                <ErrorBoundary>
+                  <AuthGuard>
+                    <Header cartCount={cart.reduce((sum, item) => sum + item.quantity, 0)} />
+                    <Breadcrumb />
+                    <main id="main-content">
+                      <Routes>
+                        <Route path="/" element={<Home addToCart={addToCart} />} />
+                        <Route path="/about" element={<About />} />
+                        <Route path="/what-we-sell" element={<WhatWeSell />} />
+                        <Route path="/wholesale" element={<Wholesale />} />
+                        <Route path="/testimonials" element={<Testimonials />} />
+                        <Route path="/contact" element={<Contact />} />
+                        <Route path="/shipping" element={<Shipping />} />
+                        <Route path="/returns" element={<Returns />} />
+                        <Route path="/faq" element={<FAQ />} />
+                        <Route path="/track-order" element={<TrackOrder />} />
+                        <Route path="/privacy" element={<Privacy />} />
+                        <Route path="/terms" element={<Terms />} />
+                        <Route path="/wishlist" element={<Wishlist addToCart={addToCart} />} />
+                        <Route path="/cart" element={<Cart cart={cart} updateQuantity={updateQuantity} removeFromCart={removeFromCart} />} />
+                        <Route path="/checkout" element={<Checkout cart={cart} clearCart={clearCart} />} />
+                      </Routes>
+                    </main>
+                    <Footer />
+                    <WhatsAppButton />
+                    <ScrollToTop />
+                  </AuthGuard>
+                </ErrorBoundary>
               </div>
             </Router>
           </ReviewsProvider>

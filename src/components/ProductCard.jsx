@@ -1,13 +1,19 @@
-import { ShoppingCart, Plus, Minus, Images, Star } from 'lucide-react';
+import { ShoppingCart, Plus, Minus, Images, Star, Heart } from 'lucide-react';
 import { useState } from 'react';
 import { useLanguage } from '../contexts/LanguageContext';
 import { useReviews } from '../contexts/ReviewsContext';
+import { useWishlist } from '../contexts/WishlistContext';
+import { useAuth } from '../contexts/AuthContext';
 
 function ProductCard({ product, onQuickAdd, onViewDetails }) {
   const { t } = useLanguage();
   const { getProductRating } = useReviews();
+  const { isInWishlist, toggleWishlist } = useWishlist();
+  const { user } = useAuth();
   const [quantity, setQuantity] = useState(1);
+  const [showAuthPrompt, setShowAuthPrompt] = useState(false);
 
+  const isFavorite = isInWishlist(product.id);
   const productRating = getProductRating(product.id);
 
   const increaseQuantity = (e) => {
@@ -23,25 +29,57 @@ function ProductCard({ product, onQuickAdd, onViewDetails }) {
   const handleQuickAdd = (e) => {
     e.stopPropagation();
     onQuickAdd(product, quantity);
+    setQuantity(1);
+  };
+
+  const handleWishlistToggle = (e) => {
+    e.stopPropagation();
+    if (!user) {
+      setShowAuthPrompt(true);
+      return;
+    }
+    toggleWishlist(product);
+  };
+
+  const handleImageClick = (e) => {
+    e.stopPropagation();
+    onViewDetails(product, true);
   };
 
   return (
-    <div className="product-card" onClick={() => onViewDetails(product)}>
+    <div className="product-card" onClick={() => onViewDetails(product)} style={{ cursor: 'pointer' }}>
       <div className="product-image-placeholder">
-        {product.hasGallery && product.images ? (
-          <div className="product-gallery-preview">
+        <button 
+          className={`product-wishlist-btn ${isFavorite ? 'active' : ''}`}
+          onClick={handleWishlistToggle}
+          aria-label={isFavorite ? 'Remove from wishlist' : 'Add to wishlist'}
+        >
+          <Heart size={18} fill={isFavorite ? 'currentColor' : 'none'} />
+        </button>
+        {product.images && product.images.length > 0 ? (
+          <div className="product-gallery-preview" onClick={handleImageClick} style={{ cursor: 'zoom-in' }}>
             <img 
               src={product.images[0]} 
               alt={product.name}
               className="product-preview-image"
+              onClick={handleImageClick}
+              style={{ cursor: 'zoom-in' }}
+              onError={(e) => {
+                e.target.src = 'data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><rect fill="%23f0f0f0" width="100" height="100"/></svg>';
+              }}
             />
-            <div className="gallery-indicator">
-              <Images size={16} />
-              <span>{product.images.length} {t('photos')}</span>
-            </div>
+            {product.images.length > 1 && (
+              <div className="gallery-indicator">
+                <Images size={16} />
+                <span>{product.images.length}</span>
+              </div>
+            )}
           </div>
         ) : (
-          <span>Image Coming Soon</span>
+          <div className="product-image-placeholder-empty">
+            <Images size={32} />
+            <span>Image Coming Soon</span>
+          </div>
         )}
       </div>
       <div className="product-info">

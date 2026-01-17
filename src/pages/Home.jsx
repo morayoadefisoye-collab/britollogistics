@@ -6,66 +6,315 @@ import { Search, Filter } from 'lucide-react';
 import { useLanguage } from '../contexts/LanguageContext';
 
 const products = [
-  // Ladies' Wears
+  // Ladies' Wears with Images - Grouped by Similar Names
+  // Aso Oke Boubou Gown Group
   { 
     id: 1, 
-    name: 'Luxury Two-Piece Set', 
-    price: 15000, 
+    name: 'Aso Oke Boubou Gown', 
+    price: 16000, 
     category: "Ladies' Fashion", 
-    description: 'Elegant two-piece outfit perfect for any occasion',
-    
-    sizes: ['free size'],
-    colors: ['pink,wine']
-   
+    description: 'Premium Aso Oke boubou gown with traditional elegance',
+    sizes: ['S', 'M', 'L', 'XL'],
+    colors: ['Multi-color'],
+    hasGallery: true,
+    images: [
+      '/ladies wear/Aso Oke boubou gown..jpeg',
+      '/ladies wear/Aso Oke boubou gown.(2).jpeg',
+      '/ladies wear/Aso Oke boubou gown.(3).jpeg'
+    ]
   },
+
+  // Feather Lace Midi Dress Group
   { 
     id: 2, 
-    name: 'Turkey Maxi Dress', 
-    price: 12500, 
+    name: 'Feather Lace Midi Dress', 
+    price: 14500, 
     category: "Ladies' Fashion", 
-    description: 'Premium quality imported maxi dress',
+    description: 'Elegant feather lace midi dress perfect for special occasions',
     sizes: ['XS', 'S', 'M', 'L', 'XL'],
-    colors: ['Black', 'Blue', 'Green', 'Purple']
+    colors: ['Black'],
+    hasGallery: true,
+    images: [
+      '/ladies wear/Feather Lace Midi Dress.jpg',
+      '/ladies wear/Feather Lace Midi Dress (2).jpg',
+      '/ladies wear/Feather Lace Midi Dress (3).jpg',
+      '/ladies wear/Feather Lace Midi Dress (4).jpg',
+      '/ladies wear/Feather Lace Midi Dress (5).jpg'
+    ]
   },
+
+  // Luxury Mikkaye 2pcs Top and Skirt Group
   { 
     id: 3, 
-    name: 'Corporate Blazer Set', 
-    price: 18000, 
+    name: 'Luxury Mikkaye 2pcs Top and Skirt', 
+    price: 13500, 
     category: "Ladies' Fashion", 
-    description: 'Professional blazer and trouser set for office wear',
-    sizes: ['S', 'M', 'L', 'XL', 'XXL'],
-    colors: ['Black', 'Gray', 'Blue']
+    description: 'Premium luxury two-piece set combining style and comfort',
+    sizes: ['S', 'M', 'L', 'XL'],
+    colors: ['Navy Blue', 'Cream'],
+    hasGallery: true,
+    images: [
+      '/ladies wear/luxury mikkaye 2pcs top and skirt.jpeg',
+      '/ladies wear/luxury mikkaye 2pcs top and skirt .jpeg'
+    ]
   },
+
+  // Leopard Print Two-Piece Set Group
   { 
     id: 4, 
-    name: 'Stylish Handbag', 
-    price: 8500, 
-    category: "Ladies' Accessories", 
-    description: 'Trendy handbag with multiple compartments',
-    colors: ['Black', 'Brown', 'Red', 'Pink']
+    name: 'Leopard Print Two-Piece Set', 
+    price: 11000, 
+    category: "Ladies' Fashion", 
+    description: 'Trendy leopard print top and wide-leg trousers set',
+    sizes: ['XS', 'S', 'M', 'L', 'XL'],
+    colors: ['Leopard Print'],
+    hasGallery: true,
+    images: [
+      '/ladies wear/Leopard-print two-piece set (top and wide-leg trousers).jpeg',
+      '/ladies wear/Leopard-print two-piece set (top and wide-leg trousers2).jpeg'
+    ]
   },
+
+  // Bubu Dress Group
   { 
     id: 5, 
-    name: "Ladies' Heels", 
-    price: 9500, 
-    category: "Ladies' Accessories", 
-    description: 'Comfortable and stylish heels for any event',
-    sizes: ['36', '37', '38', '39', '40', '41', '42'],
-    colors: ['Black', 'Brown', 'Red', 'Pink']
+    name: 'Bubu Dress', 
+    price: 12000, 
+    category: "Ladies' Fashion", 
+    description: 'Traditional and stylish bubu dress for everyday elegance',
+    sizes: ['Free Size', 'S', 'M', 'L', 'XL'],
+    colors: ['Printed', 'Solid'],
+    hasGallery: true,
+    images: [
+      '/ladies wear/bubu dress.jpeg',
+      '/ladies wear/bubu dress (2).jpeg'
+    ]
   },
+
+  // Comfort and Loungewear Sets
   { 
     id: 6, 
-    name: 'Mikkaye Casual Top', 
-    price: 7500, 
+    name: 'Alo Comfort Set', 
+    price: 9500, 
     category: "Ladies' Fashion", 
-    description: 'Comfortable casual top for everyday wear',
+    description: 'Comfortable leisure set for relaxation',
+    sizes: ['S', 'M', 'L', 'XL'],
+    colors: ['Neutral'],
+    hasGallery: false,
+    images: ['/ladies wear/Alo Comfort Set.jpeg']
+  },
+
+  { 
+    id: 7, 
+    name: 'Blossom Lounge Set', 
+    price: 10500, 
+    category: "Ladies' Fashion", 
+    description: 'Cozy lounge set with beautiful blossom design',
+    sizes: ['S', 'M', 'L', 'XL'],
+    colors: ['Pink', 'White'],
+    hasGallery: false,
+    images: ['/ladies wear/Blossom Lounge Set  .jpeg']
+  },
+
+  { 
+    id: 8, 
+    name: 'Chic Diva Two-Piece Set', 
+    price: 11500, 
+    category: "Ladies' Fashion", 
+    description: 'Bold and stylish two-piece set for confident women',
     sizes: ['XS', 'S', 'M', 'L', 'XL'],
-    colors: ['White', 'Black', 'Pink', 'Blue', 'Yellow']
+    colors: ['Black', 'Burgundy'],
+    hasGallery: false,
+    images: ['/ladies wear/Chic Diva Two-Piece Set  .jpeg']
+  },
+
+  { 
+    id: 9, 
+    name: 'Elegance Luxe Set', 
+    price: 15000, 
+    category: "Ladies' Fashion", 
+    description: 'Premium elegant two-piece set for sophisticated style',
+    sizes: ['S', 'M', 'L', 'XL'],
+    colors: ['Gold', 'Black'],
+    hasGallery: false,
+    images: ['/ladies wear/Elegance Luxe Set.jpeg']
+  },
+
+  // Dresses
+  { 
+    id: 10, 
+    name: 'Daisy Lace Maxi Dress', 
+    price: 13000, 
+    category: "Ladies' Fashion", 
+    description: 'Elegant daisy lace maxi dress for special occasions',
+    sizes: ['XS', 'S', 'M', 'L', 'XL'],
+    colors: ['White', 'Cream'],
+    hasGallery: false,
+    images: ['/ladies wear/Daisy Lace Maxi Dress.jpeg']
+  },
+
+  { 
+    id: 11, 
+    name: 'Floral Off-Shoulder Bodycon Dress', 
+    price: 12500, 
+    category: "Ladies' Fashion", 
+    description: 'Trendy off-shoulder bodycon dress with floral design',
+    sizes: ['XS', 'S', 'M', 'L', 'XL'],
+    colors: ['Multi-color'],
+    hasGallery: false,
+    images: ['/ladies wear/Floral Off-Shoulder Bodycon Dress.jpeg']
+  },
+
+  { 
+    id: 12, 
+    name: 'Berry Gown', 
+    price: 14000, 
+    category: "Ladies' Fashion", 
+    description: 'Beautiful berry-colored gown perfect for evening wear',
+    sizes: ['S', 'M', 'L', 'XL'],
+    colors: ['Berry'],
+    hasGallery: false,
+    images: ['/ladies wear/berry gown .jpeg']
+  },
+
+  { 
+    id: 13, 
+    name: 'Elegant Floral Printed Pleated Maxi Dress', 
+    price: 13500, 
+    category: "Ladies' Fashion", 
+    description: 'Graceful floral printed pleated maxi dress with elegant draping',
+    sizes: ['XS', 'S', 'M', 'L', 'XL'],
+    colors: ['Floral Print'],
+    hasGallery: false,
+    images: ['/ladies wear/elegant, floral-printed pleated maxi dress.jpeg']
+  },
+
+  { 
+    id: 14, 
+    name: 'Rich Aunty Denim Maxi Dress', 
+    price: 12000, 
+    category: "Ladies' Fashion", 
+    description: 'Stylish denim maxi dress with premium finish',
+    sizes: ['S', 'M', 'L', 'XL'],
+    colors: ['Blue', 'Black'],
+    hasGallery: false,
+    images: ['/ladies wear/Rich aunty denim maxi dress.jpeg']
+  },
+
+  // Tops and Shirts
+  { 
+    id: 15, 
+    name: 'Black Sheer Long-Sleeved Button-Down Top', 
+    price: 8500, 
+    category: "Ladies' Fashion", 
+    description: 'Sophisticated black sheer top with long sleeves',
+    sizes: ['XS', 'S', 'M', 'L', 'XL'],
+    colors: ['Black'],
+    hasGallery: false,
+    images: ['/ladies wear/black sheer long-sleeved button-down top.jpeg']
+  },
+
+  { 
+    id: 16, 
+    name: 'Hello Kitty Bling Tee', 
+    price: 7000, 
+    category: "Ladies' Fashion", 
+    description: 'Fun and playful Hello Kitty bling t-shirt',
+    sizes: ['XS', 'S', 'M', 'L', 'XL'],
+    colors: ['Pink', 'White'],
+    hasGallery: false,
+    images: ['/ladies wear/Hello Kitty Bling Tee.jpeg']
+  },
+
+  { 
+    id: 17, 
+    name: 'Graphic Tee and Shorts Set', 
+    price: 9000, 
+    category: "Ladies' Fashion", 
+    description: 'Casual graphic tee paired with matching shorts',
+    sizes: ['XS', 'S', 'M', 'L', 'XL'],
+    colors: ['Multi-color'],
+    hasGallery: false,
+    images: ['/ladies wear/Graphic Tee and Shorts Set.jpeg']
+  },
+
+  { 
+    id: 18, 
+    name: 'Rhinestone Bow-Embellished T-Shirt with Matching Jean', 
+    price: 10500, 
+    category: "Ladies' Fashion", 
+    description: 'Stylish rhinestone embellished tee with bow detail jean',
+    sizes: ['XS', 'S', 'M', 'L', 'XL'],
+    colors: ['Blue', 'White'],
+    hasGallery: false,
+    images: ['/ladies wear/Rhinestone bow-embellished T-shirt with matching bow-detail jean.jpeg']
+  },
+
+  { 
+    id: 19, 
+    name: 'Burberry Check Shirt', 
+    price: 11000, 
+    category: "Ladies' Fashion", 
+    description: 'Premium Burberry check pattern shirt',
+    sizes: ['XS', 'S', 'M', 'L', 'XL'],
+    colors: ['Burberry Check'],
+    hasGallery: false,
+    images: ['/ladies wear/Burberry check shirt.jpeg']
+  },
+
+  // Athletic and Casual Sets
+  { 
+    id: 20, 
+    name: 'Athleisure Set', 
+    price: 10000, 
+    category: "Ladies' Fashion", 
+    description: 'Comfortable athleisure wear set for active lifestyle',
+    sizes: ['XS', 'S', 'M', 'L', 'XL'],
+    colors: ['Gray', 'Black'],
+    hasGallery: false,
+    images: ['/ladies wear/athleisure set..jpeg']
+  },
+
+  { 
+    id: 21, 
+    name: 'Butterfly-Print T-Shirt and Designer Jogger Set', 
+    price: 11500, 
+    category: "Ladies' Fashion", 
+    description: 'Fun butterfly print tee with designer joggers',
+    sizes: ['XS', 'S', 'M', 'L', 'XL'],
+    colors: ['Multi-color'],
+    hasGallery: false,
+    images: ['/ladies wear/Butterfly-print T-shirt and designer jogger set.jpeg']
+  },
+
+  // Traditional and Formal Wear
+  { 
+    id: 22, 
+    name: 'Kaftan', 
+    price: 13000, 
+    category: "Ladies' Fashion", 
+    description: 'Traditional and elegant kaftan for formal occasions',
+    sizes: ['Free Size', 'S', 'M', 'L', 'XL'],
+    colors: ['Various Colors'],
+    hasGallery: false,
+    images: ['/ladies wear/Kaftan.jpeg']
+  },
+
+  // Accessories
+  { 
+    id: 23, 
+    name: 'Golden Arc Bag', 
+    price: 8500, 
+    category: "Ladies' Accessories", 
+    description: 'Stylish golden arc handbag for everyday use',
+    colors: ['Gold', 'Black'],
+    hasGallery: false,
+    images: ['/ladies wear/Golden Arc Bag.jpeg']
   },
   
   // Men's Fashion
   { 
-    id: 7, 
+    id: 24, 
     name: 'Corporate Shirt', 
     price: 8000, 
     category: "Men's Fashion", 
@@ -74,7 +323,7 @@ const products = [
     colors: ['White', 'Blue', 'Black']
   },
   { 
-    id: 8, 
+    id: 25, 
     name: "Men's Luxury Jalamia", 
     price: 22000, 
     category: "Men's Fashion", 
@@ -83,7 +332,7 @@ const products = [
     colors: ['White', 'Black', 'Brown']
   },
   { 
-    id: 9, 
+    id: 26, 
     name: 'Designer Sneakers', 
     price: 12000, 
     category: "Men's Accessories", 
@@ -92,7 +341,7 @@ const products = [
     colors: ['Black', 'White', 'Gray', 'Blue']
   },
   { 
-    id: 10, 
+    id: 27, 
     name: 'Polo T-Shirt', 
     price: 5500, 
     category: "Men's Fashion", 
@@ -101,7 +350,7 @@ const products = [
     colors: ['White', 'Black', 'Red', 'Blue', 'Green']
   },
   { 
-    id: 11, 
+    id: 28, 
     name: 'Denim Jeans', 
     price: 9000, 
     category: "Men's Fashion", 
@@ -110,7 +359,7 @@ const products = [
     colors: ['Blue', 'Black']
   },
   { 
-    id: 12, 
+    id: 29, 
     name: "Men's Leather Belt", 
     price: 4500, 
     category: "Men's Accessories", 
@@ -121,7 +370,7 @@ const products = [
   
   // Children's Clothing
   { 
-    id: 13, 
+    id: 30, 
     name: "Boys' Casual Set", 
     price: 6500, 
     category: "Children's Wear", 
@@ -130,7 +379,7 @@ const products = [
     colors: ['Blue', 'Red', 'Green', 'Black']
   },
   { 
-    id: 14, 
+    id: 31, 
     name: "Girls' Party Dress", 
     price: 7500, 
     category: "Children's Wear", 
@@ -139,7 +388,7 @@ const products = [
     colors: ['Pink', 'Purple', 'White', 'Red']
   },
   { 
-    id: 15, 
+    id: 32, 
     name: "Kids' Sneakers", 
     price: 5000, 
     category: "Children's Wear", 
@@ -150,7 +399,7 @@ const products = [
   
   // Household Items
   { 
-    id: 16, 
+    id: 33, 
     name: 'Premium Bedding Set', 
     price: 15000, 
     category: 'Household', 
@@ -159,7 +408,7 @@ const products = [
     colors: ['White', 'Blue', 'Gray', 'Pink']
   },
   { 
-    id: 17, 
+    id: 34, 
     name: 'Bath Towel Set', 
     price: 8000, 
     category: 'Household', 
@@ -167,7 +416,7 @@ const products = [
     colors: ['White', 'Blue', 'Pink', 'Gray']
   },
   { 
-    id: 18, 
+    id: 35, 
     name: 'Kitchen Utensils Set', 
     price: 6500, 
     category: 'Household', 
@@ -176,7 +425,7 @@ const products = [
   
   // Gold Accessories
   { 
-    id: 19, 
+    id: 36, 
     name: 'Gold Chain Necklace', 
     price: 25000, 
     category: 'Gold Accessories', 
@@ -184,14 +433,14 @@ const products = [
     sizes: ['16 inches', '18 inches', '20 inches', '22 inches']
   },
   { 
-    id: 20, 
+    id: 37, 
     name: 'Gold Earrings', 
     price: 18000, 
     category: 'Gold Accessories', 
     description: 'Beautiful gold earrings'
   },
   { 
-    id: 21, 
+    id: 38, 
     name: 'Gold Bracelet', 
     price: 22000, 
     category: 'Gold Accessories', 
@@ -201,7 +450,7 @@ const products = [
   
   // Featured Gallery Product
   { 
-    id: 22, 
+    id: 39, 
     name: 'Elegant Feather-Leaf Lace Midi Dress', 
     price: 25000, 
     category: 'Featured Collection', 
@@ -226,6 +475,7 @@ function Home({ addToCart }) {
   const [selectedCategory, setSelectedCategory] = useState('All');
   const [sortBy, setSortBy] = useState('featured');
   const [selectedProduct, setSelectedProduct] = useState(null);
+  const [openGallery, setOpenGallery] = useState(false);
 
   const categories = [
     { key: 'All', label: t('allCategories') },
@@ -243,12 +493,14 @@ function Home({ addToCart }) {
     addToCart(product, quantity);
   };
 
-  const handleViewDetails = (product) => {
+  const handleViewDetails = (product, openGalleryDirectly = false) => {
     setSelectedProduct(product);
+    setOpenGallery(openGalleryDirectly);
   };
 
   const handleCloseModal = () => {
     setSelectedProduct(null);
+    setOpenGallery(false);
   };
 
   const handleAddToCartFromModal = (product, quantity) => {
@@ -334,6 +586,7 @@ function Home({ addToCart }) {
           product={selectedProduct}
           onClose={handleCloseModal}
           onAddToCart={handleAddToCartFromModal}
+          openGalleryOnLoad={openGallery}
         />
       )}
     </div>
