@@ -4,6 +4,7 @@ import ImageGallery from './ImageGallery';
 import AdvancedProductSelector from './AdvancedProductSelector';
 import ProductReviews from './ProductReviews';
 import { useLanguage } from '../contexts/LanguageContext';
+import ModalPortal from './modalPortal';
 
 function ProductModal({ product, onClose, onAddToCart }) {
   const { t } = useLanguage();
@@ -111,8 +112,20 @@ function ProductModal({ product, onClose, onAddToCart }) {
   const decreaseQuantity = () => setQuantity(prev => prev > 1 ? prev - 1 : 1);
 
   return (
-    <div className="modal-overlay" onClick={onClose}>
-      <div className="modal-content" onClick={(e) => e.stopPropagation()}>
+    <ModalPortal>
+    <div className="modal-overlay" onClick={onClose} style={{
+      position: 'fixed',
+      top: 0,
+      left: 0,
+      width: '100%',
+      height: '100%',
+      backgroundColor: 'rgba(0, 0, 0, 0.5)',
+      display: 'flex',
+      justifyContent: 'center',
+      alignItems: 'center',
+      zIndex: 1000
+    }}>
+      <div className="modal-content" onClick={(e) => e.stopPropagation()} style={{ maxHeight: '90vh', overflowY: 'auto', backgroundColor: 'white' }}>
         <button className="modal-close" onClick={onClose} aria-label="Close">
           <X size={24} />
         </button>
@@ -252,6 +265,7 @@ function ProductModal({ product, onClose, onAddToCart }) {
         />
       )}
     </div>
+    </ModalPortal>
   );
 }
 

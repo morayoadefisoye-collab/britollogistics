@@ -91,7 +91,7 @@ const products = [
 
   // Men's Fashion
   {
-    id: 7,
+    id: 10,
     name: 'Corporate Shirt',
     price: 8000,
     category: "Men's Fashion",
@@ -100,7 +100,7 @@ const products = [
     colors: ['White', 'Blue', 'Black']
   },
   {
-    id: 8,
+    id: 11,
     name: "Men's Luxury Jalamia",
     price: 22000,
     category: "Men's Fashion",
@@ -109,7 +109,7 @@ const products = [
     colors: ['White', 'Black', 'Brown']
   },
   {
-    id: 9,
+    id: 12,
     name: 'Designer Sneakers',
     price: 12000,
     category: "Men's Accessories",
@@ -118,7 +118,7 @@ const products = [
     colors: ['Black', 'White', 'Gray', 'Blue']
   },
   {
-    id: 10,
+    id: 13,
     name: 'Polo T-Shirt',
     price: 5500,
     category: "Men's Fashion",
@@ -127,7 +127,7 @@ const products = [
     colors: ['White', 'Black', 'Red', 'Blue', 'Green']
   },
   {
-    id: 11,
+    id: 14,
     name: 'Denim Jeans',
     price: 9000,
     category: "Men's Fashion",
@@ -136,7 +136,7 @@ const products = [
     colors: ['Blue', 'Black']
   },
   {
-    id: 12,
+    id: 15,
     name: "Men's Leather Belt",
     price: 4500,
     category: "Men's Accessories",
@@ -147,7 +147,7 @@ const products = [
 
   // Children's Clothing
   {
-    id: 13,
+    id: 16,
     name: "Boys' Casual Set",
     price: 6500,
     category: "Children's Wear",
@@ -156,7 +156,7 @@ const products = [
     colors: ['Blue', 'Red', 'Green', 'Black']
   },
   {
-    id: 14,
+    id: 17,
     name: "Girls' Party Dress",
     price: 7500,
     category: "Children's Wear",
@@ -165,7 +165,7 @@ const products = [
     colors: ['Pink', 'Purple', 'White', 'Red']
   },
   {
-    id: 15,
+    id: 18,
     name: "Kids' Sneakers",
     price: 5000,
     category: "Children's Wear",
@@ -176,7 +176,7 @@ const products = [
 
   // Household Items
   {
-    id: 16,
+    id: 19,
     name: 'Premium Bedding Set',
     price: 15000,
     category: 'Household',
@@ -185,7 +185,7 @@ const products = [
     colors: ['White', 'Blue', 'Gray', 'Pink']
   },
   {
-    id: 17,
+    id: 20,
     name: 'Bath Towel Set',
     price: 8000,
     category: 'Household',
@@ -193,7 +193,7 @@ const products = [
     colors: ['White', 'Blue', 'Pink', 'Gray']
   },
   {
-    id: 18,
+    id: 21,
     name: 'Kitchen Utensils Set',
     price: 6500,
     category: 'Household',
@@ -202,7 +202,7 @@ const products = [
 
   // Gold Accessories
   {
-    id: 19,
+    id: 22,
     name: 'Gold Chain Necklace',
     price: 25000,
     category: 'Gold Accessories',
@@ -210,14 +210,14 @@ const products = [
     sizes: ['16 inches', '18 inches', '20 inches', '22 inches']
   },
   {
-    id: 20,
+    id: 23,
     name: 'Gold Earrings',
     price: 18000,
     category: 'Gold Accessories',
     description: 'Beautiful gold earrings'
   },
   {
-    id: 21,
+    id: 24,
     name: 'Gold Bracelet',
     price: 22000,
     category: 'Gold Accessories',
@@ -228,7 +228,7 @@ const products = [
   // Featured Gallery Product
 
   {
-    id: 22,
+    id: 25,
     name: 'Elegant Feather-Leaf Lace Midi Dress',
     price: 25000,
     category: 'Featured Collection',
@@ -243,6 +243,20 @@ const products = [
     sizes: ['LG', 'XL', '2XL'],
     colors: ['Green', 'Cream', 'White', 'Red', 'Purple']
   },
+  {
+    id: 26,
+    name: 'Luxury Velvet Evening Gown',
+    price: 45000,
+    category: "Ladies' Fashion",
+    description: 'An exquisite velvet evening gown featuring a high slit and off-shoulder design. Perfect for red carpet events.',
+    images: [
+      "/ladies wear/Aso Oke boubou gown.(2).jpeg",
+      "/ladies wear/luxury mikkaye 2pcs top and skirt.jpeg",
+      "/ladies wear/Alo Comfort Set.jpeg"
+    ],
+    sizes: ['S', 'M', 'L', 'XL'],
+    colors: ['Red', 'Black', 'Emerald Green']
+  }
 ];
 
 function Home({ addToCart }) {
