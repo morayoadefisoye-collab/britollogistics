@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { X, Eye, EyeOff, User, Mail, Lock, Phone, MapPin } from 'lucide-react';
+import { X, Eye, EyeOff, User, Lock } from 'lucide-react';
 import { useAuth } from '../contexts/AuthContext';
 import { useLanguage } from '../contexts/LanguageContext';
 
@@ -15,11 +15,8 @@ function AuthModal({ isOpen, onClose, initialMode = 'login' }) {
   const [formData, setFormData] = useState({
     firstName: '',
     lastName: '',
-    email: '',
     password: '',
-    confirmPassword: '',
-    phone: '',
-    address: ''
+    confirmPassword: ''
   });
 
   const handleInputChange = (e) => {
@@ -34,16 +31,11 @@ function AuthModal({ isOpen, onClose, initialMode = 'login' }) {
     if (mode === 'signup') {
       if (!formData.firstName.trim()) return 'First name is required';
       if (!formData.lastName.trim()) return 'Last name is required';
-      if (!formData.phone.trim()) return 'Phone number is required';
       if (formData.password !== formData.confirmPassword) return 'Passwords do not match';
       if (formData.password.length < 6) return 'Password must be at least 6 characters';
     }
     
-    if (!formData.email.trim()) return 'Email is required';
     if (!formData.password.trim()) return 'Password is required';
-    
-    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    if (!emailRegex.test(formData.email)) return 'Please enter a valid email';
     
     return null;
   };
@@ -61,7 +53,7 @@ function AuthModal({ isOpen, onClose, initialMode = 'login' }) {
 
     try {
       if (mode === 'login') {
-        await login(formData.email, formData.password);
+        await login(formData.firstName, formData.password);
         setSuccess('Login successful!');
         setTimeout(() => {
           onClose();
@@ -84,11 +76,8 @@ function AuthModal({ isOpen, onClose, initialMode = 'login' }) {
     setFormData({
       firstName: '',
       lastName: '',
-      email: '',
       password: '',
-      confirmPassword: '',
-      phone: '',
-      address: ''
+      confirmPassword: ''
     });
     setError('');
     setSuccess('');
@@ -153,55 +142,22 @@ function AuthModal({ isOpen, onClose, initialMode = 'login' }) {
             </>
           )}
 
-          <div className="form-group">
-            <label htmlFor="email">{t('email')}</label>
-            <div className="input-with-icon">
-              <Mail size={18} />
-              <input
-                type="email"
-                id="email"
-                name="email"
-                value={formData.email}
-                onChange={handleInputChange}
-                placeholder={t('enterEmail')}
-                required
-              />
+          {mode === 'login' && (
+            <div className="form-group">
+              <label htmlFor="firstName">First Name</label>
+              <div className="input-with-icon">
+                <User size={18} />
+                <input
+                  type="text"
+                  id="firstName"
+                  name="firstName"
+                  value={formData.firstName}
+                  onChange={handleInputChange}
+                  placeholder="Enter your first name"
+                  required
+                />
+              </div>
             </div>
-          </div>
-
-          {mode === 'signup' && (
-            <>
-              <div className="form-group">
-                <label htmlFor="phone">{t('phone')}</label>
-                <div className="input-with-icon">
-                  <Phone size={18} />
-                  <input
-                    type="tel"
-                    id="phone"
-                    name="phone"
-                    value={formData.phone}
-                    onChange={handleInputChange}
-                    placeholder={t('enterPhone')}
-                    required
-                  />
-                </div>
-              </div>
-
-              <div className="form-group">
-                <label htmlFor="address">{t('address')}</label>
-                <div className="input-with-icon">
-                  <MapPin size={18} />
-                  <input
-                    type="text"
-                    id="address"
-                    name="address"
-                    value={formData.address}
-                    onChange={handleInputChange}
-                    placeholder={t('enterAddress')}
-                  />
-                </div>
-              </div>
-            </>
           )}
 
           <div className="form-group">

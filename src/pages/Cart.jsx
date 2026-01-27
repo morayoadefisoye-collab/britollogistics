@@ -20,53 +20,69 @@ function Cart({ cart, updateQuantity, removeFromCart }) {
       <h2>Shopping Cart ({cart.length} item{cart.length !== 1 ? 's' : ''})</h2>
       <div className="cart-content">
         <div className="cart-items">
-          {cart.map(item => (
-            <div key={item.id} className="cart-item">
-              <img 
-                src={item.image || '/placeholder.jpg'} 
-                alt={item.name} 
-                onError={(e) => {e.target.src = '/placeholder.jpg';}}
-              />
-              <div className="cart-item-info">
-                <h3>{item.name}</h3>
-                <div className="item-details">
-                  {item.size && item.size !== 'N/A' && (
-                    <span className="item-size">Size: {item.size}</span>
-                  )}
-                  {item.color && item.color !== 'N/A' && (
-                    <span className="item-color">Color: {item.color}</span>
-                  )}
+          {cart.map((item, index) => {
+            // Determine the best image to display
+            const itemImage = item.image || 
+                            (Array.isArray(item.images) ? item.images[0] : item.images) || 
+                            '/placeholder.jpg';
+            
+            // Create a safe key that handles undefined values
+            const safeSize = item.size || 'N/A';
+            const safeColor = item.color || 'N/A';
+            const uniqueKey = `cart-${item.id}-${safeSize}-${safeColor}-${index}`;
+            
+            return (
+              <div key={uniqueKey} className="cart-item">
+                <div className="cart-item-image">
+                  <img 
+                    src={itemImage} 
+                    alt={item.name} 
+                    onError={(e) => {
+                      e.target.src = 'data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><rect fill="%23f0f0f0" width="100" height="100"/><text x="50" y="50" text-anchor="middle" dy=".3em" fill="%23999">No Image</text></svg>';
+                    }}
+                  />
                 </div>
-                <p className="price">₦{item.price.toLocaleString()}</p>
-              </div>
-              <div className="quantity-controls">
+                <div className="cart-item-info">
+                  <h3>{item.name}</h3>
+                  <div className="item-details">
+                    {item.size && item.size !== 'N/A' && (
+                      <span className="item-size">Size: {item.size}</span>
+                    )}
+                    {item.color && item.color !== 'N/A' && (
+                      <span className="item-color">Color: {item.color}</span>
+                    )}
+                  </div>
+                  <p className="price">₦{item.price.toLocaleString()}</p>
+                </div>
+                <div className="quantity-controls">
+                  <button 
+                    onClick={() => updateQuantity(item.id, item.quantity - 1, safeSize, safeColor)}
+                    aria-label="Decrease quantity"
+                    disabled={item.quantity <= 1}
+                  >
+                    <Minus size={16} />
+                  </button>
+                  <span>{item.quantity}</span>
+                  <button 
+                    onClick={() => updateQuantity(item.id, item.quantity + 1, safeSize, safeColor)}
+                    aria-label="Increase quantity"
+                  >
+                    <Plus size={16} />
+                  </button>
+                </div>
+                <div className="cart-item-total">
+                  ₦{(item.price * item.quantity).toLocaleString()}
+                </div>
                 <button 
-                  onClick={() => updateQuantity(item.id, item.quantity - 1)}
-                  aria-label="Decrease quantity"
-                  disabled={item.quantity <= 1}
+                  onClick={() => removeFromCart(item.id, safeSize, safeColor)} 
+                  className="btn-icon" 
+                  aria-label={`Remove ${item.name} from cart`}
                 >
-                  <Minus size={16} />
-                </button>
-                <span>{item.quantity}</span>
-                <button 
-                  onClick={() => updateQuantity(item.id, item.quantity + 1)}
-                  aria-label="Increase quantity"
-                >
-                  <Plus size={16} />
+                  <Trash2 size={20} />
                 </button>
               </div>
-              <div className="cart-item-total">
-                ₦{(item.price * item.quantity).toLocaleString()}
-              </div>
-              <button 
-                onClick={() => removeFromCart(item.id)} 
-                className="btn-icon" 
-                aria-label={`Remove ${item.name} from cart`}
-              >
-                <Trash2 size={20} />
-              </button>
-            </div>
-          ))}
+            );
+          })}
         </div>
         <div className="cart-summary">
           <h3>Order Summary</h3>

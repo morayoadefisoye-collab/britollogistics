@@ -1,4 +1,4 @@
-// Product data with images grouped by similar names
+// Product data with images grouped by similar names - ALL IMAGES INCLUDED
 export const productsData = [
   // Aso Oke Boubou Gown Group
   { 
@@ -7,7 +7,7 @@ export const productsData = [
     price: 16000, 
     category: "Ladies' Fashion", 
     description: 'Premium Aso Oke boubou gown with traditional elegance',
-    sizes: ['S', 'M', 'L', 'XL'],
+    sizes: ['free size'],
     colors: ['Multi-color'],
     hasGallery: true,
     images: [
@@ -305,14 +305,245 @@ export const productsData = [
     images: ['/ladies wear/Golden Arc Bag.jpeg']
   },
 
-  // Logo Section
+  // New Arrivals
   { 
     id: 24, 
-    name: 'Brand Logo', 
-    price: 0, 
-    category: "Brand", 
-    description: 'Official brand logo',
+    name: 'Sequined Teddy Bear Orange T-Shirt', 
+    price: 8000, 
+    category: "Ladies' Fashion", 
+    description: 'Bright orange T-shirt featuring adorable sequined teddy bear designs - perfect for casual fun days',
+    sizes: ['XS', 'S', 'M', 'L', 'XL'],
+    colors: ['Orange'],
     hasGallery: false,
-    images: ['/ladies wear/logo +/IMG_8810.jpg']
+    images: ['/ladies wear/bright orange T-shirt featuring sequined teddy bear designs.jpg']
+  },
+
+  { 
+    id: 25, 
+    name: 'Off-The-Shoulder Mini Dress', 
+    price: 12500, 
+    category: "Ladies' Fashion", 
+    description: 'Elegant off-the-shoulder mini dress perfect for date nights and special occasions',
+    sizes: ['XS', 'S', 'M', 'L', 'XL'],
+    colors: ['Black', 'White', 'Navy'],
+    hasGallery: false,
+    images: ['/ladies wear/off the shoulder mini dress.jpg']
+  },
+
+  { 
+    id: 26, 
+    name: 'Dior Short-Sleeved Button-Up Shirt', 
+    price: 22500, 
+    category: "Ladies' Fashion", 
+    description: 'Premium Dior-inspired short-sleeved button-up shirt with elegant design and superior quality',
+    sizes: ['XS', 'S', 'M', 'L', 'XL'],
+    colors: ['Pink', 'Blue', 'White', 'Yellow'],
+    hasGallery: false,
+    images: ['/ladies wear/Dior short-sleeved button-up shirt.jpeg']
+  },
+
+  // Perfumes Collection
+  { 
+    id: 27, 
+    name: 'Burberry London Dream, Blossom & Eau De Toilette', 
+    price: 35000, 
+    category: "Perfumes", 
+    description: 'A sophisticated fragrance collection featuring London Dream with its fresh floral notes, Blossom with delicate cherry blossom essence, and classic Eau De Toilette. Perfect for the modern woman who appreciates timeless elegance.',
+    sizes: ['50ml', '100ml'],
+    colors: ['Clear'],
+    hasGallery: false,
+    images: ['/ladies wear/perfumes/Burberry London Dream, Blossom & Eau De Toilette .jpeg']
+  },
+
+  { 
+    id: 28, 
+    name: 'Carolina Herrera 212 VIP Black', 
+    price: 42000, 
+    category: "Perfumes", 
+    description: 'An exclusive and mysterious fragrance with bold black packaging. Features rich, intense notes that create an unforgettable signature scent for confident women who dare to stand out.',
+    sizes: ['80ml', '100ml'],
+    colors: ['Black'],
+    hasGallery: false,
+    images: ['/ladies wear/perfumes/Carolina Herrera 212 VIP Black.jpeg']
+  },
+
+  { 
+    id: 29, 
+    name: 'Christian Dior Hypnotic Poison Eau de Parfum', 
+    price: 48000, 
+    category: "Perfumes", 
+    description: 'A captivating and seductive fragrance with hypnotic charm. Blends vanilla, almond, and jasmine to create an intoxicating scent that leaves a lasting impression wherever you go.',
+    sizes: ['50ml', '100ml'],
+    colors: ['Red'],
+    hasGallery: false,
+    images: ['/ladies wear/perfumes/Christian Dior Hypnotic Poison Eau de Parfum.jpeg']
+  },
+
+  { 
+    id: 30, 
+    name: 'Christian Dior Oud Ispahan', 
+    price: 65000, 
+    category: "Perfumes", 
+    description: 'A luxurious oriental fragrance featuring precious oud wood from Ispahan. Rich, warm, and exotic with rose and saffron notes, perfect for special occasions and evening wear.',
+    sizes: ['40ml', '125ml'],
+    colors: ['Gold'],
+    hasGallery: false,
+    images: ['/ladies wear/perfumes/Christian Dior Oud Ispahan.jpeg']
+  },
+
+  { 
+    id: 31, 
+    name: 'Creed Aventus', 
+    price: 85000, 
+    category: "Perfumes", 
+    description: 'The legendary fragrance inspired by Napoleon\'s dramatic life. A powerful blend of pineapple, birch, and musk that embodies strength, power, and success. A true masterpiece of perfumery.',
+    sizes: ['50ml', '100ml', '120ml'],
+    colors: ['Clear'],
+    hasGallery: false,
+    images: ['/ladies wear/perfumes/Creed Aventus.jpeg']
+  },
+
+  { 
+    id: 32, 
+    name: 'Givenchy L\'Interdit Eau de Parfum Rouge', 
+    price: 45000, 
+    category: "Perfumes", 
+    description: 'A bold and addictive fragrance that breaks all the rules. Features white flowers, blood orange, and ginger for a rebellious yet elegant scent that celebrates feminine audacity.',
+    sizes: ['50ml', '80ml'],
+    colors: ['Red'],
+    hasGallery: false,
+    images: ['/ladies wear/perfumes/Givenchy L\'Interdit Eau de Parfum Rouge.jpeg']
+  },
+
+  { 
+    id: 33, 
+    name: 'Gucci The Voice of the Snake Eau de Parfum', 
+    price: 52000, 
+    category: "Perfumes", 
+    description: 'An enchanting and mysterious fragrance from Gucci\'s luxury collection. Features exotic florals and woody notes that whisper tales of ancient wisdom and modern sophistication.',
+    sizes: ['50ml', '100ml'],
+    colors: ['Green'],
+    hasGallery: false,
+    images: ['/ladies wear/perfumes/Gucci The Voice of the Snake Eau de Parfum.jpeg']
+  },
+
+  { 
+    id: 34, 
+    name: 'Hili Perfume', 
+    price: 28000, 
+    category: "Perfumes", 
+    description: 'A unique and captivating fragrance with Middle Eastern influences. Blends traditional oud with modern floral notes to create a distinctive scent that bridges cultures and time.',
+    sizes: ['50ml', '100ml'],
+    colors: ['Amber'],
+    hasGallery: false,
+    images: ['/ladies wear/perfumes/Hili.jpeg']
+  },
+
+  { 
+    id: 35, 
+    name: 'Jo Malone London', 
+    price: 38000, 
+    category: "Perfumes", 
+    description: 'Elegant British fragrance known for its sophisticated simplicity. Features clean, fresh notes that can be worn alone or layered with other scents for a personalized fragrance experience.',
+    sizes: ['30ml', '100ml'],
+    colors: ['Clear'],
+    hasGallery: false,
+    images: ['/ladies wear/perfumes/Jo Malone London.jpeg']
+  },
+
+  { 
+    id: 36, 
+    name: 'Montblanc Explorer Eau de Parfum', 
+    price: 32000, 
+    category: "Perfumes", 
+    description: 'An adventurous fragrance for the modern explorer. Combines bergamot, pink pepper, and leather to create a bold, masculine scent that embodies the spirit of discovery and adventure.',
+    sizes: ['60ml', '100ml'],
+    colors: ['Blue'],
+    hasGallery: false,
+    images: ['/ladies wear/perfumes/Montblanc Explorer Eau de Parfum.jpeg']
+  },
+
+  { 
+    id: 37, 
+    name: 'Paco Rabanne 1 Million Eau de Toilette', 
+    price: 35000, 
+    category: "Perfumes", 
+    description: 'The iconic golden fragrance that radiates luxury and confidence. Features fresh mint, blood orange, and leather notes in a distinctive gold bar bottle that makes a bold statement.',
+    sizes: ['50ml', '100ml', '200ml'],
+    colors: ['Gold'],
+    hasGallery: false,
+    images: ['/ladies wear/perfumes/Paco Rabanne 1 Million Eau de Toilette.jpeg']
+  },
+
+  { 
+    id: 38, 
+    name: 'Paco Rabanne 1 Million Royal Parfum', 
+    price: 55000, 
+    category: "Perfumes", 
+    description: 'The royal edition of the legendary 1 Million fragrance. More intense and luxurious with deeper notes of rose, oud, and honey. A regal scent for those who demand the finest.',
+    sizes: ['50ml', '100ml'],
+    colors: ['Royal Gold'],
+    hasGallery: false,
+    images: ['/ladies wear/perfumes/Paco Rabanne 1 Million Royal Parfum.jpeg']
+  },
+
+  { 
+    id: 39, 
+    name: 'Paco Rabanne Million Gold Eau de Parfum Intense', 
+    price: 48000, 
+    category: "Perfumes", 
+    description: 'An intensified version of the Million Gold fragrance with richer, more concentrated notes. Features warm spices, precious woods, and golden honey for an opulent olfactory experience.',
+    sizes: ['50ml', '100ml'],
+    colors: ['Intense Gold'],
+    hasGallery: false,
+    images: ['/ladies wear/perfumes/Paco Rabanne Million Gold Eau de Parfum Intense.jpeg']
+  },
+
+  { 
+    id: 40, 
+    name: 'Rabanne Phantom Elixir Parfum Intense', 
+    price: 58000, 
+    category: "Perfumes", 
+    description: 'A futuristic fragrance that pushes boundaries with its innovative blend. Features energizing notes and cutting-edge composition in a robot-inspired bottle that represents the future of perfumery.',
+    sizes: ['50ml', '100ml'],
+    colors: ['Silver'],
+    hasGallery: false,
+    images: ['/ladies wear/perfumes/Rabanne Phantom Elixir Parfum Intense.jpeg']
+  },
+
+  { 
+    id: 41, 
+    name: 'Tom Ford Oud Minérale Eau de Parfum', 
+    price: 72000, 
+    category: "Perfumes", 
+    description: 'A sophisticated marine interpretation of precious oud. Combines the richness of oud wood with fresh oceanic notes, creating a unique aquatic-oriental fragrance that\'s both powerful and refreshing.',
+    sizes: ['50ml', '100ml'],
+    colors: ['Blue'],
+    hasGallery: false,
+    images: ['/ladies wear/perfumes/Tom Ford Oud Minérale Eau de Parfum.jpeg']
+  },
+
+  { 
+    id: 42, 
+    name: 'Tom Ford Oud Wood Eau de Parfum', 
+    price: 78000, 
+    category: "Perfumes", 
+    description: 'The iconic Tom Ford fragrance featuring rare oud wood from the East. Blended with exotic rosewood, cardamom, and sandalwood to create a smoky, sensual scent that defines luxury.',
+    sizes: ['50ml', '100ml', '250ml'],
+    colors: ['Brown'],
+    hasGallery: false,
+    images: ['/ladies wear/perfumes/Tom Ford Oud Wood Eau de Parfum.jpeg']
+  },
+
+  { 
+    id: 43, 
+    name: 'Yves Saint Laurent Libre Vanille Couture Eau de Parfum', 
+    price: 46000, 
+    category: "Perfumes", 
+    description: 'A couture interpretation of freedom with luxurious vanilla notes. Combines French lavender with Moroccan orange blossom and Madagascar vanilla for an elegant, addictive fragrance that celebrates feminine liberation.',
+    sizes: ['50ml', '90ml'],
+    colors: ['Pink'],
+    hasGallery: false,
+    images: ['/ladies wear/perfumes/Yves Saint Laurent Libre Vanille Couture Eau de Parfum. .jpeg']
   }
 ];

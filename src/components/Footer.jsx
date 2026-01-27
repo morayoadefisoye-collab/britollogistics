@@ -1,42 +1,47 @@
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 import { Mail, Phone, MapPin, Facebook, Instagram, CheckCircle2, Truck, Award, Clock } from 'lucide-react';
 
 function Footer() {
+  const { pathname } = useLocation();
+  const isHomePage = pathname === '/';
+
   return (
     <footer className="footer">
-      <div className="trust-badges">
-        <div className="container">
-          <div className="badges-grid">
-            <div className="badge">
-              <CheckCircle2 size={32} />
-              <h4>100% Availability</h4>
-              <p>Items posted are available</p>
-            </div>
-            <div className="badge">
-              <Truck size={32} />
-              <h4>Fast Delivery</h4>
-              <p>Lagos & Nationwide</p>
-            </div>
-            <div className="badge">
-              <Award size={32} />
-              <h4>Quality Guaranteed</h4>
-              <p>Trusted suppliers</p>
-            </div>
-            <div className="badge">
-              <Clock size={32} />
-              <h4>Excellent Service</h4>
-              <p>Mon-Sat 9am-5pm</p>
+      {isHomePage && (
+        <div className="trust-badges">
+          <div className="container">
+            <div className="badges-grid">
+              <div className="badge">
+                <CheckCircle2 size={32} />
+                <h4>100% Availability</h4>
+                <p>Items posted are available</p>
+              </div>
+              <div className="badge">
+                <Truck size={32} />
+                <h4>Fast Delivery</h4>
+                <p>Lagos & Nationwide</p>
+              </div>
+              <div className="badge">
+                <Award size={32} />
+                <h4>Quality Guaranteed</h4>
+                <p>Trusted suppliers</p>
+              </div>
+              <div className="badge">
+                <Clock size={32} />
+                <h4>Excellent Service</h4>
+                <p>Mon-Sat 9am-5pm</p>
+              </div>
             </div>
           </div>
         </div>
-      </div>
+      )}
 
       <div className="footer-content">
         <div className="container">
           <div className="footer-grid">
             <div className="footer-section">
               <div className="footer-logo">
-                <img src="/IMG_8810.jpg" alt="Everything By Britol Logo" className="footer-logo-image" />
+                <img src="/ladies wear/logo.jpg" alt="Everything By Britol Logo" className="footer-logo-image" />
                 <h3>EVERYTHING BY BRITOL</h3>
               </div>
               <p>Your one-stop destination for quality fashion, lifestyle essentials, and luxury items. Located at 165, Seliat Bus-Stop, Egbeda, Lagos. We serve both wholesale and retail customers.</p>

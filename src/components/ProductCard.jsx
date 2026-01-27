@@ -26,6 +26,14 @@ function ProductCard({ product, onQuickAdd, onViewDetails }) {
     setQuantity(prev => prev > 1 ? prev - 1 : 1);
   };
 
+  const handleCardClick = (e) => {
+    e.stopPropagation();
+
+    if(onViewDetails){
+      onViewDetails(product)
+    }
+  }
+
   const handleQuickAdd = (e) => {
     e.stopPropagation();
     onQuickAdd(product, quantity);
@@ -47,7 +55,7 @@ function ProductCard({ product, onQuickAdd, onViewDetails }) {
   };
 
   return (
-    <div className="product-card" onClick={() => onViewDetails(product)} style={{ cursor: 'pointer' }}>
+    <div className="product-card" onClick={handleCardClick} style={{ cursor: 'pointer' }}>
       <div className="product-image-placeholder">
         <button 
           className={`product-wishlist-btn ${isFavorite ? 'active' : ''}`}
@@ -56,22 +64,20 @@ function ProductCard({ product, onQuickAdd, onViewDetails }) {
         >
           <Heart size={18} fill={isFavorite ? 'currentColor' : 'none'} />
         </button>
-        {product.images && product.images.length > 0 ? (
+        {(product.images || product.image) ? (
           <div className="product-gallery-preview" onClick={handleImageClick} style={{ cursor: 'zoom-in' }}>
             <img 
-              src={product.images[0]} 
+              src={Array.isArray(product.images) ? product.images[0] : (product.images || product.image)}
               alt={product.name}
               className="product-preview-image"
-              onClick={handleImageClick}
-              style={{ cursor: 'zoom-in' }}
               onError={(e) => {
                 e.target.src = 'data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><rect fill="%23f0f0f0" width="100" height="100"/></svg>';
               }}
             />
-            {product.images.length > 1 && (
+            {Array.isArray(product.images) && product.images.length > 1 && (
               <div className="gallery-indicator">
                 <Images size={16} />
-                <span>{product.images.length}</span>
+                <span>{product.images.length} {t('photos')}</span>
               </div>
             )}
           </div>
@@ -105,12 +111,12 @@ function ProductCard({ product, onQuickAdd, onViewDetails }) {
             </span>
           </div>
         )}
-        
+
         <div className="product-footer">
           <span className="price">₦{product.price.toLocaleString()}</span>
           <div className="product-actions">
             <div className="quantity-controls">
-              <button 
+              <button
                 onClick={decreaseQuantity}
                 className="quantity-btn"
                 aria-label="Decrease quantity"
@@ -118,7 +124,7 @@ function ProductCard({ product, onQuickAdd, onViewDetails }) {
                 <Minus size={14} />
               </button>
               <span className="quantity-display">{quantity}</span>
-              <button 
+              <button
                 onClick={increaseQuantity}
                 className="quantity-btn"
                 aria-label="Increase quantity"
@@ -126,7 +132,7 @@ function ProductCard({ product, onQuickAdd, onViewDetails }) {
                 <Plus size={14} />
               </button>
             </div>
-            <button 
+            <button
               onClick={handleQuickAdd}
               className="btn btn-primary"
             >

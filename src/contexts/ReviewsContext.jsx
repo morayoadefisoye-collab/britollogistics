@@ -31,7 +31,6 @@ export const ReviewsProvider = ({ children }) => {
       id: Date.now(),
       userId: user.id,
       userName: `${user.firstName} ${user.lastName}`,
-      userEmail: user.email,
       rating: reviewData.rating,
       date: new Date().toISOString(),
       verified: true, // In real app, this would be based on purchase history

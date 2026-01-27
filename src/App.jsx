@@ -39,40 +39,70 @@ function ScrollToTopOnMount() {
 }
 
 function App() {
-  const [cart, setCart] = useState([]);
+  const [cart, setCart] = useState(() => {
+    // Load cart from localStorage on initial load
+    const savedCart = localStorage.getItem('shopping_cart');
+    return savedCart ? JSON.parse(savedCart) : [];
+  });
 
+  // Save cart to localStorage whenever it changes
   useEffect(() => {
-    // Cart is not persisted - always starts empty on page refresh
-    // This ensures a fresh state after reload
-  }, []);
+    localStorage.setItem('shopping_cart', JSON.stringify(cart));
+  }, [cart]);
 
   const addToCart = (product, quantity = 1) => {
-    const existing = cart.find(item => item.id === product.id);
+    // Ensure we have an image for the cart item
+    const productImage = product.image || 
+                        (Array.isArray(product.images) ? product.images[0] : product.images) || 
+                        '/placeholder.jpg';
+    
+    const existing = cart.find(item => 
+      item.id === product.id && 
+      item.size === (product.size || 'N/A') && 
+      item.color === (product.color || 'N/A')
+    );
+    
     if (existing) {
       setCart(cart.map(item => 
-        item.id === product.id ? { ...item, quantity: item.quantity + quantity } : item
+        item.id === product.id && 
+        item.size === (product.size || 'N/A') && 
+        item.color === (product.color || 'N/A')
+          ? { ...item, quantity: item.quantity + quantity } 
+          : item
       ));
     } else {
-      setCart([...cart, { ...product, quantity }]);
+      setCart([...cart, { 
+        ...product, 
+        quantity,
+        image: productImage, // Ensure image is always set
+        size: product.size || 'N/A',
+        color: product.color || 'N/A',
+        addedAt: new Date().toISOString()
+      }]);
     }
   };
 
-  const removeFromCart = (productId) => {
-    setCart(cart.filter(item => item.id !== productId));
+  const removeFromCart = (productId, size = 'N/A', color = 'N/A') => {
+    setCart(cart.filter(item => 
+      !(item.id === productId && item.size === size && item.color === color)
+    ));
   };
 
-  const updateQuantity = (productId, quantity) => {
+  const updateQuantity = (productId, quantity, size = 'N/A', color = 'N/A') => {
     if (quantity <= 0) {
-      removeFromCart(productId);
+      removeFromCart(productId, size, color);
     } else {
       setCart(cart.map(item => 
-        item.id === productId ? { ...item, quantity } : item
+        item.id === productId && item.size === size && item.color === color
+          ? { ...item, quantity } 
+          : item
       ));
     }
   };
 
   const clearCart = () => {
     setCart([]);
+    localStorage.removeItem('shopping_cart');
   };
 
   return (

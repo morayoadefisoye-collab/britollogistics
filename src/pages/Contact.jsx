@@ -4,7 +4,6 @@ import { Send, Phone, MapPin, Clock } from 'lucide-react';
 function Contact() {
   const [formData, setFormData] = useState({
     name: '',
-    email: '',
     message: ''
   });
   const [errors, setErrors] = useState({});
@@ -18,12 +17,6 @@ function Contact() {
       newErrors.name = 'Name is required';
     } else if (formData.name.length < 2) {
       newErrors.name = 'Name must be at least 2 characters';
-    }
-    
-    if (!formData.email.trim()) {
-      newErrors.email = 'Email is required';
-    } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(formData.email)) {
-      newErrors.email = 'Please enter a valid email';
     }
     
     if (!formData.message.trim()) {
@@ -53,15 +46,14 @@ function Contact() {
     try {
       // Create WhatsApp message with proper encoding
       const whatsappMessage = `*NEW CONTACT MESSAGE*%0A%0A` +
-        `*From:* ${encodeURIComponent(formData.name)}%0A` +
-        `*Email:* ${encodeURIComponent(formData.email)}%0A%0A` +
+        `*From:* ${encodeURIComponent(formData.name)}%0A%0A` +
         `*Message:*%0A${encodeURIComponent(formData.message)}`;
       
       // Open WhatsApp with pre-filled message
       window.open(`https://wa.me/2348102505875?text=${whatsappMessage}`, '_blank');
       
       setSubmitSuccess(true);
-      setFormData({ name: '', email: '', message: '' });
+      setFormData({ name: '', message: '' });
       
       // Clear success message after 3 seconds
       setTimeout(() => setSubmitSuccess(false), 3000);
@@ -143,21 +135,6 @@ function Contact() {
                 aria-describedby={errors.name ? "name-error" : undefined}
               />
               {errors.name && <span id="name-error" className="error-message">{errors.name}</span>}
-            </div>
-            
-            <div className="form-group">
-              <label htmlFor="email">Your Email *</label>
-              <input
-                type="email"
-                id="email"
-                name="email"
-                placeholder="Enter your email"
-                value={formData.email}
-                onChange={handleChange}
-                aria-invalid={!!errors.email}
-                aria-describedby={errors.email ? "email-error" : undefined}
-              />
-              {errors.email && <span id="email-error" className="error-message">{errors.email}</span>}
             </div>
             
             <div className="form-group">

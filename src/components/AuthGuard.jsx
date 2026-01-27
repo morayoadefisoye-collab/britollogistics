@@ -2,59 +2,65 @@ import { useState } from 'react';
 import { useAuth } from '../contexts/AuthContext';
 import { useLanguage } from '../contexts/LanguageContext';
 import AuthModal from './AuthModal';
-import { User, LogIn } from 'lucide-react';
+import { User, LogIn, ShoppingBag } from 'lucide-react';
 
 function AuthGuard({ children }) {
   const { user } = useAuth();
   const { t } = useLanguage();
   const [authModalOpen, setAuthModalOpen] = useState(false);
-  const [authMode, setAuthMode] = useState('login');
+  const [authMode, setAuthMode] = useState('signup');
 
   const handleAuthClick = (mode) => {
     setAuthMode(mode);
     setAuthModalOpen(true);
   };
 
-  // Always render children - no blocking authentication
-  return (
-    <>
-      {children}
-      
-      {/* Minimal auth prompt for non-authenticated users */}
-      {!user && (
-        <div className="minimal-auth-prompt">
-          <div className="auth-prompt-content">
-            <div className="auth-prompt-text">
-              <User size={20} />
-              <span>Sign in for a better experience</span>
+  // Block access if user is not authenticated
+  if (!user) {
+    return (
+      <>
+        <div className="auth-required-overlay">
+          <div className="auth-required-content">
+            <div className="auth-required-header">
+              <ShoppingBag size={48} />
+              <h1>Welcome to Everything By Britol</h1>
+              <p>Please create an account or sign in to start shopping</p>
             </div>
-            <div className="auth-prompt-buttons">
-              <button 
-                onClick={() => handleAuthClick('login')} 
-                className="auth-prompt-btn login"
-              >
-                <LogIn size={16} />
-                {t('login')}
-              </button>
+            
+            <div className="auth-required-buttons">
               <button 
                 onClick={() => handleAuthClick('signup')} 
-                className="auth-prompt-btn signup"
+                className="auth-required-btn primary"
               >
-                <User size={16} />
-                {t('signup')}
+                <User size={20} />
+                Create Account
               </button>
+              <button 
+                onClick={() => handleAuthClick('login')} 
+                className="auth-required-btn secondary"
+              >
+                <LogIn size={20} />
+                Sign In
+              </button>
+            </div>
+            
+            <div className="auth-required-info">
+              <p>Join thousands of satisfied customers shopping with us!</p>
             </div>
           </div>
         </div>
-      )}
 
-      <AuthModal 
-        isOpen={authModalOpen}
-        onClose={() => setAuthModalOpen(false)}
-        initialMode={authMode}
-      />
-    </>
-  );
+        <AuthModal 
+          isOpen={authModalOpen}
+          onClose={() => setAuthModalOpen(false)}
+          initialMode={authMode}
+        />
+      </>
+    );
+  }
+
+  // Render children only if user is authenticated
+  return children;
 }
 
 export default AuthGuard;

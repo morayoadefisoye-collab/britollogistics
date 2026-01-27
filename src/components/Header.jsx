@@ -1,4 +1,4 @@
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { ShoppingCart, Menu, X, Search, User, Heart, LogOut } from 'lucide-react';
 import { useState } from 'react';
 import { useLanguage } from '../contexts/LanguageContext';
@@ -8,6 +8,7 @@ import LanguageSelector from './LanguageSelector';
 import AuthModal from './AuthModal';
 
 function Header({ cartCount }) {
+  const navigate = useNavigate();
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [searchOpen, setSearchOpen] = useState(false);
   const [searchQuery, setSearchQuery] = useState('');
@@ -21,8 +22,13 @@ function Header({ cartCount }) {
 
   const handleSearch = (e) => {
     e.preventDefault();
-    // Implement search functionality
-    // TODO: perform search using `searchQuery`
+    if (searchQuery.trim()) {
+      // Navigate to home page with search parameter
+      navigate(`/?search=${encodeURIComponent(searchQuery.trim())}`);
+      setSearchQuery(''); // Clear search after navigation
+      setSearchOpen(false); // Close mobile search
+      setMobileMenuOpen(false); // Close mobile menu
+    }
   };
 
   const handleAuthClick = (mode) => {
@@ -56,7 +62,7 @@ function Header({ cartCount }) {
         <div className="container">
           <div className="header-content">
             <Link to="/" className="advanced-logo">
-              <img src="/IMG_8810.jpg" alt="Everything By Britol Logo" className="logo-image" />
+              <img src="/ladies wear/logo.jpg" alt="Everything By Britol Logo" className="logo-image" />
               <div className="logo-text">
                 <h1>EVERYTHING BY BRITOL</h1>
               </div>

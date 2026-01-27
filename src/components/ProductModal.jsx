@@ -4,6 +4,7 @@ import ImageGallery from './ImageGallery';
 import AdvancedProductSelector from './AdvancedProductSelector';
 import ProductReviews from './ProductReviews';
 import { useLanguage } from '../contexts/LanguageContext';
+import ModalPortal from './modalPortal';
 
 function ProductModal({ product, onClose, onAddToCart, openGalleryOnLoad = false }) {
   const { t } = useLanguage();
@@ -26,20 +27,23 @@ function ProductModal({ product, onClose, onAddToCart, openGalleryOnLoad = false
     { name: 'Brown', value: '#A16207' }
   ];
 
+  // Categories that need sizes
   const needsSizes = product.category.includes('Fashion') ||
     product.category.includes('Wear') ||
     product.category.includes('Accessories') ||
-    product.hasGallery;
+    product.hasGallery; // Gallery products also need sizes
 
+  // Categories that need colors (similar to sizes but could be different)
   const needsColors = product.category.includes('Fashion') ||
     product.category.includes('Wear') ||
     product.category.includes('Accessories') ||
     product.category.includes('Home') ||
     product.category.includes('Decor') ||
-    product.hasGallery;
+    product.hasGallery; // Gallery products also need colors
 
   const availableSizes = product.sizes || sizes;
 
+  // Use product-specific colors if available, otherwise use default colors
   const availableColors = product.colors ?
     product.colors.map(colorName => {
       const colorMap = {
@@ -65,6 +69,13 @@ function ProductModal({ product, onClose, onAddToCart, openGalleryOnLoad = false
       };
     }) : colors;
 
+  // Normalize images
+  const productImages = Array.isArray(product.images)
+    ? product.images
+    : (product.images || product.image ? [product.images || product.image] : []);
+
+  const hasMultipleImages = productImages.length > 1;
+
   const handleAddToCart = (productToAdd = product, quantityToAdd = quantity) => {
     if (product.hasGallery && productToAdd !== product) {
       onAddToCart(productToAdd, quantityToAdd);
@@ -85,6 +96,7 @@ function ProductModal({ product, onClose, onAddToCart, openGalleryOnLoad = false
 
     const finalProduct = {
       ...product,
+      image: productImages[0], // Ensure cart item has an image
       size: selectedSize || 'N/A',
       color: selectedColor || 'N/A',
       quantity: quantity
@@ -99,39 +111,44 @@ function ProductModal({ product, onClose, onAddToCart, openGalleryOnLoad = false
   const decreaseQuantity = () => setQuantity(prev => prev > 1 ? prev - 1 : 1);
 
   return (
-    <>
-      <div className="modal-overlay" onClick={onClose}>
-        <div className="modal-content" onClick={(e) => e.stopPropagation()}>
+    <ModalPortal>
+      <div className="modal-overlay" onClick={onClose} style={{
+        position: 'fixed',
+        top: 0,
+        left: 0,
+        width: '100%',
+        height: '100%',
+        backgroundColor: 'rgba(0, 0, 0, 0.5)',
+        display: 'flex',
+        justifyContent: 'center',
+        alignItems: 'center',
+        zIndex: 1000
+      }}>
+        <div className="modal-content" onClick={(e) => e.stopPropagation()} style={{ maxHeight: '90vh', overflowY: 'auto', backgroundColor: 'white' }}>
           <button className="modal-close" onClick={onClose} aria-label="Close">
             <X size={24} />
           </button>
 
           <div className="modal-body">
             <div className="modal-image">
-              {product.images && product.images.length > 0 ? (
+              {productImages.length > 0 ? (
                 <div className="product-gallery-container">
                   <img
-                    src={product.images[0]}
+                    src={productImages[0]}
                     alt={product.name}
                     className="modal-main-image"
-                    onClick={(e) => {
-                      e.stopPropagation();
-                      setShowGallery(true);
-                    }}
-                    onError={(e) => {
-                      e.target.src = 'data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200"><rect fill="%23f0f0f0" width="200" height="200"/><text x="100" y="100" text-anchor="middle" dy=".3em" fill="%23999" font-size="16">Image</text></svg>';
-                    }}
-                    style={{ cursor: 'zoom-in' }}
-                    title="Click to expand image"
+                    onClick={() => hasMultipleImages && setShowGallery(true)}
+                    style={{ cursor: hasMultipleImages ? 'pointer' : 'default' }}
                   />
-                  <button
-                    className="view-gallery-btn"
-                    onClick={() => setShowGallery(true)}
-                    title={product.images.length > 1 ? "View all images" : "View image in full"}
-                  >
-                    <Eye size={16} />
-                    {product.images.length > 1 ? `View Gallery (${product.images.length})` : 'View Image'}
-                  </button>
+                  {hasMultipleImages && (
+                    <button
+                      className="view-gallery-btn"
+                      onClick={() => setShowGallery(true)}
+                    >
+                      <Eye size={16} />
+                      {t('viewGallery')} ({productImages.length} {t('photos')})
+                    </button>
+                  )}
                 </div>
               ) : (
                 <div className="product-image-placeholder">
@@ -150,14 +167,88 @@ function ProductModal({ product, onClose, onAddToCart, openGalleryOnLoad = false
                 <span className="price-value">₦{product.price.toLocaleString()}</span>
               </div>
 
-              <AdvancedProductSelector
-                product={product}
-                onAddToCart={handleAddToCart}
-                selectedSize={selectedSize}
-                selectedColor={selectedColor}
-                onSizeChange={setSelectedSize}
-                onColorChange={setSelectedColor}
-              />
+              {product.hasGallery ? (
+                <AdvancedProductSelector
+                  product={product}
+                  onAddToCart={handleAddToCart}
+                  selectedSize={selectedSize}
+                  selectedColor={selectedColor}
+                  onSizeChange={setSelectedSize}
+                  onColorChange={setSelectedColor}
+                />
+              ) : (
+                <>
+                  {needsSizes && (
+                    <div className="product-selection">
+                      <label htmlFor="size-select">{t('selectSize')}:</label>
+                      <select
+                        id="size-select"
+                        value={selectedSize}
+                        onChange={(e) => setSelectedSize(e.target.value)}
+                      >
+                        <option value="">Choose a size</option>
+                        {availableSizes.map(size => (
+                          <option key={size} value={size}>{size}</option>
+                        ))}
+                      </select>
+                    </div>
+                  )}
+
+                  {needsColors && (
+                    <div className="product-selection">
+                      <label htmlFor="color-select">{t('selectColor')}:</label>
+                      <div className="color-palette">
+                        {availableColors.map(color => (
+                          <button
+                            key={color.name}
+                            className={`color-option ${selectedColor === color.name ? 'selected' : ''}`}
+                            style={{ backgroundColor: color.value }}
+                            onClick={() => setSelectedColor(color.name)}
+                            title={color.name}
+                            aria-label={color.name}
+                          />
+                        ))}
+                      </div>
+                    </div>
+                  )}
+
+                  <div className="product-quantity">
+                    <label htmlFor="quantity-input">{t('quantity')}:</label>
+                    <div className="quantity-controls">
+                      <button
+                        onClick={decreaseQuantity}
+                        aria-label="Decrease quantity"
+                        className="quantity-btn"
+                      >
+                        <Minus size={18} />
+                      </button>
+                      <input
+                        id="quantity-input"
+                        type="number"
+                        min="1"
+                        value={quantity}
+                        onChange={(e) => setQuantity(Math.max(1, parseInt(e.target.value) || 1))}
+                        className="quantity-input"
+                      />
+                      <button
+                        onClick={increaseQuantity}
+                        aria-label="Increase quantity"
+                        className="quantity-btn"
+                      >
+                        <Plus size={18} />
+                      </button>
+                    </div>
+                  </div>
+
+                  <button
+                    onClick={handleAddToCart}
+                    className="add-to-cart-btn modal-add-to-cart-btn"
+                  >
+                    <ShoppingCart size={18} />
+                    {t('addToCart')}
+                  </button>
+                </>
+              )}
 
               <div className="product-info-note">
                 <p><strong>Note:</strong> Contact us on WhatsApp for bulk orders or special requests.</p>
@@ -169,15 +260,15 @@ function ProductModal({ product, onClose, onAddToCart, openGalleryOnLoad = false
             </div>
           </div>
         </div>
-      </div>
 
-      {showGallery && product.images && (
-        <ImageGallery
-          images={product.images}
-          onClose={() => setShowGallery(false)}
-        />
-      )}
-    </>
+        {showGallery && productImages.length > 0 && (
+          <ImageGallery
+            images={productImages}
+            onClose={() => setShowGallery(false)}
+          />
+        )}
+      </div>
+    </ModalPortal>
   );
 }
 

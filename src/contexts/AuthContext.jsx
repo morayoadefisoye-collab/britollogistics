@@ -27,7 +27,7 @@ export const AuthProvider = ({ children }) => {
     }
   }, [user]);
 
-  const login = async (email, password) => {
+  const login = async (firstName, password) => {
     setIsLoading(true);
     
     // Simulate API call
@@ -35,7 +35,7 @@ export const AuthProvider = ({ children }) => {
       setTimeout(() => {
         // Simple validation - in real app, this would be an API call
         const users = JSON.parse(localStorage.getItem('registeredUsers') || '[]');
-        const foundUser = users.find(u => u.email === email && u.password === password);
+        const foundUser = users.find(u => u.firstName === firstName && u.password === password);
         
         if (foundUser) {
           const userWithoutPassword = { ...foundUser };
@@ -45,7 +45,7 @@ export const AuthProvider = ({ children }) => {
           resolve(userWithoutPassword);
         } else {
           setIsLoading(false);
-          reject(new Error('Invalid email or password'));
+          reject(new Error('Invalid first name or password'));
         }
       }, 1000);
     });
@@ -59,9 +59,9 @@ export const AuthProvider = ({ children }) => {
         const users = JSON.parse(localStorage.getItem('registeredUsers') || '[]');
         
         // Check if user already exists
-        if (users.find(u => u.email === userData.email)) {
+        if (users.find(u => u.firstName === userData.firstName && u.lastName === userData.lastName)) {
           setIsLoading(false);
-          reject(new Error('User with this email already exists'));
+          reject(new Error('User with this name already exists'));
           return;
         }
 
