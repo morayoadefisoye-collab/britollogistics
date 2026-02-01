@@ -10,7 +10,7 @@ import AuthModal from './AuthModal';
 function Header({ cartCount }) {
   const navigate = useNavigate();
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
-  const [searchOpen, setSearchOpen] = useState(false);
+
   const [searchQuery, setSearchQuery] = useState('');
   const [authModalOpen, setAuthModalOpen] = useState(false);
   const [authMode, setAuthMode] = useState('login');
@@ -26,7 +26,6 @@ function Header({ cartCount }) {
       // Navigate to home page with search parameter
       navigate(`/?search=${encodeURIComponent(searchQuery.trim())}`);
       setSearchQuery(''); // Clear search after navigation
-      setSearchOpen(false); // Close mobile search
       setMobileMenuOpen(false); // Close mobile menu
     }
   };
@@ -153,37 +152,11 @@ function Header({ cartCount }) {
         </div>
       </nav>
 
-      {/* Mobile Search */}
-      {searchOpen && (
-        <div className="mobile-search">
-          <div className="container">
-            <form onSubmit={handleSearch} className="mobile-search-form">
-              <input
-                type="text"
-                placeholder={t('searchProducts')}
-                value={searchQuery}
-                onChange={(e) => setSearchQuery(e.target.value)}
-                className="mobile-search-input"
-                autoFocus
-              />
-              <button type="button" onClick={() => setSearchOpen(false)}>
-                <X size={20} />
-              </button>
-            </form>
-          </div>
-        </div>
-      )}
 
       {/* Mobile Menu Overlay */}
       {mobileMenuOpen && (
         <div className="mobile-menu-overlay">
           <div className="mobile-menu-content">
-            <div className="mobile-search-trigger">
-              <button onClick={() => setSearchOpen(true)} className="mobile-search-btn">
-                <Search size={20} />
-                <span>{t('searchProducts')}</span>
-              </button>
-            </div>
             
             <div className="mobile-nav-links">
               <Link to="/" onClick={() => setMobileMenuOpen(false)}>{t('home')}</Link>

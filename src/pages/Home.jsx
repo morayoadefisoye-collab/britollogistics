@@ -14,7 +14,6 @@ function Home({ addToCart }) {
   const [sortBy, setSortBy] = useState('featured');
   const [selectedProduct, setSelectedProduct] = useState(null);
   const [openGallery, setOpenGallery] = useState(false);
-
   // Handle URL search parameters
   useEffect(() => {
     const urlSearchTerm = searchParams.get('search');
@@ -41,14 +40,8 @@ function Home({ addToCart }) {
   const categories = [
     { key: 'All', label: t('allCategories') },
     { key: "Ladies' Fashion", label: t('ladiesFashion') },
-    { key: "Men's Fashion", label: t('mensFashion') },
-    { key: "Children's Wear", label: t('childrensWear') },
     { key: "Ladies' Accessories", label: t('ladiesAccessories') },
-    { key: "Men's Accessories", label: t('mensAccessories') },
-    { key: 'Perfumes', label: t('perfumes') },
-    { key: 'Household', label: t('household') },
-    { key: 'Gold Accessories', label: t('goldAccessories') },
-    { key: 'Featured Collection', label: t('featuredCollection') }
+    { key: 'Perfumes', label: t('perfumes') }
   ];
 
   const handleQuickAdd = (product, quantity = 1) => {
@@ -69,6 +62,7 @@ function Home({ addToCart }) {
     addToCart(product, quantity);
   };
 
+  // Filter and sort products
   let filteredProducts = productsData.filter(product => {
     const matchesSearch = product.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
       product.description.toLowerCase().includes(searchTerm.toLowerCase());
@@ -85,11 +79,6 @@ function Home({ addToCart }) {
 
   return (
     <div className="container">
-      <section className="hero">
-        <h1 className="sr-only">Everything By Britol - Online Shopping</h1>
-        <h2>{t('heroTitle')}</h2>
-        <p>{t('heroSubtitle')}</p>
-      </section>
 
       <div className="search-filter-section">
         <div className="search-box">

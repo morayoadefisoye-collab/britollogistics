@@ -94,8 +94,6 @@ const translations = {
     noResults: 'No products found matching your criteria',
     
     // Hero Section
-    heroTitle: 'Everything You\'ll Ever Need',
-    heroSubtitle: 'Quality products, trusted service, unbeatable prices',
     
     // Product Modal
     selectSizeColor: 'Select Size & Color',
@@ -262,8 +260,6 @@ const translations = {
     noResults: 'Aucun produit trouvé correspondant à vos critères',
     
     // Hero Section
-    heroTitle: 'Tout ce dont vous aurez jamais besoin',
-    heroSubtitle: 'Produits de qualité, service de confiance, prix imbattables',
     
     // Product Modal
     selectSizeColor: 'Choisir Taille et Couleur',
@@ -408,8 +404,6 @@ const translations = {
     noResults: 'No se encontraron productos que coincidan con sus criterios',
     
     // Hero Section
-    heroTitle: 'Todo lo que necesitarás',
-    heroSubtitle: 'Productos de calidad, servicio confiable, precios inmejorables',
     
     // Product Modal
     selectSizeColor: 'Seleccionar Talla y Color',
@@ -554,8 +548,6 @@ const translations = {
     noResults: 'لم يتم العثور على منتجات تطابق معاييرك',
     
     // Hero Section
-    heroTitle: 'كل ما ستحتاجه',
-    heroSubtitle: 'منتجات عالية الجودة، خدمة موثوقة، أسعار لا تقاوم',
     
     // Product Modal
     selectSizeColor: 'اختر المقاس واللون',
@@ -700,8 +692,6 @@ const translations = {
     noResults: '未找到符合条件的产品',
     
     // Hero Section
-    heroTitle: '您需要的一切',
-    heroSubtitle: '优质产品，可信服务，无与伦比的价格',
     
     // Product Modal
     selectSizeColor: '选择尺寸和颜色',

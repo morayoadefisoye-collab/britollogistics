@@ -2,7 +2,6 @@ import { X, ShoppingCart, Plus, Minus, Eye } from 'lucide-react';
 import { useState } from 'react';
 import ImageGallery from './ImageGallery';
 import AdvancedProductSelector from './AdvancedProductSelector';
-import ProductReviews from './ProductReviews';
 import { useLanguage } from '../contexts/LanguageContext';
 import ModalPortal from './modalPortal';
 
@@ -254,8 +253,15 @@ function ProductModal({ product, onClose, onAddToCart, openGalleryOnLoad = false
                 <p><strong>Note:</strong> Contact us on WhatsApp for bulk orders or special requests.</p>
               </div>
 
-              <div className="product-reviews-section">
-                <ProductReviews product={product} />
+              <div className="product-rating-section">
+                <div className="rating-display">
+                  <div className="stars">
+                    {[...Array(5)].map((_, i) => (
+                      <span key={i} className={`star ${i < Math.floor(product.rating) ? 'filled' : ''}`}>★</span>
+                    ))}
+                  </div>
+                  <span className="rating-text">{product.rating}/5.0</span>
+                </div>
               </div>
             </div>
           </div>

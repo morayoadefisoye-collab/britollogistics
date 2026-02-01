@@ -563,7 +563,7 @@ nav {
   z-index: 1;
 }
 
-/* Enhanced Products Grid Responsiveness */
+/* Enhanced Products Grid Responsiveness - Improved Large Screen Layout */
 .products-grid {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(min(320px, 100%), 1fr));
@@ -573,13 +573,48 @@ nav {
   width: 100%;
 }
 
+/* Large Screen Optimizations */
+@media (min-width: 1200px) {
+  .products-grid {
+    grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+    gap: 2.5rem;
+    padding: 0 2rem;
+  }
+  
+  .product-card {
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+  
+  .product-card:hover {
+    transform: translateY(-12px) scale(1.02);
+    box-shadow: 0 20px 60px rgba(0,0,0,0.15);
+    z-index: 10;
+  }
+}
+
+@media (min-width: 1440px) {
+  .products-grid {
+    grid-template-columns: repeat(auto-fill, minmax(380px, 1fr));
+    gap: 3rem;
+    padding: 0 3rem;
+  }
+}
+
+@media (min-width: 1920px) {
+  .products-grid {
+    grid-template-columns: repeat(auto-fill, minmax(420px, 1fr));
+    gap: 3.5rem;
+    padding: 0 4rem;
+  }
+}
+
 /* Ensure grid items don't overflow */
 .products-grid > * {
   min-width: 0;
   max-width: 100%;
 }
 
-/* Enhanced Product Card Responsiveness */
+/* Enhanced Product Card Responsiveness - Improved Image Display */
 .product-card {
   background: white;
   border-radius: clamp(8px, 2vw, 16px);
@@ -591,12 +626,36 @@ nav {
   animation: fadeInUp 0.6s ease-out;
   width: 100%;
   height: fit-content;
+  position: relative;
 }
 
 .product-card:hover {
   transform: translateY(clamp(-4px, -1vw, -8px));
   box-shadow: 0 12px 40px rgba(0,0,0,0.15);
   border-color: #2563eb;
+}
+
+/* Large Screen Product Card Enhancements */
+@media (min-width: 1200px) {
+  .product-card {
+    border-radius: 20px;
+    overflow: hidden;
+  }
+  
+  .product-card:hover {
+    transform: translateY(-12px) scale(1.02);
+    box-shadow: 0 25px 80px rgba(0,0,0,0.2);
+    border-color: #2563eb;
+  }
+  
+  .product-card:hover .product-image-placeholder img,
+  .product-card:hover .product-preview-image {
+    transform: scale(1.1);
+  }
+  
+  .product-card:hover .product-info {
+    background: linear-gradient(135deg, #f8fafc 0%, #ffffff 100%);
+  }
 }
 
 /* Product Image Responsiveness */
@@ -8972,4 +9031,50 @@ body {
 .search-input.auto-completed:focus {
   border-color: #10b981;
   box-shadow: 0 0 0 3px rgba(16, 185, 129, 0.1);
+}
+/* Star Rating Styles */
+.stars {
+  display: inline-flex;
+  gap: 2px;
+}
+
+.star {
+  color: #ddd;
+  font-size: 16px;
+  transition: color 0.2s ease;
+}
+
+.star.filled {
+  color: #fbbf24;
+}
+
+.rating-display {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.rating-text {
+  font-size: 14px;
+  color: #666;
+  font-weight: 500;
+}
+
+.product-rating-section {
+  margin: 16px 0;
+  padding: 16px 0;
+  border-top: 1px solid #eee;
+}
+
+.product-rating-section .rating-display {
+  justify-content: center;
+}
+
+.product-rating-section .stars .star {
+  font-size: 20px;
+}
+
+.product-rating-section .rating-text {
+  font-size: 16px;
+  color: #333;
 }

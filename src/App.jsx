@@ -3,7 +3,6 @@ import { useState, useEffect } from 'react';
 import { LanguageProvider } from './contexts/LanguageContext';
 import { AuthProvider } from './contexts/AuthContext';
 import { WishlistProvider } from './contexts/WishlistContext';
-import { ReviewsProvider } from './contexts/ReviewsContext';
 import Header from './components/Header';
 import Footer from './components/Footer';
 import Breadcrumb from './components/Breadcrumb';
@@ -109,7 +108,6 @@ function App() {
     <LanguageProvider>
       <AuthProvider>
         <WishlistProvider>
-          <ReviewsProvider>
             <Router>
               <ScrollToTopOnMount />
               <div className="app">
@@ -143,7 +141,6 @@ function App() {
                 </ErrorBoundary>
               </div>
             </Router>
-          </ReviewsProvider>
         </WishlistProvider>
       </AuthProvider>
     </LanguageProvider>

@@ -1,20 +1,17 @@
 import { ShoppingCart, Plus, Minus, Images, Star, Heart } from 'lucide-react';
 import { useState } from 'react';
 import { useLanguage } from '../contexts/LanguageContext';
-import { useReviews } from '../contexts/ReviewsContext';
 import { useWishlist } from '../contexts/WishlistContext';
 import { useAuth } from '../contexts/AuthContext';
 
 function ProductCard({ product, onQuickAdd, onViewDetails }) {
   const { t } = useLanguage();
-  const { getProductRating } = useReviews();
   const { isInWishlist, toggleWishlist } = useWishlist();
   const { user } = useAuth();
   const [quantity, setQuantity] = useState(1);
   const [showAuthPrompt, setShowAuthPrompt] = useState(false);
 
   const isFavorite = isInWishlist(product.id);
-  const productRating = getProductRating(product.id);
 
   const increaseQuantity = (e) => {
     e.stopPropagation();
@@ -94,23 +91,21 @@ function ProductCard({ product, onQuickAdd, onViewDetails }) {
         <p className="product-description">{product.description}</p>
         
         {/* Product Rating */}
-        {productRating.count > 0 && (
-          <div className="product-rating">
-            <div className="rating-stars">
-              {[1, 2, 3, 4, 5].map(star => (
-                <Star
-                  key={star}
-                  size={14}
-                  fill={star <= Math.round(productRating.average) ? '#fbbf24' : 'none'}
-                  color={star <= Math.round(productRating.average) ? '#fbbf24' : '#d1d5db'}
-                />
-              ))}
-            </div>
-            <span className="rating-text">
-              {productRating.average} ({productRating.count})
-            </span>
+        <div className="product-rating">
+          <div className="rating-stars">
+            {[1, 2, 3, 4, 5].map(star => (
+              <Star
+                key={star}
+                size={14}
+                fill={star <= Math.round(product.rating) ? '#fbbf24' : 'none'}
+                color={star <= Math.round(product.rating) ? '#fbbf24' : '#d1d5db'}
+              />
+            ))}
           </div>
-        )}
+          <span className="rating-text">
+            {product.rating}/5.0
+          </span>
+        </div>
 
         <div className="product-footer">
           <span className="price">₦{product.price.toLocaleString()}</span>
