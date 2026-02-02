@@ -9273,3 +9273,209 @@ body {
     max-width: 1600px;
   }
 }
+/* Beautiful Creator Credit Styling */
+.creator-credit {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  transition: all 0.3s ease;
+}
+
+.created-by {
+  font-size: 0.875rem;
+  color: #6b7280;
+  font-weight: 400;
+  letter-spacing: 0.025em;
+}
+
+.creator-name {
+  font-size: 1rem;
+  font-weight: 700;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 50%, #f093fb 100%);
+  background-size: 200% 200%;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  animation: gradientShift 3s ease-in-out infinite;
+  position: relative;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.creator-name::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 50%, #f093fb 100%);
+  background-size: 200% 200%;
+  opacity: 0;
+  border-radius: 4px;
+  z-index: -1;
+  transition: opacity 0.3s ease;
+  animation: gradientShift 3s ease-in-out infinite;
+}
+
+.creator-name:hover {
+  transform: translateY(-2px);
+  text-shadow: 0 4px 8px rgba(102, 126, 234, 0.3);
+}
+
+.creator-name:hover::before {
+  opacity: 0.1;
+}
+
+@keyframes gradientShift {
+  0%, 100% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+}
+
+/* Enhanced styling for different screen sizes */
+@media (max-width: 768px) {
+  .creator-credit {
+    flex-direction: column;
+    gap: 0.25rem;
+    text-align: center;
+  }
+  
+  .created-by {
+    font-size: 0.8125rem;
+  }
+  
+  .creator-name {
+    font-size: 0.9375rem;
+  }
+}
+
+@media (min-width: 1024px) {
+  .creator-credit {
+    gap: 0.75rem;
+  }
+  
+  .created-by {
+    font-size: 0.9375rem;
+  }
+  
+  .creator-name {
+    font-size: 1.125rem;
+    font-weight: 800;
+  }
+  
+  .creator-name:hover {
+    transform: translateY(-3px) scale(1.05);
+    text-shadow: 0 6px 12px rgba(102, 126, 234, 0.4);
+  }
+}
+
+/* Add a subtle glow effect on hover for larger screens */
+@media (min-width: 1024px) {
+  .creator-name:hover {
+    filter: drop-shadow(0 0 8px rgba(102, 126, 234, 0.5));
+  }
+}
+
+/* Alternative dark theme styling */
+@media (prefers-color-scheme: dark) {
+  .created-by {
+    color: #9ca3af;
+  }
+  
+  .creator-name {
+    background: linear-gradient(135deg, #60a5fa 0%, #a78bfa 50%, #f472b6 100%);
+    background-size: 200% 200%;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+  
+  .creator-name::before {
+    background: linear-gradient(135deg, #60a5fa 0%, #a78bfa 50%, #f472b6 100%);
+    background-size: 200% 200%;
+  }
+  
+  .creator-name:hover {
+    text-shadow: 0 4px 8px rgba(96, 165, 250, 0.4);
+  }
+}
+/* Code Icon Styling */
+.code-icon {
+  color: #667eea;
+  transition: all 0.3s ease;
+  animation: pulse 2s infinite;
+}
+
+.creator-credit:hover .code-icon {
+  color: #764ba2;
+  transform: rotate(360deg) scale(1.1);
+  animation: none;
+}
+
+@keyframes pulse {
+  0%, 100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 0.7;
+    transform: scale(1.05);
+  }
+}
+
+/* Enhanced creator credit with icon */
+.creator-credit {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  transition: all 0.3s ease;
+  padding: 0.5rem 1rem;
+  border-radius: 12px;
+  background: rgba(255, 255, 255, 0.05);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.creator-credit:hover {
+  background: rgba(255, 255, 255, 0.1);
+  border-color: rgba(102, 126, 234, 0.3);
+  transform: translateY(-2px);
+  box-shadow: 0 8px 25px rgba(102, 126, 234, 0.15);
+}
+
+/* Mobile adjustments for the enhanced design */
+@media (max-width: 768px) {
+  .creator-credit {
+    padding: 0.375rem 0.75rem;
+    border-radius: 8px;
+  }
+  
+  .code-icon {
+    width: 14px;
+    height: 14px;
+  }
+}
+
+/* Large screen enhancements */
+@media (min-width: 1024px) {
+  .creator-credit {
+    padding: 0.625rem 1.25rem;
+    border-radius: 16px;
+  }
+  
+  .code-icon {
+    width: 18px;
+    height: 18px;
+  }
+  
+  .creator-credit:hover {
+    transform: translateY(-3px) scale(1.02);
+    box-shadow: 0 12px 35px rgba(102, 126, 234, 0.2);
+  }
+}

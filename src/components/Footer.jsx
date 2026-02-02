@@ -1,5 +1,5 @@
 import { Link, useLocation } from 'react-router-dom';
-import { Mail, Phone, MapPin, Facebook, Instagram, CheckCircle2, Truck, Award, Clock } from 'lucide-react';
+import { Mail, Phone, MapPin, Facebook, Instagram, CheckCircle2, Truck, Award, Clock, Code } from 'lucide-react';
 
 function Footer() {
   const { pathname } = useLocation();
@@ -113,10 +113,10 @@ function Footer() {
         <div className="container">
           <p>&copy; 2024 EVERYTHING BY BRITOL. All rights reserved.</p>
           <div className="payment-methods">
-            <span>We Accept:</span>
-            <div className="payment-icons">
-              <span className="payment-icon">Bank Transfer</span>
-              <span className="payment-icon">Cash</span>
+            <div className="creator-credit">
+              <Code size={16} className="code-icon" />
+              <span className="created-by">Created by</span>
+              <span className="creator-name">Yung_codex</span>
             </div>
           </div>
         </div>
