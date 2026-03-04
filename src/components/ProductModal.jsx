@@ -7,66 +7,8 @@ import ModalPortal from './modalPortal';
 
 function ProductModal({ product, onClose, onAddToCart, openGalleryOnLoad = false }) {
   const { t } = useLanguage();
-  const [selectedSize, setSelectedSize] = useState('');
-  const [selectedColor, setSelectedColor] = useState('');
   const [quantity, setQuantity] = useState(1);
   const [showGallery, setShowGallery] = useState(openGalleryOnLoad && product.images && product.images.length > 0);
-
-  const sizes = ['XS', 'S', 'M', 'L', 'XL', 'XXL'];
-  const colors = [
-    { name: 'Black', value: '#000000' },
-    { name: 'White', value: '#FFFFFF' },
-    { name: 'Red', value: '#DC2626' },
-    { name: 'Blue', value: '#2563EB' },
-    { name: 'Green', value: '#16A34A' },
-    { name: 'Yellow', value: '#EAB308' },
-    { name: 'Purple', value: '#9333EA' },
-    { name: 'Pink', value: '#EC4899' },
-    { name: 'Gray', value: '#6B7280' },
-    { name: 'Brown', value: '#A16207' }
-  ];
-
-  // Categories that need sizes
-  const needsSizes = product.category.includes('Fashion') ||
-    product.category.includes('Wear') ||
-    product.category.includes('Accessories') ||
-    product.hasGallery; // Gallery products also need sizes
-
-  // Categories that need colors (similar to sizes but could be different)
-  const needsColors = product.category.includes('Fashion') ||
-    product.category.includes('Wear') ||
-    product.category.includes('Accessories') ||
-    product.category.includes('Home') ||
-    product.category.includes('Decor') ||
-    product.hasGallery; // Gallery products also need colors
-
-  const availableSizes = product.sizes || sizes;
-
-  // Use product-specific colors if available, otherwise use default colors
-  const availableColors = product.colors ?
-    product.colors.map(colorName => {
-      const colorMap = {
-        'Green': '#16A34A',
-        'Cream': '#FEF3C7',
-        'White': '#FFFFFF',
-        'Red': '#DC2626',
-        'Purple': '#9333EA',
-        'Black': '#000000',
-        'Blue': '#2563EB',
-        'Pink': '#EC4899',
-        'Gray': '#6B7280',
-        'Brown': '#A16207',
-        'Yellow': '#EAB308',
-        'Blush Pink': '#F9A8D4',
-        'Champagne': '#F7E7CE',
-        'Navy Blue': '#1E3A8A',
-        'Sage Green': '#84CC16'
-      };
-      return {
-        name: colorName,
-        value: colorMap[colorName] || '#6B7280'
-      };
-    }) : colors;
 
   // Normalize images
   const productImages = Array.isArray(product.images)
@@ -87,21 +29,11 @@ function ProductModal({ product, onClose, onAddToCart, openGalleryOnLoad = false
       return;
     }
 
-    if (needsSizes && !selectedSize) {
-      alert('Please select a size');
-      return;
-    }
-
-    if (needsColors && !selectedColor) {
-      alert('Please select a color');
-      return;
-    }
-
     const finalProduct = {
       ...product,
       image: productImages[0], // Ensure cart item has an image
-      size: selectedSize || 'N/A',
-      color: selectedColor || 'N/A',
+      size: 'N/A',
+      color: 'N/A',
       quantity: quantity
     };
 
@@ -174,49 +106,9 @@ function ProductModal({ product, onClose, onAddToCart, openGalleryOnLoad = false
                 <AdvancedProductSelector
                   product={product}
                   onAddToCart={handleAddToCart}
-                  selectedSize={selectedSize}
-                  selectedColor={selectedColor}
-                  onSizeChange={setSelectedSize}
-                  onColorChange={setSelectedColor}
                 />
               ) : (
                 <>
-                  {needsSizes && (
-                    <div className="product-selection">
-                      <label htmlFor="size-select">{t('selectSize')}:</label>
-                      <select
-                        id="size-select"
-                        value={selectedSize}
-                        onChange={(e) => setSelectedSize(e.target.value)}
-                        disabled={product.isSoldOut}
-                      >
-                        <option value="">Choose a size</option>
-                        {availableSizes.map(size => (
-                          <option key={size} value={size}>{size}</option>
-                        ))}
-                      </select>
-                    </div>
-                  )}
-
-                  {needsColors && (
-                    <div className="product-selection">
-                      <label htmlFor="color-select">{t('selectColor')}:</label>
-                      <div className="color-palette">
-                        {availableColors.map(color => (
-                          <button
-                            key={color.name}
-                            className={`color-option ${selectedColor === color.name ? 'selected' : ''}`}
-                            style={{ backgroundColor: color.value }}
-                            onClick={() => setSelectedColor(color.name)}
-                            title={color.name}
-                            aria-label={color.name}
-                            disabled={product.isSoldOut}
-                          />
-                        ))}
-                      </div>
-                    </div>
-                  )}
-
                   {!product.isSoldOut && (
                     <div className="product-quantity">
                       <label htmlFor="quantity-input">{t('quantity')}:</label>
