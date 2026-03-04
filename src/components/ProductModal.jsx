@@ -76,6 +76,10 @@ function ProductModal({ product, onClose, onAddToCart, openGalleryOnLoad = false
   const hasMultipleImages = productImages.length > 1;
 
   const handleAddToCart = (productToAdd = product, quantityToAdd = quantity) => {
+    if (product.isSoldOut) {
+      return;
+    }
+
     if (product.hasGallery && productToAdd !== product) {
       onAddToCart(productToAdd, quantityToAdd);
       setQuantity(1);
@@ -240,11 +244,13 @@ function ProductModal({ product, onClose, onAddToCart, openGalleryOnLoad = false
                   </div>
 
                   <button
-                    onClick={handleAddToCart}
+                    onClick={product.isSoldOut ? undefined : handleAddToCart}
+                    disabled={product.isSoldOut}
                     className="add-to-cart-btn modal-add-to-cart-btn"
+                    style={product.isSoldOut ? { opacity: 0.7, cursor: 'not-allowed', backgroundColor: '#6b7280' } : {}}
                   >
-                    <ShoppingCart size={18} />
-                    {t('addToCart')}
+                    {product.isSoldOut ? null : <ShoppingCart size={18} />}
+                    {product.isSoldOut ? 'Sold Out' : t('addToCart')}
                   </button>
                 </>
               )}

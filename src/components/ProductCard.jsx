@@ -53,7 +53,23 @@ function ProductCard({ product, onQuickAdd, onViewDetails }) {
 
   return (
     <div className="product-card" onClick={handleCardClick} style={{ cursor: 'pointer' }}>
-      <div className="product-image-placeholder">
+      <div className="product-image-placeholder" style={{ position: 'relative' }}>
+        {product.isSoldOut && (
+          <div style={{
+            position: 'absolute',
+            top: '10px',
+            left: '10px',
+            backgroundColor: '#e21010',
+            color: 'white',
+            padding: '4px 8px',
+            borderRadius: '4px',
+            fontSize: '12px',
+            fontWeight: 'bold',
+            zIndex: 10
+          }}>
+            SOLD OUT
+          </div>
+        )}
         <button 
           className={`product-wishlist-btn ${isFavorite ? 'active' : ''}`}
           onClick={handleWishlistToggle}
@@ -110,29 +126,33 @@ function ProductCard({ product, onQuickAdd, onViewDetails }) {
         <div className="product-footer">
           <span className="price">₦{product.price.toLocaleString()}</span>
           <div className="product-actions">
-            <div className="quantity-controls">
-              <button
-                onClick={decreaseQuantity}
-                className="quantity-btn"
-                aria-label="Decrease quantity"
-              >
-                <Minus size={14} />
-              </button>
-              <span className="quantity-display">{quantity}</span>
-              <button
-                onClick={increaseQuantity}
-                className="quantity-btn"
-                aria-label="Increase quantity"
-              >
-                <Plus size={14} />
-              </button>
-            </div>
+            {!product.isSoldOut && (
+              <div className="quantity-controls">
+                <button
+                  onClick={decreaseQuantity}
+                  className="quantity-btn"
+                  aria-label="Decrease quantity"
+                >
+                  <Minus size={14} />
+                </button>
+                <span className="quantity-display">{quantity}</span>
+                <button
+                  onClick={increaseQuantity}
+                  className="quantity-btn"
+                  aria-label="Increase quantity"
+                >
+                  <Plus size={14} />
+                </button>
+              </div>
+            )}
             <button
-              onClick={handleQuickAdd}
+              onClick={product.isSoldOut ? (e) => e.stopPropagation() : handleQuickAdd}
               className="btn btn-primary"
+              disabled={product.isSoldOut}
+              style={product.isSoldOut ? { opacity: 0.7, cursor: 'not-allowed', backgroundColor: '#6b7280' } : {}}
             >
-              <ShoppingCart size={18} />
-              {t('addToCart')}
+              {product.isSoldOut ? null : <ShoppingCart size={18} />}
+              {product.isSoldOut ? 'Sold Out' : t('addToCart')}
             </button>
           </div>
         </div>
