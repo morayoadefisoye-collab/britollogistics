@@ -188,6 +188,7 @@ function ProductModal({ product, onClose, onAddToCart, openGalleryOnLoad = false
                         id="size-select"
                         value={selectedSize}
                         onChange={(e) => setSelectedSize(e.target.value)}
+                        disabled={product.isSoldOut}
                       >
                         <option value="">Choose a size</option>
                         {availableSizes.map(size => (
@@ -209,39 +210,42 @@ function ProductModal({ product, onClose, onAddToCart, openGalleryOnLoad = false
                             onClick={() => setSelectedColor(color.name)}
                             title={color.name}
                             aria-label={color.name}
+                            disabled={product.isSoldOut}
                           />
                         ))}
                       </div>
                     </div>
                   )}
 
-                  <div className="product-quantity">
-                    <label htmlFor="quantity-input">{t('quantity')}:</label>
-                    <div className="quantity-controls">
-                      <button
-                        onClick={decreaseQuantity}
-                        aria-label="Decrease quantity"
-                        className="quantity-btn"
-                      >
-                        <Minus size={18} />
-                      </button>
-                      <input
-                        id="quantity-input"
-                        type="number"
-                        min="1"
-                        value={quantity}
-                        onChange={(e) => setQuantity(Math.max(1, parseInt(e.target.value) || 1))}
-                        className="quantity-input"
-                      />
-                      <button
-                        onClick={increaseQuantity}
-                        aria-label="Increase quantity"
-                        className="quantity-btn"
-                      >
-                        <Plus size={18} />
-                      </button>
+                  {!product.isSoldOut && (
+                    <div className="product-quantity">
+                      <label htmlFor="quantity-input">{t('quantity')}:</label>
+                      <div className="quantity-controls">
+                        <button
+                          onClick={decreaseQuantity}
+                          aria-label="Decrease quantity"
+                          className="quantity-btn"
+                        >
+                          <Minus size={18} />
+                        </button>
+                        <input
+                          id="quantity-input"
+                          type="number"
+                          min="1"
+                          value={quantity}
+                          onChange={(e) => setQuantity(Math.max(1, parseInt(e.target.value) || 1))}
+                          className="quantity-input"
+                        />
+                        <button
+                          onClick={increaseQuantity}
+                          aria-label="Increase quantity"
+                          className="quantity-btn"
+                        >
+                          <Plus size={18} />
+                        </button>
+                      </div>
                     </div>
-                  </div>
+                  )}
 
                   <button
                     onClick={product.isSoldOut ? undefined : handleAddToCart}

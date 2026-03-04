@@ -72,10 +72,14 @@ function AdvancedProductSelector({ product, onAddToCart, selectedSize, selectedC
     return 10; 
   };
 
-  const currentStock = 10; // Default stock
-  const stockStatus = { status: 'in-stock', text: t('inStock'), color: '#10b981' };
+  const stockStatus = product.isSoldOut
+    ? { status: 'out-of-stock', text: 'Sold Out', color: '#dc2626' }
+    : { status: 'in-stock', text: t('inStock'), color: '#10b981' };
 
   const handleAddToCart = () => {
+    if (product.isSoldOut) {
+      return;
+    }
     const productToAdd = {
       ...product,
       size: selectedSize || 'N/A',
@@ -123,6 +127,7 @@ function AdvancedProductSelector({ product, onAddToCart, selectedSize, selectedC
                   <button
                     className={`advanced-size-btn ${isSelected ? 'selected' : ''}`}
                     onClick={() => onSizeChange(size)}
+                    disabled={product.isSoldOut}
                   >
                     <span className="size-label">{size}</span>
                     {isSelected && <Check size={14} className="check-icon" />}
@@ -159,6 +164,7 @@ function AdvancedProductSelector({ product, onAddToCart, selectedSize, selectedC
                     onMouseLeave={() => setHoveredColor(null)}
                     style={{ background: colorValue }}
                     title={colorName}
+                    disabled={product.isSoldOut}
                   >
                     {colorValue === '#FFFFFF' && <span className="white-border"></span>}
                     {isSelected && <Check size={16} className="color-check" style={{ color: isGradient(colorValue) || colorValue === '#000000' ? '#fff' : '#000' }} />}
@@ -185,23 +191,25 @@ function AdvancedProductSelector({ product, onAddToCart, selectedSize, selectedC
       </div>
 
       {/* Quantity Selection */}
-      <div className="quantity-section">
-        <label>{t('quantity')}</label>
-        <div className="quantity-controls-advanced">
-          <button 
-            onClick={() => setSelectedQuantity(Math.max(1, selectedQuantity - 1))}
-            disabled={selectedQuantity <= 1}
-          >
-            -
-          </button>
-          <span className="quantity-display">{selectedQuantity}</span>
-          <button 
-            onClick={() => setSelectedQuantity(selectedQuantity + 1)}
-          >
-            +
-          </button>
+      {!product.isSoldOut && (
+        <div className="quantity-section">
+          <label>{t('quantity')}</label>
+          <div className="quantity-controls-advanced">
+            <button 
+              onClick={() => setSelectedQuantity(Math.max(1, selectedQuantity - 1))}
+              disabled={selectedQuantity <= 1}
+            >
+              -
+            </button>
+            <span className="quantity-display">{selectedQuantity}</span>
+            <button 
+              onClick={() => setSelectedQuantity(selectedQuantity + 1)}
+            >
+              +
+            </button>
+          </div>
         </div>
-      </div>
+      )}
 
       {/* Product Features */}
       <div className="product-features">
@@ -216,13 +224,17 @@ function AdvancedProductSelector({ product, onAddToCart, selectedSize, selectedC
       </div>
 
       {/* Add to Cart Button */}
-      <button 
-        className={`advanced-add-to-cart ${(!selectedSize && product.sizes?.length > 0) || (!selectedColor && product.colors?.length > 0) ? 'disabled' : ''}`}
+      <button
+        className={`advanced-add-to-cart ${(!selectedSize && product.sizes?.length > 0) || (!selectedColor && product.colors?.length > 0) || product.isSoldOut ? 'disabled' : ''}`}
         onClick={handleAddToCart}
-        disabled={(!selectedSize && product.sizes?.length > 0) || (!selectedColor && product.colors?.length > 0)}
+        disabled={product.isSoldOut || (!selectedSize && product.sizes?.length > 0) || (!selectedColor && product.colors?.length > 0)}
+        style={product.isSoldOut ? { opacity: 0.7, cursor: 'not-allowed', backgroundColor: '#6b7280' } : {}}
       >
-        {(!selectedSize && product.sizes?.length > 0) || (!selectedColor && product.colors?.length > 0) ? t('selectSizeColor') : 
-         `${t('addToCart')} - ₦${(product.price * selectedQuantity).toLocaleString()}`}
+        {product.isSoldOut 
+          ? 'Sold Out' 
+          : (!selectedSize && product.sizes?.length > 0) || (!selectedColor && product.colors?.length > 0) 
+            ? t('selectSizeColor') 
+            : `${t('addToCart')} - ₦${(product.price * selectedQuantity).toLocaleString()}`}
       </button>
 
       {/* Size Guide Modal */}
