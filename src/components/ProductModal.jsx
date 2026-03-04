@@ -251,7 +251,7 @@ function ProductModal({ product, onClose, onAddToCart, openGalleryOnLoad = false
                     onClick={product.isSoldOut ? undefined : handleAddToCart}
                     disabled={product.isSoldOut}
                     className="add-to-cart-btn modal-add-to-cart-btn"
-                    style={product.isSoldOut ? { opacity: 0.7, cursor: 'not-allowed', backgroundColor: '#6b7280' } : {}}
+                    style={product.isSoldOut ? { opacity: 0.7, cursor: 'not-allowed', backgroundColor: '#ec0d0d' } : {}}
                   >
                     {product.isSoldOut ? null : <ShoppingCart size={18} />}
                     {product.isSoldOut ? 'Sold Out' : t('addToCart')}
