@@ -228,7 +228,7 @@ function AdvancedProductSelector({ product, onAddToCart, selectedSize, selectedC
         className={`advanced-add-to-cart ${(!selectedSize && product.sizes?.length > 0) || (!selectedColor && product.colors?.length > 0) || product.isSoldOut ? 'disabled' : ''}`}
         onClick={handleAddToCart}
         disabled={product.isSoldOut || (!selectedSize && product.sizes?.length > 0) || (!selectedColor && product.colors?.length > 0)}
-        style={product.isSoldOut ? { opacity: 0.7, cursor: 'not-allowed', backgroundColor: '#6b7280' } : {}}
+        style={product.isSoldOut ? { opacity: 0.7, cursor: 'not-allowed', backgroundColor: 'red' } : {}}
       >
         {product.isSoldOut 
           ? 'Sold Out' 

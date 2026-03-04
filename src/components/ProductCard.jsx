@@ -149,7 +149,7 @@ function ProductCard({ product, onQuickAdd, onViewDetails }) {
               onClick={product.isSoldOut ? (e) => e.stopPropagation() : handleQuickAdd}
               className="btn btn-primary"
               disabled={product.isSoldOut}
-              style={product.isSoldOut ? { opacity: 0.7, cursor: 'not-allowed', backgroundColor: '#6b7280' } : {}}
+              style={product.isSoldOut ? { opacity: 0.7, cursor: 'not-allowed', backgroundColor: 'red' } : {}}
             >
               {product.isSoldOut ? null : <ShoppingCart size={18} />}
               {product.isSoldOut ? 'Sold Out' : t('addToCart')}
