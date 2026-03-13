@@ -331,7 +331,7 @@ export const productsData = [
     description: 'A sophisticated fragrance collection featuring London Dream with its fresh floral notes, Blossom with delicate cherry blossom essence, and classic Eau De Toilette. Perfect for the modern woman who appreciates timeless elegance.',
     hasGallery: false,
     rating: 4.7,
-    images: ['/ladies wear/perfumes/Burberry London Dream, Blossom & Eau De Toilette .jpeg']
+    images: ['/perfumes/Burberry London Dream, Blossom & Eau De Toilette .jpeg']
   },
 
   { 
@@ -342,7 +342,7 @@ export const productsData = [
     description: 'An exclusive and mysterious fragrance with bold black packaging. Features rich, intense notes that create an unforgettable signature scent for confident women who dare to stand out.',
     hasGallery: false,
     rating: 4.8,
-    images: ['/ladies wear/perfumes/Carolina Herrera 212 VIP Black.jpeg']
+    images: ['/perfumes/Carolina Herrera 212 VIP Black.jpeg']
   },
 
   { 
@@ -353,7 +353,7 @@ export const productsData = [
     description: 'A captivating and seductive fragrance with hypnotic charm. Blends vanilla, almond, and jasmine to create an intoxicating scent that leaves a lasting impression wherever you go.',
     hasGallery: false,
     rating: 4.9,
-    images: ['/ladies wear/perfumes/Christian Dior Hypnotic Poison Eau de Parfum.jpeg']
+    images: ['/perfumes/Christian Dior Hypnotic Poison Eau de Parfum.jpeg']
   },
 
   { 
@@ -364,7 +364,7 @@ export const productsData = [
     description: 'A luxurious oriental fragrance featuring precious oud wood from Ispahan. Rich, warm, and exotic with rose and saffron notes, perfect for special occasions and evening wear.',
     hasGallery: false,
     rating: 4.9,
-    images: ['/ladies wear/perfumes/Christian Dior Oud Ispahan.jpeg']
+    images: ['/perfumes/Christian Dior Oud Ispahan.jpeg']
   },
 
   { 
@@ -375,7 +375,7 @@ export const productsData = [
     description: 'The legendary fragrance inspired by Napoleon\'s dramatic life. A powerful blend of pineapple, birch, and musk that embodies strength, power, and success. A true masterpiece of perfumery.',
     hasGallery: false,
     rating: 5.0,
-    images: ['/ladies wear/perfumes/Creed Aventus.jpeg']
+    images: ['/perfumes/Creed Aventus.jpeg']
   },
 
   { 
@@ -386,7 +386,7 @@ export const productsData = [
     description: 'A bold and addictive fragrance that breaks all the rules. Features white flowers, blood orange, and ginger for a rebellious yet elegant scent that celebrates feminine audacity.',
     hasGallery: false,
     rating: 4.8,
-    images: ['/ladies wear/perfumes/Givenchy L\'Interdit Eau de Parfum Rouge.jpeg']
+    images: ['/perfumes/Givenchy L\'Interdit Eau de Parfum Rouge.jpeg']
   },
 
   { 
@@ -397,7 +397,7 @@ export const productsData = [
     description: 'An enchanting and mysterious fragrance from Gucci\'s luxury collection. Features exotic florals and woody notes that whisper tales of ancient wisdom and modern sophistication.',
     hasGallery: false,
     rating: 4.7,
-    images: ['/ladies wear/perfumes/Gucci The Voice of the Snake Eau de Parfum.jpeg']
+    images: ['/perfumes/Gucci The Voice of the Snake Eau de Parfum.jpeg']
   },
 
   { 
@@ -408,7 +408,7 @@ export const productsData = [
     description: 'A unique and captivating fragrance with Middle Eastern influences. Blends traditional oud with modern floral notes to create a distinctive scent that bridges cultures and time.',
     hasGallery: false,
     rating: 4.5,
-    images: ['/ladies wear/perfumes/Hili.jpeg']
+    images: ['/perfumes/Hili.jpeg']
   },
 
   { 
@@ -419,7 +419,7 @@ export const productsData = [
     description: 'Elegant British fragrance known for its sophisticated simplicity. Features clean, fresh notes that can be worn alone or layered with other scents for a personalized fragrance experience.',
     hasGallery: false,
     rating: 4.6,
-    images: ['/ladies wear/perfumes/Jo Malone London.jpeg']
+    images: ['/perfumes/Jo Malone London.jpeg']
   },
 
   { 
@@ -430,7 +430,7 @@ export const productsData = [
     description: 'An adventurous fragrance for the modern explorer. Combines bergamot, pink pepper, and leather to create a bold, masculine scent that embodies the spirit of discovery and adventure.',
     hasGallery: false,
     rating: 4.4,
-    images: ['/ladies wear/perfumes/Montblanc Explorer Eau de Parfum.jpeg']
+    images: ['/perfumes/Montblanc Explorer Eau de Parfum.jpeg']
   },
 
   { 
@@ -441,7 +441,7 @@ export const productsData = [
     description: 'The iconic golden fragrance that radiates luxury and confidence. Features fresh mint, blood orange, and leather notes in a distinctive gold bar bottle that makes a bold statement.',
     hasGallery: false,
     rating: 4.7,
-    images: ['/ladies wear/perfumes/Paco Rabanne 1 Million Eau de Toilette.jpeg']
+    images: ['/perfumes/Paco Rabanne 1 Million Eau de Toilette.jpeg']
   },
 
   { 
@@ -452,7 +452,7 @@ export const productsData = [
     description: 'The royal edition of the legendary 1 Million fragrance. More intense and luxurious with deeper notes of rose, oud, and honey. A regal scent for those who demand the finest.',
     hasGallery: false,
     rating: 4.8,
-    images: ['/ladies wear/perfumes/Paco Rabanne 1 Million Royal Parfum.jpeg']
+    images: ['/perfumes/Paco Rabanne 1 Million Royal Parfum.jpeg']
   },
 
   { 
@@ -463,7 +463,7 @@ export const productsData = [
     description: 'An intensified version of the Million Gold fragrance with richer, more concentrated notes. Features warm spices, precious woods, and golden honey for an opulent olfactory experience.',
     hasGallery: false,
     rating: 4.6,
-    images: ['/ladies wear/perfumes/Paco Rabanne Million Gold Eau de Parfum Intense.jpeg']
+    images: ['/perfumes/Paco Rabanne Million Gold Eau de Parfum Intense.jpeg']
   },
 
   { 
@@ -474,7 +474,7 @@ export const productsData = [
     description: 'A futuristic fragrance that pushes boundaries with its innovative blend. Features energizing notes and cutting-edge composition in a robot-inspired bottle that represents the future of perfumery.',
     hasGallery: false,
     rating: 4.5,
-    images: ['/ladies wear/perfumes/Rabanne Phantom Elixir Parfum Intense.jpeg']
+    images: ['/perfumes/Rabanne Phantom Elixir Parfum Intense.jpeg']
   },
 
   { 
@@ -485,7 +485,7 @@ export const productsData = [
     description: 'A sophisticated marine interpretation of precious oud. Combines the richness of oud wood with fresh oceanic notes, creating a unique aquatic-oriental fragrance that\'s both powerful and refreshing.',
     hasGallery: false,
     rating: 4.8,
-    images: ['/ladies wear/perfumes/Tom Ford Oud Minérale Eau de Parfum.jpeg']
+    images: ['/perfumes/Tom Ford Oud Minérale Eau de Parfum.jpeg']
   },
 
   { 
@@ -496,7 +496,7 @@ export const productsData = [
     description: 'The iconic Tom Ford fragrance featuring rare oud wood from the East. Blended with exotic rosewood, cardamom, and sandalwood to create a smoky, sensual scent that defines luxury.',
     hasGallery: false,
     rating: 4.9,
-    images: ['/ladies wear/perfumes/Tom Ford Oud Wood Eau de Parfum.jpeg']
+    images: ['/perfumes/Tom Ford Oud Wood Eau de Parfum.jpeg']
   },
 
   { 
@@ -507,7 +507,7 @@ export const productsData = [
     description: 'A couture interpretation of freedom with luxurious vanilla notes. Combines French lavender with Moroccan orange blossom and Madagascar vanilla for an elegant, addictive fragrance that celebrates feminine liberation.',
     hasGallery: false,
     rating: 4.7,
-    images: ['/ladies wear/perfumes/Yves Saint Laurent Libre Vanille Couture Eau de Parfum. .jpeg']
+    images: ['/perfumes/Yves Saint Laurent Libre Vanille Couture Eau de Parfum. .jpeg']
   },
 
   // New Arrivals - Recently Added Items
@@ -855,5 +855,37 @@ export const productsData = [
     hasGallery: false,
     rating: 4.8,
     images: ['/abaya/abaya25.jpg']
+  },
+
+  // Scarves Collection
+  { 
+    id: 77, 
+    name: 'Silk Designer Scarf', 
+    price: 4000, 
+    category: "Scarves", 
+    description: 'A luxurious silk scarf with a unique designer print. Perfect for adding a touch of elegance to any outfit.',
+    hasGallery: false,
+    rating: 4.8,
+    images: ['/scarves/scarve1.jpg']
+  },
+  { 
+    id: 78, 
+    name: 'Cashmere Winter Scarf', 
+    price: 4000, 
+    category: "Scarves", 
+    description: 'Stay warm and stylish with this soft and cozy cashmere scarf. A winter essential.',
+    hasGallery: false,
+    rating: 4.9,
+    images: ['/scarves/scarve2.jpg']
+  },
+  { 
+    id: 79, 
+    name: 'Lightweight Floral Scarf', 
+    price: 4000, 
+    category: "Scarves", 
+    description: 'A beautiful lightweight scarf with a vibrant floral pattern. Ideal for spring and summer.',
+    hasGallery: false,
+    rating: 4.7,
+    images: ['/scarves/scarve3.jpg']
   }
 ];
