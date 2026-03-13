@@ -198,7 +198,7 @@ export const productsData = [
   { 
     id: 16, 
     name: 'Hello Kitty Bling Tee', 
-    price: 330000, 
+    price: 30000, 
     category: "Ladies' Fashion", 
     description: 'Fun and playful Hello Kitty bling t-shirt',
     hasGallery: false,
