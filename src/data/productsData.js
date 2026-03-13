@@ -613,5 +613,247 @@ export const productsData = [
     hasGallery: false,
     rating: 4.3,
     images: ['/ladies wear/two piece skirt set.jpg']
+  },
+
+  // Abaya Collection
+  { 
+    id: 53, 
+    name: 'Royal Noir Abaya', 
+    price: 55000, 
+    category: "Ladies' Fashion", 
+    description: 'Elegant black abaya with royal detailing, perfect for formal occasions',
+    hasGallery: false,
+    rating: 4.8,
+    images: ['/abaya/abaya1.jpg']
+  },
+  { 
+    id: 54, 
+    name: 'Emerald Grace Abaya', 
+    price: 55000, 
+    category: "Ladies' Fashion", 
+    description: 'Stunning emerald green abaya crafted from premium flowy fabric',
+    hasGallery: false,
+    rating: 4.8,
+    images: ['/abaya/abaya2.jpg']
+  },
+  { 
+    id: 55, 
+    name: 'Sapphire Luxe Abaya', 
+    price: 55000, 
+    category: "Ladies' Fashion", 
+    description: 'Sophisticated sapphire blue abaya with delicate embroidery',
+    hasGallery: false,
+    rating: 4.8,
+    images: ['/abaya/abaya3.jpg']
+  },
+  { 
+    id: 56, 
+    name: 'Ruby Rose Abaya', 
+    price: 55000, 
+    category: "Ladies' Fashion", 
+    description: 'Deep ruby red abaya featuring subtle rose patterns',
+    hasGallery: false,
+    rating: 4.8,
+    images: ['/abaya/abaya4.jpg']
+  },
+  { 
+    id: 57, 
+    name: 'Pearl Essence Abaya', 
+    price: 55000, 
+    category: "Ladies' Fashion", 
+    description: 'Pristine pearl white abaya for a graceful and modest look',
+    hasGallery: false,
+    rating: 4.8,
+    images: ['/abaya/abaya6.jpg']
+  },
+  { 
+    id: 58, 
+    name: 'Midnight Star Abaya', 
+    price: 55000, 
+    category: "Ladies' Fashion", 
+    description: 'Deep midnight blue abaya with starry embellishments',
+    hasGallery: false,
+    rating: 4.8,
+    images: ['/abaya/abaya7.jpg']
+  },
+  { 
+    id: 59, 
+    name: 'Desert Sage Abaya', 
+    price: 55000, 
+    category: "Ladies' Fashion", 
+    description: 'Calming sage green abaya inspired by desert landscapes',
+    hasGallery: false,
+    rating: 4.8,
+    images: ['/abaya/abaya8.jpg']
+  },
+  { 
+    id: 60, 
+    name: 'Velvet Dream Abaya', 
+    price: 55000, 
+    category: "Ladies' Fashion", 
+    description: 'Plush velvet finish abaya for ultimate comfort and style',
+    hasGallery: false,
+    rating: 4.8,
+    images: ['/abaya/abaya9.jpg']
+  },
+  { 
+    id: 61, 
+    name: 'Imperial Silk Abaya', 
+    price: 55000, 
+    category: "Ladies' Fashion", 
+    description: 'Smooth silk-blend abaya with an imperial cut',
+    hasGallery: false,
+    rating: 4.8,
+    images: ['/abaya/abaya10.jpg']
+  },
+  { 
+    id: 62, 
+    name: 'Crimson Flow Abaya', 
+    price: 55000, 
+    category: "Ladies' Fashion", 
+    description: 'Rich crimson abaya with a beautiful flowing silhouette',
+    hasGallery: false,
+    rating: 4.8,
+    images: ['/abaya/abaya11.jpg']
+  },
+  { 
+    id: 63, 
+    name: 'Azure Mist Abaya', 
+    price: 55000, 
+    category: "Ladies' Fashion", 
+    description: 'Light and airy azure abaya, perfect for warmer days',
+    hasGallery: false,
+    rating: 4.8,
+    images: ['/abaya/abaya12.jpg']
+  },
+  { 
+    id: 64, 
+    name: 'Bronze Aura Abaya', 
+    price: 55000, 
+    category: "Ladies' Fashion", 
+    description: 'Metallic bronze abaya that radiates elegance and charm',
+    hasGallery: false,
+    rating: 4.8,
+    images: ['/abaya/abaya13.jpg']
+  },
+  { 
+    id: 65, 
+    name: 'Celestial Grey Abaya', 
+    price: 55000, 
+    category: "Ladies' Fashion", 
+    description: 'Graceful grey abaya with celestial inspired embroidery',
+    hasGallery: false,
+    rating: 4.8,
+    images: ['/abaya/abaya14.jpg']
+  },
+  { 
+    id: 66, 
+    name: 'Forest Fern Abaya', 
+    price: 55000, 
+    category: "Ladies' Fashion", 
+    description: 'Deep forest green abaya with nature-inspired motifs',
+    hasGallery: false,
+    rating: 4.8,
+    images: ['/abaya/abaya15.jpg']
+  },
+  { 
+    id: 67, 
+    name: 'Sunset Glow Abaya', 
+    price: 55000, 
+    category: "Ladies' Fashion", 
+    description: 'Warm sunset-hued abaya that radiates warmth and style',
+    hasGallery: false,
+    rating: 4.8,
+    images: ['/abaya/abaya16.jpg']
+  },
+  { 
+    id: 68, 
+    name: 'Urban Slate Abaya', 
+    price: 55000, 
+    category: "Ladies' Fashion", 
+    description: 'Modern slate blue abaya for the contemporary woman',
+    hasGallery: false,
+    rating: 4.8,
+    images: ['/abaya/abaya17.jpg']
+  },
+  { 
+    id: 69, 
+    name: 'Lavender Mist Abaya', 
+    price: 120000, 
+    category: "Ladies' Fashion", 
+    description: 'Soft lavender abaya with a dreamy and ethereal drape',
+    hasGallery: false,
+    rating: 4.8,
+    images: ['/abaya/abaya18.jpg']
+  },
+  { 
+    id: 70, 
+    name: 'Coral Reef Abaya', 
+    price: 50000, 
+    category: "Ladies' Fashion", 
+    description: 'Vibrant coral abaya with subtle reef-inspired textures',
+    hasGallery: false,
+    rating: 4.8,
+    images: ['/abaya/abaya19.jpg']
+  },
+  { 
+    id: 71, 
+    name: 'Onyx Elegance Abaya', 
+    price: 50000, 
+    category: "Ladies' Fashion", 
+    description: 'Timeless onyx black abaya with elegant draping',
+    hasGallery: false,
+    rating: 4.8,
+    images: ['/abaya/abaya20.jpg']
+  },
+  { 
+    id: 72, 
+    name: 'Ivory Lace Abaya', 
+    price: 50000, 
+    category: "Ladies' Fashion", 
+    description: 'Delicate ivory abaya featuring intricate lace details',
+    hasGallery: false,
+    rating: 4.8,
+    images: ['/abaya/abaya21.jpg']
+  },
+  { 
+    id: 73, 
+    name: 'Mocha Swirl Abaya', 
+    price: 35000, 
+    category: "Ladies' Fashion", 
+    description: 'A beautiful abaya with a mocha swirl pattern, combining comfort and style.',
+    hasGallery: false,
+    rating: 4.8,
+    images: ['/abaya/abaya22.jpg']
+  },
+  { 
+    id: 74, 
+    name: 'Amethyst Haze Abaya', 
+    price: 55000, 
+    category: "Ladies' Fashion", 
+    description: 'Elegant amethyst purple abaya with a soft haze finish',
+    hasGallery: false,
+    rating: 4.8,
+    images: ['/abaya/abaya23.jpg']
+  },
+  { 
+    id: 75, 
+    name: 'Opal Moon Abaya', 
+    price: 55000, 
+    category: "Ladies' Fashion", 
+    description: 'Shimmering opal inspired abaya for a mystical look',
+    hasGallery: false,
+    rating: 4.8,
+    images: ['/abaya/abaya24.jpg']
+  },
+  { 
+    id: 76, 
+    name: 'Scarlet Twilight Abaya', 
+    price: 55000, 
+    category: "Ladies' Fashion", 
+    description: 'Deep scarlet abaya capturing the beauty of twilight',
+    hasGallery: false,
+    rating: 4.8,
+    images: ['/abaya/abaya25.jpg']
   }
 ];
